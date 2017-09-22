@@ -1,4 +1,4 @@
-package com.projectfirebase.soen341.soen341;
+package com.projectfirebase.soen341.root;
 
 import android.content.Intent;
 import android.os.Bundle;

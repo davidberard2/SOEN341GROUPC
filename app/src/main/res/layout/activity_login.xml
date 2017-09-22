@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.projectfirebase.soen341.soen341.LoginActivity">
+    tools:context="com.projectfirebase.soen341.root.LoginActivity">
 
     <EditText
         android:id="@+id/editTextEmail"

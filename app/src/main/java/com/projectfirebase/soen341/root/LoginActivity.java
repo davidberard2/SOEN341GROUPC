@@ -1,4 +1,4 @@
-package com.projectfirebase.soen341.soen341;
+package com.projectfirebase.soen341.root;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
