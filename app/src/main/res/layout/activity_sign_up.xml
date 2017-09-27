@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.projectfirebase.soen341.root.signUpActivity">
+
+    <
+    <TextView
+        android:id="@+id/signUpLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Sign Up"
+        android:textSize="32dp"
+        tools:layout_editor_absoluteX="15dp"
+        tools:layout_editor_absoluteY="15dp" />
+
+    <EditText
+        android:id="@+id/emailText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textEmailAddress"
+        tools:layout_editor_absoluteX="32dp"
+        tools:layout_editor_absoluteY="82dp" />
+
+    <EditText
+        android:id="@+id/phoneText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="phone"
+        tools:layout_editor_absoluteX="32dp"
+        tools:layout_editor_absoluteY="82dp" />
+
+    <Button
+        android:id="@+id/signUpButton"
+        android:layout_width="125dp"
+        android:layout_height="50dp"
+        android:text="Sign Up"
+        tools:layout_editor_absoluteX="200dp"
+        tools:layout_editor_absoluteY="400dp"/>
+
+    <Button
+        android:id="@+id/cancelButton"
+        android:layout_width="125dp"
+        android:layout_height="50dp"
+        android:text="Cancel"
+        tools:layout_editor_absoluteX="15dp"
+        tools:layout_editor_absoluteY="400dp"/>
+
+</android.support.constraint.ConstraintLayout>
