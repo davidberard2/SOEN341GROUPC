@@ -15,6 +15,8 @@ import com.google.firebase.database.ValueEventListener;
 
 public class MainActivity extends AppCompatActivity {
 
+//TEST LOGGING
+
 // Status
     TextView textViewStatus;
     Button buttonGood;
