@@ -6,33 +6,109 @@
     android:layout_height="match_parent"
     tools:context="com.projectfirebase.soen341.root.signUpActivity">
 
-    <
-    <TextView
+<!--    <TextView
         android:id="@+id/signUpLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Sign Up"
         android:textSize="32dp"
         tools:layout_editor_absoluteX="15dp"
-        tools:layout_editor_absoluteY="15dp" />
+        tools:layout_editor_absoluteY="15dp" />-->
 
-    <EditText
-        android:id="@+id/emailText"
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textEmailAddress"
-        tools:layout_editor_absoluteX="32dp"
-        tools:layout_editor_absoluteY="82dp" />
+        android:text="First Name"
+        android:textSize="20dp"
+        tools:layout_editor_absoluteX="15dp"
+        tools:layout_editor_absoluteY="25dp"/>
 
     <EditText
         android:id="@+id/phoneText"
         android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:ems="10"
+        android:inputType="textCapWords"
+        tools:layout_editor_absoluteX="32dp"
+        tools:layout_editor_absoluteY="25dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="Last Name"
+        android:textSize="20dp"
+        tools:layout_editor_absoluteX="15dp"
+        tools:layout_editor_absoluteY="80dp"/>
+
+    <EditText
+        android:id="@+id/phoneText"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:ems="10"
+        android:inputType="textCapWords"
+        tools:layout_editor_absoluteX="32dp"
+        tools:layout_editor_absoluteY="80dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Email"
+        android:textSize="20dp"
+        tools:layout_editor_absoluteX="15dp"
+        tools:layout_editor_absoluteY="135dp"/>
+
+    <EditText
+        android:id="@+id/emailText"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:ems="10"
+        android:inputType="textEmailAddress"
+        tools:layout_editor_absoluteX="32dp"
+        tools:layout_editor_absoluteY="135dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Phone"
+        android:textSize="20dp"
+        tools:layout_editor_absoluteX="15dp"
+        tools:layout_editor_absoluteY="190dp"/>
+
+    <EditText
+        android:id="@+id/phoneText"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
         android:ems="10"
         android:inputType="phone"
         tools:layout_editor_absoluteX="32dp"
-        tools:layout_editor_absoluteY="82dp" />
+        tools:layout_editor_absoluteY="190dp" />
+
+    <EditText
+        android:id="@+id/phoneText"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:ems="10"
+        android:inputType="phone"
+        tools:layout_editor_absoluteX="32dp"
+        tools:layout_editor_absoluteY="245dp" />
+
+    <EditText
+        android:id="@+id/phoneText"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:ems="10"
+        android:inputType="phone"
+        tools:layout_editor_absoluteX="32dp"
+        tools:layout_editor_absoluteY="300dp" />
+
+    <EditText
+        android:id="@+id/phoneText"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:ems="10"
+        android:inputType="phone"
+        tools:layout_editor_absoluteX="32dp"
+        tools:layout_editor_absoluteY="355dp" />
 
     <Button
         android:id="@+id/signUpButton"
