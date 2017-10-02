@@ -3,7 +3,6 @@ android:
   components:
     - tools
     - platform-tools
-    - tools
 
     # The BuildTools version used by your project
     - build-tools-26.0.1
@@ -11,7 +10,7 @@ android:
     # The SDK version used to compile your project
     - android-26
     
-    licenses:
+  licenses:
     - 'android-sdk-preview-license-.+'
     - 'android-sdk-license-.+'
     - 'google-gdk-license-.+'
