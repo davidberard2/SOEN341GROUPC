@@ -1,13 +1,18 @@
 package Fragments;
 
-
+import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -22,14 +27,17 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * A simple {@link Fragment} subclass.
- */
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment implements SearchView.OnQueryTextListener {
 	//Listing RecyclerView instances
+	//private View view;
 	private ArrayList<Listing> listingsList = new ArrayList<>();
 	private RecyclerView recyclerView;
 	private ListItemAdapter mAdapter;
+
+	// Fragment View
+	private Context context;
+
+	MenuItem fav;
 
 	DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
 	DatabaseReference itemsRef = rootRef.child("Items");
@@ -48,6 +56,7 @@ public class HomeFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+	    setHasOptionsMenu(true);
     }
 
     @Override
@@ -88,5 +97,61 @@ public class HomeFragment extends Fragment {
 
 	    return view;
     }
+
+	@Override
+	public void onPrepareOptionsMenu(Menu menu) {
+		MenuItem mSearchMenuItem = menu.findItem(R.id.action_search_query);
+		SearchView searchView = (SearchView) mSearchMenuItem.getActionView();
+		searchView.setOnQueryTextListener(this);
+
+		searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+			    @Override
+			    public boolean onQueryTextSubmit(String query) {
+				    //LOIC the "query" string is what the user searches. Compare query to the elements in the database
+				    //And refresh the list with ur answer HERE!!
+				    Toast.makeText(getActivity(), query ,Toast.LENGTH_SHORT).show();
+			        return false;
+			    }
+
+			    @Override
+			    public boolean onQueryTextChange(String newText) {
+
+			        return false;
+			    }
+
+			});
+
+		super.onPrepareOptionsMenu(menu);
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+//			case R.id.action_search_query:
+//				// Not implemented here
+//				Toast.makeText(getActivity(),"Text!",Toast.LENGTH_SHORT).show();
+//				return true;
+		}
+
+		return false;
+	}
+
+	@Override
+	public boolean onQueryTextChange(String query) {
+		// Here is where we are going to implement the filter logic
+		return false;
+	}
+
+	@Override
+	public boolean onQueryTextSubmit(String query) {
+		return false;
+	}
+
+	@Override
+	public void onAttach(Activity activity) {
+		// TODO Auto-generated method stub
+		super.onAttach(activity);
+		context=activity;
+	}
 
 }
