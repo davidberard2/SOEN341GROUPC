@@ -15,115 +15,141 @@
         tools:layout_editor_absoluteX="15dp"
         tools:layout_editor_absoluteY="15dp" />-->
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="First Name"
-        android:textSize="20dp"
-        tools:layout_editor_absoluteX="15dp"
-        tools:layout_editor_absoluteY="25dp"/>
+<!-- This is the setup for the addition of the First Name of the user.
+    It allows the user to enter the desired name for his communications.
+    The data will be sent to Firebase through Java.-->
+
+    <!-- First NAME *****************************************************************************-->
 
     <EditText
-        android:id="@+id/phoneText"
+        android:id="@+id/editTextSUFirstName"
         android:layout_width="wrap_content"
-        android:layout_height="40dp"
+        android:layout_height="wrap_content"
         android:ems="10"
+        android:hint="First Name"
         android:inputType="textCapWords"
-        tools:layout_editor_absoluteX="32dp"
-        tools:layout_editor_absoluteY="25dp" />
+        android:layout_marginRight="8dp"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintHorizontal_bias="0.503"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="13dp" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Last Name"
-        android:textSize="20dp"
-        tools:layout_editor_absoluteX="15dp"
-        tools:layout_editor_absoluteY="80dp"/>
+    <!-- LAST NAME ******************************************************************************-->
 
     <EditText
-        android:id="@+id/phoneText"
+        android:id="@+id/editTextSULastName"
         android:layout_width="wrap_content"
-        android:layout_height="40dp"
+        android:layout_height="wrap_content"
         android:ems="10"
+        android:hint="Last Name"
         android:inputType="textCapWords"
-        tools:layout_editor_absoluteX="32dp"
-        tools:layout_editor_absoluteY="80dp" />
+        android:layout_marginRight="8dp"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintHorizontal_bias="0.503"
+        android:layout_marginTop="13dp"
+        app:layout_constraintTop_toBottomOf="@+id/editTextSUFirstName" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Email"
-        android:textSize="20dp"
-        tools:layout_editor_absoluteX="15dp"
-        tools:layout_editor_absoluteY="135dp"/>
+    <!-- EMAIL **********************************************************************************-->
 
     <EditText
-        android:id="@+id/emailText"
+        android:id="@+id/editTextSUEmail"
         android:layout_width="wrap_content"
-        android:layout_height="40dp"
+        android:layout_height="wrap_content"
         android:ems="10"
+        android:hint="Email"
         android:inputType="textEmailAddress"
-        tools:layout_editor_absoluteX="32dp"
-        tools:layout_editor_absoluteY="135dp" />
+        android:layout_marginRight="8dp"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintHorizontal_bias="0.503"
+        android:layout_marginTop="13dp"
+        app:layout_constraintTop_toBottomOf="@+id/editTextSULastName"/>
 
-    <TextView
+    <!-- PHONE **********************************************************************************-->
+
+    <EditText
+        android:id="@+id/editTextSUPhone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Phone"
-        android:textSize="20dp"
-        tools:layout_editor_absoluteX="15dp"
-        tools:layout_editor_absoluteY="190dp"/>
+        android:ems="10"
+        android:hint="Phone Number"
+        android:inputType="phone"
+        android:layout_marginRight="8dp"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintHorizontal_bias="0.503"
+        android:layout_marginTop="13dp"
+        app:layout_constraintTop_toBottomOf="@+id/editTextSUEmail" />
+
+    <!-- ZIP CODE *******************************************************************************-->
 
     <EditText
-        android:id="@+id/phoneText"
+        android:id="@+id/editTextSUZIP"
         android:layout_width="wrap_content"
-        android:layout_height="40dp"
+        android:layout_height="wrap_content"
         android:ems="10"
-        android:inputType="phone"
-        tools:layout_editor_absoluteX="32dp"
-        tools:layout_editor_absoluteY="190dp" />
+        android:hint="ZIP Code"
+        android:inputType="textCapCharacters"
+        android:layout_marginRight="8dp"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintHorizontal_bias="0.503"
+        android:layout_marginTop="13dp"
+        app:layout_constraintTop_toBottomOf="@+id/editTextSUPhone" />
+
+    <!-- PASSWORD *******************************************************************************-->
 
     <EditText
-        android:id="@+id/phoneText"
+        android:id="@+id/editTextSUPassword"
         android:layout_width="wrap_content"
-        android:layout_height="40dp"
+        android:layout_height="wrap_content"
         android:ems="10"
-        android:inputType="phone"
-        tools:layout_editor_absoluteX="32dp"
-        tools:layout_editor_absoluteY="245dp" />
+        android:hint="Password"
+        android:inputType="textPassword"
+        android:layout_marginRight="8dp"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintHorizontal_bias="0.503"
+        android:layout_marginTop="13dp"
+        app:layout_constraintTop_toBottomOf="@+id/editTextSUZIP" />
+
+    <!-- PASSWORD CONFIRMATION ******************************************************************-->
 
     <EditText
-        android:id="@+id/phoneText"
+        android:id="@+id/editTextSUConfPassword"
         android:layout_width="wrap_content"
-        android:layout_height="40dp"
+        android:layout_height="wrap_content"
         android:ems="10"
-        android:inputType="phone"
-        tools:layout_editor_absoluteX="32dp"
-        tools:layout_editor_absoluteY="300dp" />
+        android:hint="Confirm Password"
+        android:inputType="textPassword"
+        android:layout_marginRight="8dp"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintHorizontal_bias="0.503"
+        android:layout_marginTop="13dp"
+        app:layout_constraintTop_toBottomOf="@+id/editTextSUPassword" />
 
-    <EditText
-        android:id="@+id/phoneText"
-        android:layout_width="wrap_content"
-        android:layout_height="40dp"
-        android:ems="10"
-        android:inputType="phone"
-        tools:layout_editor_absoluteX="32dp"
-        tools:layout_editor_absoluteY="355dp" />
+    <!-- BUTTONS ********************************************************************************-->
 
     <Button
-        android:id="@+id/signUpButton"
-        android:layout_width="125dp"
-        android:layout_height="50dp"
-        android:text="Sign Up"
-        tools:layout_editor_absoluteX="200dp"
-        tools:layout_editor_absoluteY="400dp"/>
-
-    <Button
-        android:id="@+id/cancelButton"
-        android:layout_width="125dp"
-        android:layout_height="50dp"
-        android:text="Cancel"
-        tools:layout_editor_absoluteX="15dp"
-        tools:layout_editor_absoluteY="400dp"/>
+        android:id="@+id/buttonSUSignUp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:text="Login"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/editTextSUConfPassword"/>
 
 </android.support.constraint.ConstraintLayout>
