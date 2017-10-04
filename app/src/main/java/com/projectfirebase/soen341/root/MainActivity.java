@@ -2,28 +2,29 @@ package com.projectfirebase.soen341.root;
 
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
+import android.support.design.widget.BottomNavigationView;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.TextView;
+
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.projectfirebase.soen341.root.Adapters.ListItemAdapter;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.design.widget.BottomNavigationView;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
-import android.view.MenuItem;
+
 import Fragments.HomeFragment;
 import Fragments.ProfileFragment;
 import Fragments.SearchFragment;
@@ -71,6 +72,7 @@ public class MainActivity extends AppCompatActivity {
 						listingsList.add(item);
 					}
 				}
+
 				//Once all the items are in the listingsList, notify the adapter that the dataset was changed
 				mAdapter.notifyDataSetChanged();
 			}
