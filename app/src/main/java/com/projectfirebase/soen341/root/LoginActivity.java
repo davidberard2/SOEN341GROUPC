@@ -55,9 +55,6 @@ public class LoginActivity extends AppCompatActivity  {
         };
     }
 
-
-
-
     @Override
     protected void onStart() {
         super.onStart();
@@ -81,9 +78,6 @@ public class LoginActivity extends AppCompatActivity  {
     // ADD Auth State Listener
         authRef.addAuthStateListener(authListener);
     }
-
-
-
 
     private void login() {
     // Handle Empty Fields
@@ -111,11 +105,5 @@ public class LoginActivity extends AppCompatActivity  {
                 }
             });
         }
-
-
-
-
-
     }
-
 }

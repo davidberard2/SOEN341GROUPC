@@ -24,7 +24,7 @@ public class UserProfileActivity extends AppCompatActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_user_profile);
+        setContentView(R.layout.fragment_profile);
 
         name =  (TextView) findViewById(R.id.profile_name);
         email = (TextView) findViewById(R.id.profile_email);
