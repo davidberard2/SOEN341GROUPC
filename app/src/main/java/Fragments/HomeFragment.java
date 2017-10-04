@@ -30,9 +30,14 @@ import java.util.Map;
 public class HomeFragment extends Fragment implements SearchView.OnQueryTextListener {
 	//Listing RecyclerView instances
 	//private View view;
+	//I chose to use an unfilteredlist to base filters off of. This way, the database is only called when something is changed in the database.
+	//Otherwise, every time the filter is changed, we would have to get the items from the database again.
+	private ArrayList<Listing> unfilteredList = new ArrayList<>();
 	private ArrayList<Listing> listingsList = new ArrayList<>();
 	private RecyclerView recyclerView;
 	private ListItemAdapter mAdapter;
+	private boolean isViewFiltered;
+	private String filterString;
 
 	// Fragment View
 	private Context context;
@@ -75,6 +80,7 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
 		    @Override	//OnDataChange gets the full database every time something is changed inside of it.
 		    public void onDataChange(DataSnapshot dataSnapshot) {
 			    //clear the listingslist so we can add the items again (with changes)
+				unfilteredList.clear();
 			    listingsList.clear();
 			    Map<String, Object> itemsMap = (HashMap<String, Object>) dataSnapshot.getValue();
 			    for (Object itemMap : itemsMap.values()) {
@@ -83,7 +89,10 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
 					    Listing item = new Listing();
 					    item.setName((String) itemObj.get("Name"));
 					    item.setPrice(((Number)itemObj.get("Price")).doubleValue());
-					    listingsList.add(item);
+						if(!isViewFiltered || isViewFiltered && item.getName().toLowerCase().contains(filterString.toLowerCase())){
+							listingsList.add(item);
+						}
+						unfilteredList.add(item);
 				    }
 			    }
 
@@ -107,17 +116,38 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
 		searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
 			    @Override
 			    public boolean onQueryTextSubmit(String query) {
-				    //LOIC the "query" string is what the user searches. Compare query to the elements in the database
-				    //And refresh the list with ur answer HERE!!
-				    Toast.makeText(getActivity(), query ,Toast.LENGTH_SHORT).show();
-			        return false;
-			    }
+					//LOIC the "query" string is what the user searches. Compare query to the elements in the database
+					//And refresh the list with ur answer HERE!!
+					Toast.makeText(getActivity(), query, Toast.LENGTH_SHORT).show();
+
+					if (query != null && !query.isEmpty()) {
+						isViewFiltered = true;
+						filterString = query.toLowerCase();
+					}
+					listingsList.clear();
+					for (Listing item : unfilteredList) {
+						if (!isViewFiltered || isViewFiltered && item.getName().toLowerCase().contains(filterString)) {
+							listingsList.add(item);
+						}
+					}
+					mAdapter.notifyDataSetChanged();
+					return false;
+				}
 
 			    @Override
 			    public boolean onQueryTextChange(String newText) {
+					if (newText == null || newText.isEmpty()) {
+						filterString = "";
+						isViewFiltered = false;
 
-			        return false;
-			    }
+						listingsList.clear();
+						for(Listing item : unfilteredList){
+							listingsList.add(item);
+						}
+						mAdapter.notifyDataSetChanged();
+					}
+					return false;
+				}
 
 			});
 
@@ -153,5 +183,4 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
 		super.onAttach(activity);
 		context=activity;
 	}
-
 }
