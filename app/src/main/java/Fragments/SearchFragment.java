@@ -9,9 +9,6 @@ import android.view.ViewGroup;
 
 import com.projectfirebase.soen341.root.R;
 
-/**
- * A simple {@link Fragment} subclass.
- */
 public class SearchFragment extends Fragment {
 
 

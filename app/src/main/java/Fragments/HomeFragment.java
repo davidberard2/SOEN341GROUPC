@@ -27,7 +27,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class HomeFragment extends Fragment implements SearchView.OnQueryTextListener {
+public class HomeFragment extends Fragment {
+
 	//Listing RecyclerView instances
 	//private View view;
 	private ArrayList<Listing> listingsList = new ArrayList<>();
