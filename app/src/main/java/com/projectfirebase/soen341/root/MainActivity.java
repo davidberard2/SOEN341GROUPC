@@ -1,9 +1,16 @@
 package com.projectfirebase.soen341.root;
 
-import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.RequiresApi;
+import android.support.design.widget.BottomNavigationView;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -12,77 +19,62 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.projectfirebase.soen341.root.Adapters.ListItemAdapter;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
+import Fragments.HomeFragment;
+import Fragments.ProfileFragment;
+import Fragments.SearchFragment;
+import Fragments.SettingsFragment;
 
 public class MainActivity extends AppCompatActivity {
 
-//TEST LOGGING
-
-// Status
-    TextView textViewStatus;
-    Button buttonGood;
-    Button buttonBad;
-
-// Login
-    Button buttonLoginPage;
-
-    DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
-    DatabaseReference statusRef = rootRef.child("Status");
-
-
-    @Override
+    @RequiresApi(api = Build.VERSION_CODES.GINGERBREAD)
+	@Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Status
-        textViewStatus = (TextView)findViewById(R.id.textViewStatus);
-        buttonGood = (Button)findViewById(R.id.buttonGood);
-        buttonBad = (Button)findViewById(R.id.buttonBad);
+        BottomNavigationView bottomNavigationView = (BottomNavigationView)
+                findViewById(R.id.navigation);
 
-        // Login
-        buttonLoginPage = (Button)findViewById(R.id.buttonLoginPage);
+        bottomNavigationView.setOnNavigationItemSelectedListener
+                (new BottomNavigationView.OnNavigationItemSelectedListener() {
+                    @Override
+                    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                        Fragment selectedFragment = null;
+                        switch (item.getItemId()) {
+                            case R.id.action_home:
+                                selectedFragment = HomeFragment.newInstance();
+                                break;
+                            case R.id.action_search:
+                                selectedFragment = SearchFragment.newInstance();
+                                break;
+                            case R.id.action_profile:
+                                selectedFragment = ProfileFragment.newInstance();
+                                break;
+                            case R.id.action_settings:
+                                selectedFragment = SettingsFragment.newInstance();
+                                break;
+                        }
+                        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                        transaction.replace(R.id.frame_layout, selectedFragment);
+                        transaction.commit();
+                        return true;
+                    }
+                });
 
+        //Manually displaying the first fragment - one time only
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.frame_layout, HomeFragment.newInstance());
+        transaction.commit();
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-
-        // Status
-        statusRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                String text = dataSnapshot.getValue(String.class);
-                textViewStatus.setText(text);
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-
-        buttonGood.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                statusRef.setValue("Good!");
-            }
-        });
-
-        buttonBad.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                statusRef.setValue("Bad!");
-            }
-        });
-
-        buttonLoginPage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(MainActivity.this, LoginActivity.class));
-            }
-        });
-
     }
-
 }
