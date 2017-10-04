@@ -22,9 +22,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * A simple {@link Fragment} subclass.
- */
 public class HomeFragment extends Fragment {
 	//Listing RecyclerView instances
 	private ArrayList<Listing> listingsList = new ArrayList<>();
