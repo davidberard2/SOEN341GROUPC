@@ -42,7 +42,7 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
 	// Fragment View
 	private Context context;
 
-	MenuItem fav;
+//	MenuItem fav;  //Commented out until we use it.
 
 	DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
 	DatabaseReference itemsRef = rootRef.child("Items");
@@ -82,13 +82,17 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
 			    //clear the listingslist so we can add the items again (with changes)
 				unfilteredList.clear();
 			    listingsList.clear();
+				//itemsMap is a map of every item in the 'Items' database
 			    Map<String, Object> itemsMap = (HashMap<String, Object>) dataSnapshot.getValue();
 			    for (Object itemMap : itemsMap.values()) {
+					//itemMap is a single item, but still in json format.
+					//From this object, extract wanted data to item, and add it to our list of items.
 				    if(itemMap instanceof Map){
 					    Map<String, Object> itemObj = (Map<String, Object>) itemMap;
 					    Listing item = new Listing();
 					    item.setName((String) itemObj.get("Name"));
 					    item.setPrice(((Number)itemObj.get("Price")).doubleValue());
+						//filter the item out of the display list if necessary
 						if(!isViewFiltered || isViewFiltered && item.getName().toLowerCase().contains(filterString.toLowerCase())){
 							listingsList.add(item);
 						}
@@ -116,8 +120,7 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
 		searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
 			    @Override
 			    public boolean onQueryTextSubmit(String query) {
-					//LOIC the "query" string is what the user searches. Compare query to the elements in the database
-					//And refresh the list with ur answer HERE!!
+					//Filters the listingsListdata set
 					Toast.makeText(getActivity(), query, Toast.LENGTH_SHORT).show();
 
 					if (query != null && !query.isEmpty()) {
@@ -125,6 +128,7 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
 						filterString = query.toLowerCase();
 					}
 					listingsList.clear();
+					//To filter, go through the unfiltered list and only add the wanted items to the list to listingslist, which is the displayed list
 					for (Listing item : unfilteredList) {
 						if (!isViewFiltered || isViewFiltered && item.getName().toLowerCase().contains(filterString)) {
 							listingsList.add(item);
@@ -136,6 +140,7 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
 
 			    @Override
 			    public boolean onQueryTextChange(String newText) {
+					// Reset listing list on empty search
 					if (newText == null || newText.isEmpty()) {
 						filterString = "";
 						isViewFiltered = false;
