@@ -11,8 +11,7 @@
     <string name="error_invalid_password">This password is too short</string>
     <string name="error_incorrect_password">This password is incorrect</string>
     <string name="error_field_required">This field is required</string>
-    <string name="permission_rationale">"Contacts permissions are needed for providing email
-        completions."</string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing emailcompletions."</string>
     <!-- Strings related to fragment buttons -->
     <string name = "home_button">Home</string>
     <string name = "profile_button">Profile</string>
