@@ -8,22 +8,9 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.Button;
-import android.widget.TextView;
-
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-import com.projectfirebase.soen341.root.Adapters.ListItemAdapter;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 import Fragments.HomeFragment;
 import Fragments.ProfileFragment;
@@ -72,6 +59,24 @@ public class MainActivity extends AppCompatActivity {
         transaction.replace(R.id.frame_layout, HomeFragment.newInstance());
         transaction.commit();
     }
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.main_menu, menu);
+		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+//		switch (item.getItemId()) {
+//			case R.id.activity_menu_item:
+//				// Do Activity menu item stuff here
+//				return true;
+//		}
+
+		return false;
+	}
 
     @Override
     protected void onStart() {
