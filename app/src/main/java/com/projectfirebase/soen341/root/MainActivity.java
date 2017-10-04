@@ -31,55 +31,12 @@ import Fragments.SearchFragment;
 import Fragments.SettingsFragment;
 
 public class MainActivity extends AppCompatActivity {
-	//Listing RecyclerView instances
-	private ArrayList<Listing> listingsList = new ArrayList<>();
-	private RecyclerView recyclerView;
-	private ListItemAdapter mAdapter;
-
-// Status
-    private TextView textViewStatus;
-    private Button buttonGood;
-    private Button buttonBad;
-
-    DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
-	DatabaseReference itemsRef = rootRef.child("Items");
-
 
     @RequiresApi(api = Build.VERSION_CODES.GINGERBREAD)
 	@Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-		recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
-		mAdapter = new ListItemAdapter(listingsList);
-		RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
-		recyclerView.setLayoutManager(mLayoutManager);
-		recyclerView.setAdapter(mAdapter);
-
-		itemsRef.addValueEventListener(new ValueEventListener() {
-			@Override	//OnDataChange gets the full database every time something is changed inside of it.
-			public void onDataChange(DataSnapshot dataSnapshot) {
-				//clear the listingslist so we can add the items again (with changes)
-				listingsList.clear();
-				Map<String, Object> itemsMap = (HashMap<String, Object>) dataSnapshot.getValue();
-				for (Object itemMap : itemsMap.values()) {
-					if(itemMap instanceof Map){
-						Map<String, Object> itemObj = (Map<String, Object>) itemMap;
-						Listing item = new Listing();
-						item.setName((String) itemObj.get("Name"));
-						item.setPrice(((Number)itemObj.get("Price")).doubleValue());
-						listingsList.add(item);
-					}
-				}
-
-				//Once all the items are in the listingsList, notify the adapter that the dataset was changed
-				mAdapter.notifyDataSetChanged();
-			}
-			@Override
-			public void onCancelled(DatabaseError databaseError) {
-			}
-		});
 
         BottomNavigationView bottomNavigationView = (BottomNavigationView)
                 findViewById(R.id.navigation);
