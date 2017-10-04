@@ -1,6 +1,5 @@
 package com.projectfirebase.soen341.root;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -13,32 +12,29 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthInvalidUserException;
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity  {
 
     TextView editTextEmail;
     TextView editTextPassword;
     Button buttonLogin;
     Button buttonLogout;
 
-    // Tmp button navigating to user profile
-    Button buttonProfilePage;
-
     FirebaseAuth authRef = FirebaseAuth.getInstance();
     FirebaseAuth.AuthStateListener authListener;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-    // Login
+    // View References
         editTextEmail = (TextView)findViewById(R.id.editTextEmail);
         editTextPassword = (TextView)findViewById(R.id.editTextPassword);
         buttonLogin = (Button)findViewById(R.id.buttonLogin);
         buttonLogout = (Button)findViewById(R.id.buttonLogout);
-
-        buttonProfilePage = (Button) findViewById(R.id.button_profile_page);
 
     // SET Auth State Listener
         authListener = new FirebaseAuth.AuthStateListener() {
@@ -47,21 +43,26 @@ public class LoginActivity extends AppCompatActivity {
                 if(authRef.getCurrentUser() != null) {
                     Toast.makeText(LoginActivity.this, "Logged in!", Toast.LENGTH_SHORT).show();
                     buttonLogout.setVisibility(View.VISIBLE);
-                    buttonProfilePage.setVisibility(View.VISIBLE);
+                    buttonLogin.setVisibility(View.GONE);
                 }
                 else {
+                    Toast.makeText(LoginActivity.this, "Logged out!", Toast.LENGTH_SHORT).show();
                     buttonLogout.setVisibility(View.GONE);
-                    buttonProfilePage.setVisibility(View.GONE);
+                    buttonLogin.setVisibility(View.VISIBLE);
                 }
+
             }
         };
     }
+
+
+
 
     @Override
     protected void onStart() {
         super.onStart();
 
-    // Login
+    // Login button
         buttonLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -69,18 +70,11 @@ public class LoginActivity extends AppCompatActivity {
             };
         });
 
+    // Logout button
         buttonLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                FirebaseAuth.getInstance().signOut();
-                Toast.makeText(LoginActivity.this, "Logged out!", Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        buttonProfilePage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(LoginActivity.this, UserProfileActivity.class));
+                authRef.signOut();
             }
         });
 
@@ -88,18 +82,40 @@ public class LoginActivity extends AppCompatActivity {
         authRef.addAuthStateListener(authListener);
     }
 
-    private void login() {
-        String email = editTextEmail.getText().toString();
-        String password = editTextPassword.getText().toString();
 
-        authRef.signInWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if (!task.isSuccessful()) {
-                    Toast.makeText(LoginActivity.this, "Error with login", Toast.LENGTH_SHORT).show();
+
+
+    private void login() {
+    // Handle Empty Fields
+        if(editTextEmail.getText().toString().trim().equals("") || editTextPassword.getText().toString().trim().equals("") ) {
+            Toast.makeText(LoginActivity.this, "Enter Email and Password", Toast.LENGTH_SHORT).show();
+        }
+        else {
+        // Get Field Values
+            String email = editTextEmail.getText().toString();
+            String password = editTextPassword.getText().toString();
+
+        // Login with Email
+            authRef.signInWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                @Override
+                public void onComplete(@NonNull Task<AuthResult> task) {
+                    if (!task.isSuccessful()) {
+                        try {
+                            throw task.getException();
+                        } catch (FirebaseAuthInvalidUserException e) {
+                            Toast.makeText(LoginActivity.this, R.string.error_invalid_email, Toast.LENGTH_SHORT).show();
+                        } catch (Exception e) {
+                            Toast.makeText(LoginActivity.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    }
                 }
-                // else Get Auth State
-            }
-        });
+            });
+        }
+
+
+
+
+
     }
+
 }
