@@ -11,19 +11,12 @@
     <string name="error_invalid_password">This password is too short</string>
     <string name="error_incorrect_password">This password is incorrect</string>
     <string name="error_field_required">This field is required</string>
-    <string name="permission_rationale">"Contacts permissions are needed for providing email
-<<<<<<< HEAD
-        completions."
-    </string>
-
-=======
-        completions."</string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing emailcompletions."</string>
     <!-- Strings related to fragment buttons -->
     <string name = "home_button">Home</string>
     <string name = "profile_button">Profile</string>
     <string name = "settings_button">Settings</string>
     <string name = "search_button">Search</string>
->>>>>>> refs/remotes/origin/master
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
