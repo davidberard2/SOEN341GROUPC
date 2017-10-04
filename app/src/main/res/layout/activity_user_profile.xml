@@ -67,8 +67,10 @@
         android:layout_height="40dp"
         android:background="@android:color/transparent"
         app:srcCompat="@android:drawable/ic_menu_camera"
-        tools:layout_editor_absoluteX="230dp"
-        tools:layout_editor_absoluteY="181dp" />
+        android:layout_marginRight="8dp"
+        app:layout_constraintRight_toRightOf="@+id/profile_photo"
+        app:layout_constraintBottom_toBottomOf="@+id/profile_photo"
+        android:layout_marginBottom="8dp" />
 
     <TextView
         android:id="@+id/profile_phone_number"
