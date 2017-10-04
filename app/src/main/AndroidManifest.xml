@@ -22,6 +22,7 @@
             </intent-filter>
         </activity>
         <activity android:name="com.projectfirebase.soen341.root.LoginActivity"></activity>
+        <activity android:name="com.projectfirebase.soen341.root.UserProfileActivity"></activity>
     </application>
 
 </manifest>

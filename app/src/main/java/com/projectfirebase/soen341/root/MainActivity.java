@@ -39,7 +39,6 @@ public class MainActivity extends AppCompatActivity {
 
         // Login
         buttonLoginPage = (Button)findViewById(R.id.buttonLoginPage);
-
     }
 
     @Override
@@ -80,7 +79,5 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(MainActivity.this, LoginActivity.class));
             }
         });
-
     }
-
 }

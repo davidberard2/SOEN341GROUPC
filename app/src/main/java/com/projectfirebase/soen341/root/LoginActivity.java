@@ -1,5 +1,6 @@
 package com.projectfirebase.soen341.root;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -20,9 +21,11 @@ public class LoginActivity extends AppCompatActivity {
     Button buttonLogin;
     Button buttonLogout;
 
+    // Tmp button navigating to user profile
+    Button buttonProfilePage;
+
     FirebaseAuth authRef = FirebaseAuth.getInstance();
     FirebaseAuth.AuthStateListener authListener;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +38,8 @@ public class LoginActivity extends AppCompatActivity {
         buttonLogin = (Button)findViewById(R.id.buttonLogin);
         buttonLogout = (Button)findViewById(R.id.buttonLogout);
 
+        buttonProfilePage = (Button) findViewById(R.id.button_profile_page);
+
     // SET Auth State Listener
         authListener = new FirebaseAuth.AuthStateListener() {
             @Override
@@ -42,15 +47,15 @@ public class LoginActivity extends AppCompatActivity {
                 if(authRef.getCurrentUser() != null) {
                     Toast.makeText(LoginActivity.this, "Logged in!", Toast.LENGTH_SHORT).show();
                     buttonLogout.setVisibility(View.VISIBLE);
+                    buttonProfilePage.setVisibility(View.VISIBLE);
                 }
                 else {
                     buttonLogout.setVisibility(View.GONE);
+                    buttonProfilePage.setVisibility(View.GONE);
                 }
-
             }
         };
     }
-
 
     @Override
     protected void onStart() {
@@ -71,10 +76,17 @@ public class LoginActivity extends AppCompatActivity {
                 Toast.makeText(LoginActivity.this, "Logged out!", Toast.LENGTH_SHORT).show();
             }
         });
+
+        buttonProfilePage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(LoginActivity.this, UserProfileActivity.class));
+            }
+        });
+
     // ADD Auth State Listener
         authRef.addAuthStateListener(authListener);
     }
-
 
     private void login() {
         String email = editTextEmail.getText().toString();
@@ -90,5 +102,4 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
     }
-
 }
