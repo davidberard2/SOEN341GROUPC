@@ -66,12 +66,22 @@ public class ProfileFragment extends Fragment {
         if (user != null) {
             name = user.getDisplayName();
             email = user.getEmail();
-            // photoUrl = user.getPhotoUrl();
+//            photoUrl = user.getPhotoUrl();
+            // tmp
             photoUrl = Uri.parse("http://i0.kym-cdn.com/photos/images/original/000/692/145/49c.png");
 
             // TODO: Check if user's email is verified?
 
-            name_tv.setText(name);
+            if (name != null) {
+                name_tv.setText(name);
+            }
+            else {
+                name_tv.setText("Evan Mateo");
+//                editName();
+//                name = user.getDisplayName();
+//                name_tv.setText(name);
+            }
+
             email_tv.setText(email);
 
             new DownloadImageTask(photo_iv).execute(photoUrl.toString());
@@ -103,14 +113,14 @@ public class ProfileFragment extends Fragment {
         addPhoto_ib.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                addPhoto();
+                editPhoto();
             }
         });
 
         // TODO: Set listener for edit_email, edit_phone_number
     }
 
-    private void addPhoto() {
+    private void editPhoto() {
         UserProfileChangeRequest updatePhoto = new UserProfileChangeRequest.Builder()
                 .setPhotoUri(Uri.parse("https://firebasestorage.googleapis.com/v0/b/projectfirebase-9323d.appspot.com/o/test_profile_photo.jpg?alt=media&token=8653a2a4-37e4-4534-a9b0-3de3c54f14c2"))
                 .build();
@@ -119,7 +129,22 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {
-                    Log.d("PHOTO", "User profile updated.");
+                    Log.d("update_user", "User profile photo updated.");
+                }
+            }
+        });
+    }
+
+    private void editName() {
+        UserProfileChangeRequest updateName = new UserProfileChangeRequest.Builder()
+                .setDisplayName("Evan Mateo") // TODO: Implement an "Edit Name" fragment
+                .build();
+
+        user.updateProfile(updateName).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()) {
+                    Log.d("update_user", "User profile name updated.");
                 }
             }
         });
