@@ -23,7 +23,6 @@
         </activity>
         <activity android:name=".LoginActivity"></activity>
         <activity android:name=".signUpActivity"></activity>
-        <activity android:name=".UserProfileActivity"></activity>
     </application>
-
+    <uses-permission android:name="android.permission.INTERNET"/>
 </manifest>
