@@ -2,15 +2,20 @@ package Fragments;
 
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 
 import com.projectfirebase.soen341.root.R;
 
 public class SettingsFragment extends Fragment {
 
+
+    Button logInB;
+    Button logOutB;
+    Button signUpB;
 
     public SettingsFragment() {
         // Required empty public constructor
@@ -26,6 +31,8 @@ public class SettingsFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+
+
     }
 
     @Override
