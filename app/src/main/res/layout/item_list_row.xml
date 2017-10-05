@@ -16,6 +16,4 @@
         android:layout_below="@+id/list_item_name"
         android:text="price"/>
 
-
-
 </RelativeLayout>
