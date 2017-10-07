@@ -12,6 +12,9 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class signUpActivity extends AppCompatActivity {
 
@@ -25,6 +28,8 @@ public class signUpActivity extends AppCompatActivity {
     Button buttonSUSignUp;
 
     FirebaseAuth authRef = FirebaseAuth.getInstance();
+    DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
+    DatabaseReference usersRef = rootRef.child("Users");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,23 +62,43 @@ public class signUpActivity extends AppCompatActivity {
         });
     }
 
-    private void signUp(){
-        String email = editTextSUEmail.getText().toString();
-        String password = editTextSUPassword.getText().toString();
-        authRef.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if (task.isSuccessful()) {
-                    Toast.makeText(signUpActivity.this, "Sign up successful!", Toast.LENGTH_LONG).show();
-                }
-                else {
-                    try {
-                        throw task.getException();
-                    } catch (Exception e) {
-                        Toast.makeText(signUpActivity.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+    private void signUp() {
+        final String email = editTextSUEmail.getText().toString().trim();
+        final String firstName = editTextSUFirstName.getText().toString().trim();
+        final String lastName = editTextSULastName.getText().toString().trim();
+        final String phoneNumber = editTextSUPhone.getText().toString().trim();
+        final String ZIPCode = editTextSUZIP.getText().toString().trim();
+
+        final String password = editTextSUPassword.getText().toString().trim();
+        final String confPassword = editTextSUConfPassword.getText().toString().trim();
+
+    // Validate all fields
+        if (firstName.isEmpty() || lastName.isEmpty() || phoneNumber.isEmpty() || ZIPCode.isEmpty()) {
+            Toast.makeText(signUpActivity.this, "Please fill all fields.", Toast.LENGTH_SHORT).show();
+        } else if (!password.equals(confPassword)) {
+            Toast.makeText(signUpActivity.this, "Passwords do not match.", Toast.LENGTH_SHORT).show();
+        } else {
+
+        // Create user
+            authRef.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                @Override
+                public void onComplete(@NonNull Task<AuthResult> task) {
+                    if (task.isSuccessful()) {
+                        Toast.makeText(signUpActivity.this, "Sign up successful!", Toast.LENGTH_LONG).show();
+                        FirebaseUser user = task.getResult().getUser();
+                        String UID = user.getUid();
+                        User newUser = new User(firstName, lastName, phoneNumber, ZIPCode);
+                        usersRef.child(UID).setValue(newUser);
+                    } else {
+                        try {
+                            throw task.getException();
+                        } catch (Exception e) {
+                            Toast.makeText(signUpActivity.this, task.getException().getMessage(), Toast.LENGTH_LONG).show();
+                        }
                     }
+
                 }
-            }
-        });
+            });
+        }
     }
 }
