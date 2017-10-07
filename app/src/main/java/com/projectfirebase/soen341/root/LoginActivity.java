@@ -53,6 +53,9 @@ public class LoginActivity extends AppCompatActivity  {
 
             }
         };
+
+    // ADD Auth State Listener
+        authRef.addAuthStateListener(authListener);
     }
 
     @Override
@@ -74,9 +77,6 @@ public class LoginActivity extends AppCompatActivity  {
                 authRef.signOut();
             }
         });
-
-    // ADD Auth State Listener
-        authRef.addAuthStateListener(authListener);
     }
 
     private void login() {
