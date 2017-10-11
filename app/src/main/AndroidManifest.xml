@@ -22,7 +22,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".LoginActivity"></activity>
-        <activity android:name=".signUpActivity"></activity>
+        <activity
+            android:name=".signUpActivity"
+            android:windowSoftInputMode="adjustResize"></activity>
     </application>
     <uses-permission android:name="android.permission.INTERNET"/>
 </manifest>
