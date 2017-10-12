@@ -18,6 +18,11 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.projectfirebase.soen341.root.R;
 
 import Tasks.DownloadImageTask;
@@ -27,12 +32,15 @@ public class ProfileFragment extends Fragment {
     private TextView name_tv;
     private TextView email_tv;
     private TextView phoneNumber_tv;
+    private TextView ZIP_tv;
     private ImageView photo_iv;
-    private ImageButton addPhoto_ib;
+    private ImageButton editPhoto_ib;
+    private ImageButton editZip_ib;
+    private ImageButton editPhoneNumber_ib;
+    private ImageButton editEmail_ib;
+    private ImageButton editName_ib;
 
-    private String name;
     private String email;
-    private Uri photoUrl;
 
     // Login button
 
@@ -52,6 +60,13 @@ public class ProfileFragment extends Fragment {
         super.onCreate(savedInstanceState);
     }
 
+//    if (user != null){
+//        DatabaseReference myRootRef = FirebaseDatabase.getInstance().getReference();
+//        DatabaseReference myUser = myRootRef.child("Users");
+//        DatabaseReference myUID = myUser.child(user.getUid());
+//    }
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -60,43 +75,46 @@ public class ProfileFragment extends Fragment {
         name_tv = (TextView) view.findViewById(R.id.profile_name);
         email_tv = (TextView) view.findViewById(R.id.profile_email);
         phoneNumber_tv = (TextView) view.findViewById(R.id.profile_phone_number);
+        ZIP_tv = (TextView) view.findViewById(R.id.profile_ZIP);
         photo_iv = (ImageView) view.findViewById(R.id.profile_photo);
-        addPhoto_ib = (ImageButton) view.findViewById(R.id.profile_add_photo);
+        editPhoto_ib = (ImageButton) view.findViewById(R.id.profile_add_photo);
+        editEmail_ib = (ImageButton) view.findViewById(R.id.imageButton2);
+        editPhoneNumber_ib = (ImageButton) view.findViewById(R.id.imageButton3);
+        editZip_ib = (ImageButton) view.findViewById(R.id.imageButton4);
+        editName_ib = (ImageButton) view.findViewById(R.id.imageButton);
+
 
         if (user != null) {
-            name = user.getDisplayName();
             email = user.getEmail();
-//            photoUrl = user.getPhotoUrl();
-            // tmp
-            photoUrl = Uri.parse("http://i0.kym-cdn.com/photos/images/original/000/692/145/49c.png");
 
             // TODO: Check if user's email is verified?
 
-            if (name != null) {
-                name_tv.setText(name);
-            }
-            else {
-                name_tv.setText("Evan Mateo");
-//                editName();
-//                name = user.getDisplayName();
-//                name_tv.setText(name);
-            }
-
             email_tv.setText(email);
-
-            new DownloadImageTask(photo_iv).execute(photoUrl.toString());
 
             name_tv.setVisibility(View.VISIBLE);
             email_tv.setVisibility(View.VISIBLE);
             phoneNumber_tv.setVisibility(View.VISIBLE);
+            ZIP_tv.setVisibility(View.VISIBLE);
             photo_iv.setVisibility(View.VISIBLE);
-            addPhoto_ib.setVisibility(View.VISIBLE);
+
+            editPhoto_ib.setVisibility(View.VISIBLE);
+            editName_ib.setVisibility(View.VISIBLE);
+            editEmail_ib.setVisibility(View.VISIBLE);
+            editPhoneNumber_ib.setVisibility(View.VISIBLE);
+            editZip_ib.setVisibility(View.VISIBLE);
+
         } else {
             name_tv.setVisibility(View.GONE);
             email_tv.setVisibility(View.GONE);
             phoneNumber_tv.setVisibility(View.GONE);
+            ZIP_tv.setVisibility(View.GONE);
             photo_iv.setVisibility(View.GONE);
-            addPhoto_ib.setVisibility(View.GONE);
+
+            editPhoto_ib.setVisibility(View.GONE);
+            editName_ib.setVisibility(View.GONE);
+            editEmail_ib.setVisibility(View.GONE);
+            editPhoneNumber_ib.setVisibility(View.GONE);
+            editZip_ib.setVisibility(View.GONE);
 
             // TODO: Display message telling user that they are currently not logged in. Suggest signing up or logging in.
         }
@@ -110,7 +128,7 @@ public class ProfileFragment extends Fragment {
         super.onStart();
 
         // TODO: Set listener for add_photo ImageButton to call addPhoto()
-        addPhoto_ib.setOnClickListener(new View.OnClickListener() {
+        editPhoto_ib.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 editPhoto();
@@ -118,6 +136,33 @@ public class ProfileFragment extends Fragment {
         });
 
         // TODO: Set listener for edit_email, edit_phone_number
+        if (user != null) {
+            DatabaseReference myRootRef = FirebaseDatabase.getInstance().getReference();
+            DatabaseReference myUser = myRootRef.child("Users");
+            DatabaseReference myUID = myUser.child(user.getUid());
+
+            myUID.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    String imgUrl = dataSnapshot.child("ImageURL").getValue(String.class);
+                    new DownloadImageTask(photo_iv).execute(imgUrl);
+
+                    String name = dataSnapshot.child("FirstName").getValue(String.class) + " " + dataSnapshot.child("LastName").getValue(String.class);
+                    name_tv.setText(name);
+
+                    String phoneNbr = dataSnapshot.child("PhoneNumber").getValue(String.class);
+                    phoneNumber_tv.setText(phoneNbr);
+
+                    String ZIP = dataSnapshot.child("ZIPCode").getValue(String.class);
+                    ZIP_tv.setText(ZIP);
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+        }
     }
 
     private void editPhoto() {
