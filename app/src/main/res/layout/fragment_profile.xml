@@ -10,7 +10,7 @@
         android:id="@+id/profile_name"
         android:layout_width="wrap_content"
         android:layout_height="40dp"
-        android:layout_marginTop="235dp"
+        android:layout_marginTop="225dp"
         android:gravity="center_vertical"
         android:text="Display Name"
         android:textAlignment="center"
@@ -30,7 +30,7 @@
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="51dp"
+        android:layout_marginTop="17dp"
         android:background="@android:color/white"
         android:gravity="center_vertical"
         android:text="Email"
@@ -47,7 +47,7 @@
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="80dp"
-        android:layout_marginTop="41dp"
+        android:layout_marginTop="30dp"
         app:layout_constraintBottom_toTopOf="@+id/profile_name"
         app:layout_constraintHorizontal_bias="0.108"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -75,7 +75,7 @@
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="26dp"
+        android:layout_marginTop="20dp"
         android:background="@android:color/white"
         android:gravity="center_vertical"
         android:text="Phone Number"
@@ -85,6 +85,27 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/profile_email"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/profile_ZIP"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="20dp"
+        android:background="@android:color/white"
+        android:gravity="center_vertical"
+        android:text="ZIP"
+        android:textAppearance="@style/TextAppearance.AppCompat"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.105"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/profile_phone_number"
         app:layout_constraintVertical_bias="0.0" />
 
     <ImageButton
@@ -122,6 +143,18 @@
         app:layout_constraintTop_toTopOf="@+id/profile_phone_number"
         android:layout_marginTop="8dp"
         app:layout_constraintBottom_toBottomOf="@+id/profile_phone_number"
+        android:layout_marginBottom="8dp" />
+
+    <ImageButton
+        android:id="@+id/imageButton4"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:background="@android:drawable/ic_menu_edit"
+        android:layout_marginRight="8dp"
+        app:layout_constraintRight_toRightOf="@+id/profile_ZIP"
+        app:layout_constraintTop_toTopOf="@+id/profile_ZIP"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/profile_ZIP"
         android:layout_marginBottom="8dp" />
 
 </android.support.constraint.ConstraintLayout>
