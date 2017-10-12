@@ -33,7 +33,9 @@ public class ProfileFragment extends Fragment {
     private TextView email_tv;
     private TextView phoneNumber_tv;
     private TextView ZIP_tv;
+
     private ImageView photo_iv;
+
     private ImageButton editPhoto_ib;
     private ImageButton editZip_ib;
     private ImageButton editPhoneNumber_ib;
@@ -77,6 +79,7 @@ public class ProfileFragment extends Fragment {
         phoneNumber_tv = (TextView) view.findViewById(R.id.profile_phone_number);
         ZIP_tv = (TextView) view.findViewById(R.id.profile_ZIP);
         photo_iv = (ImageView) view.findViewById(R.id.profile_photo);
+        
         editPhoto_ib = (ImageButton) view.findViewById(R.id.profile_add_photo);
         editEmail_ib = (ImageButton) view.findViewById(R.id.imageButton2);
         editPhoneNumber_ib = (ImageButton) view.findViewById(R.id.imageButton3);
@@ -128,12 +131,12 @@ public class ProfileFragment extends Fragment {
         super.onStart();
 
         // TODO: Set listener for add_photo ImageButton to call addPhoto()
-        editPhoto_ib.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                editPhoto();
-            }
-        });
+//        editPhoto_ib.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                editPhoto();
+//            }
+//        });
 
         // TODO: Set listener for edit_email, edit_phone_number
         if (user != null) {
@@ -165,33 +168,33 @@ public class ProfileFragment extends Fragment {
         }
     }
 
-    private void editPhoto() {
-        UserProfileChangeRequest updatePhoto = new UserProfileChangeRequest.Builder()
-                .setPhotoUri(Uri.parse("https://firebasestorage.googleapis.com/v0/b/projectfirebase-9323d.appspot.com/o/test_profile_photo.jpg?alt=media&token=8653a2a4-37e4-4534-a9b0-3de3c54f14c2"))
-                .build();
-
-        user.updateProfile(updatePhoto).addOnCompleteListener(new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                if (task.isSuccessful()) {
-                    Log.d("update_user", "User profile photo updated.");
-                }
-            }
-        });
-    }
-
-    private void editName() {
-        UserProfileChangeRequest updateName = new UserProfileChangeRequest.Builder()
-                .setDisplayName("Evan Mateo") // TODO: Implement an "Edit Name" fragment
-                .build();
-
-        user.updateProfile(updateName).addOnCompleteListener(new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                if (task.isSuccessful()) {
-                    Log.d("update_user", "User profile name updated.");
-                }
-            }
-        });
-    }
+//    private void editPhoto() {
+//        UserProfileChangeRequest updatePhoto = new UserProfileChangeRequest.Builder()
+//                .setPhotoUri(Uri.parse("https://firebasestorage.googleapis.com/v0/b/projectfirebase-9323d.appspot.com/o/test_profile_photo.jpg?alt=media&token=8653a2a4-37e4-4534-a9b0-3de3c54f14c2"))
+//                .build();
+//
+//        user.updateProfile(updatePhoto).addOnCompleteListener(new OnCompleteListener<Void>() {
+//            @Override
+//            public void onComplete(@NonNull Task<Void> task) {
+//                if (task.isSuccessful()) {
+//                    Log.d("update_user", "User profile photo updated.");
+//                }
+//            }
+//        });
+//    }
+//
+//    private void editName() {
+//        UserProfileChangeRequest updateName = new UserProfileChangeRequest.Builder()
+//                .setDisplayName("Evan Mateo") // TODO: Implement an "Edit Name" fragment
+//                .build();
+//
+//        user.updateProfile(updateName).addOnCompleteListener(new OnCompleteListener<Void>() {
+//            @Override
+//            public void onComplete(@NonNull Task<Void> task) {
+//                if (task.isSuccessful()) {
+//                    Log.d("update_user", "User profile name updated.");
+//                }
+//            }
+//        });
+//    }
 }
