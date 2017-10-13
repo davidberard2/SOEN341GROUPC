@@ -1,7 +1,7 @@
 package com.projectfirebase.soen341.root;
 
 import org.junit.Test;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertEquals;
 
 public class UserTest {
 
@@ -9,10 +9,10 @@ public class UserTest {
     public void UserDefaultConstructorTest() {
         User user = new User();
 
-        assertTrue(user.FirstName == "");
-        assertTrue(user.LastName == "");
-        assertTrue(user.PhoneNumber == "");
-        assertTrue(user.ZIPCode == "");
+        assertEquals(user.FirstName, "");
+        assertEquals(user.LastName, "");
+        assertEquals(user.PhoneNumber, "");
+        assertEquals(user.ZIPCode, "");
     }
 
     @Test
@@ -23,9 +23,9 @@ public class UserTest {
         String ZIPCode = "ZIPCode";
         User userTest = new User(FirstName, LastName, PhoneNumber, ZIPCode);
 
-        assertTrue(FirstName == userTest.FirstName);
-        assertTrue(LastName == userTest.LastName);
-        assertTrue(PhoneNumber == userTest.PhoneNumber);
-        assertTrue(ZIPCode == userTest.ZIPCode);
+        assertEquals(FirstName, userTest.FirstName);
+        assertEquals(LastName, userTest.LastName);
+        assertEquals(PhoneNumber, userTest.PhoneNumber);
+        assertEquals(ZIPCode, userTest.ZIPCode);
     }
 }

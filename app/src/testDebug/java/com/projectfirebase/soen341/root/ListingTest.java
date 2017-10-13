@@ -2,7 +2,8 @@ package com.projectfirebase.soen341.root;
 
 import org.junit.Test;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertEquals;
+
 
 public class ListingTest {
 
@@ -13,8 +14,8 @@ public class ListingTest {
     @Test
     public void ListingDefaultConstructorTest() {
         Listing listing = new Listing();
-        assertTrue(listing.getName() == "");
-        assertTrue(listing.getPrice() == 0);
+        assertEquals(listing.getName(), "");
+        assertEquals(listing.getPrice(), 0, 0.001);
     }
 
     @Test
@@ -23,32 +24,32 @@ public class ListingTest {
         double price = 123.456;
         Listing listing = new Listing(name, price);
 
-        assertTrue(listing.getName() == name);
-        assertTrue(listing.getPrice() == price);
+        assertEquals(listing.getName(), name);
+        assertEquals(listing.getPrice(), price, 0.001);
     }
 
     @Test
     public void getName() throws Exception {
-        assertTrue(listingTest.getName() == name);
+        assertEquals(listingTest.getName(), name);
     }
 
     @Test
     public void getPrice() throws Exception {
-        assertTrue(listingTest.getPrice() == price);
+        assertEquals(listingTest.getPrice(), price, 0.001);
     }
 
     @Test
     public void setName() throws Exception {
         String newName = "newName";
         listingTest.setName(newName);
-        assertTrue(listingTest.getName() == newName);
+        assertEquals(listingTest.getName(), newName);
     }
 
     @Test
     public void setPrice() throws Exception {
         double newPrice = 123.45;
         listingTest.setPrice(newPrice);
-        assertTrue(listingTest.getPrice() == newPrice);
+        assertEquals(listingTest.getPrice(), newPrice, 0.001);
     }
 
 }
