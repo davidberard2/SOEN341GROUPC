@@ -28,7 +28,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class HomeFragment extends Fragment implements SearchView.OnQueryTextListener {
+public class HomeFragment extends Fragment {
 	//Listing RecyclerView instances
 	//private View view;
 	//I chose to use an unfilteredlist to base filters off of. This way, the database is only called when something is changed in the database.
@@ -116,7 +116,6 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
 	public void onPrepareOptionsMenu(Menu menu) {
 		MenuItem mSearchMenuItem = menu.findItem(R.id.action_search_query);
 		SearchView searchView = (SearchView) mSearchMenuItem.getActionView();
-		searchView.setOnQueryTextListener(this);
 
 		searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
 			    @Override
