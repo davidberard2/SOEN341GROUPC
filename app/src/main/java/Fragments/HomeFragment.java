@@ -25,6 +25,7 @@ import com.projectfirebase.soen341.root.R;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class HomeFragment extends Fragment implements SearchView.OnQueryTextListener {
@@ -121,7 +122,6 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
 			    @Override
 			    public boolean onQueryTextSubmit(String query) {
 					//Filters the listingsListdata set
-					Toast.makeText(getActivity(), query, Toast.LENGTH_SHORT).show();
 
 					if (query != null && !query.isEmpty()) {
 						isViewFiltered = true;
@@ -140,18 +140,19 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
 
 			    @Override
 			    public boolean onQueryTextChange(String newText) {
-					// Reset listing list on empty search
-					if (newText == null || newText.isEmpty()) {
-						filterString = "";
-						isViewFiltered = false;
 
-						listingsList.clear();
-						for(Listing item : unfilteredList){
-							listingsList.add(item);
-						}
-						mAdapter.notifyDataSetChanged();
-					}
-					return false;
+				    newText = newText.toLowerCase();
+
+				    listingsList.clear();
+				    for (Listing list : unfilteredList) {
+					    final String text = list.getName().toLowerCase();
+					    if (text.contains(newText)) {
+						    listingsList.add(list);
+					    }
+				    }
+
+				    mAdapter.notifyDataSetChanged();
+				    return true;
 				}
 
 			});
@@ -161,13 +162,6 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		switch (item.getItemId()) {
-//			case R.id.action_search_query:
-//				// Not implemented here
-//				Toast.makeText(getActivity(),"Text!",Toast.LENGTH_SHORT).show();
-//				return true;
-		}
-
 		return false;
 	}
 
