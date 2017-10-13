@@ -166,17 +166,6 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
 	}
 
 	@Override
-	public boolean onQueryTextChange(String query) {
-		// Here is where we are going to implement the filter logic
-		return false;
-	}
-
-	@Override
-	public boolean onQueryTextSubmit(String query) {
-		return false;
-	}
-
-	@Override
 	public void onAttach(Activity activity) {
 		// TODO Auto-generated method stub
 		super.onAttach(activity);
