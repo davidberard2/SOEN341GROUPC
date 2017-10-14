@@ -12,7 +12,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -25,7 +24,6 @@ import com.projectfirebase.soen341.root.R;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class HomeFragment extends Fragment {
@@ -138,19 +136,20 @@ public class HomeFragment extends Fragment {
 				}
 
 			    @Override
+				// Responsible for displaying all possible string from the list based on each additionnal character input made by user
 			    public boolean onQueryTextChange(String newText) {
 
-				    newText = newText.toLowerCase();
+				    newText = newText.toLowerCase(); //eliminate possibility of uppercases
 
 				    listingsList.clear();
 				    for (Listing list : unfilteredList) {
 					    final String text = list.getName().toLowerCase();
-					    if (text.contains(newText)) {
+					    if (text.contains(newText)) { //adding all items that match the query string to the filtered arraylist
 						    listingsList.add(list);
 					    }
 				    }
 
-				    mAdapter.notifyDataSetChanged();
+				    mAdapter.notifyDataSetChanged(); //notify the adapter that the dataset was changed
 				    return true;
 				}
 
