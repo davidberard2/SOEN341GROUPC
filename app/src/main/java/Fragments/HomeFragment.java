@@ -106,7 +106,7 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
 				    }
 			    }
 
-			    //Once all the items are in the listingsList, notify the adapter that the dataset was changed
+			    //Me all the items are in the listingsList, notify the adapter that the dataset was changed
 			    mAdapter.notifyDataSetChanged();
 		    }
 		    @Override

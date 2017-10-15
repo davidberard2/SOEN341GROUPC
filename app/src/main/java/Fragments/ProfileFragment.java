@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
@@ -128,6 +129,19 @@ public class ProfileFragment extends Fragment {
         // TODO: Add a single listener for text field modifications
     }
 
+    @Override
+    public void onPrepareOptionsMenu(Menu menu) {
+        MenuItem saveMenuItem = menu.findItem(R.id.profile_save_button);
+        saveMenuItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem menuItem) {
+                updateName();
+                updateEmail();
+                return true;
+            }
+        });
+    }
+
     private void updatePhoto() {
         // TODO: Select photo from user's local storage after Issue #26
         UserProfileChangeRequest updatePhoto = new UserProfileChangeRequest.Builder()
@@ -145,10 +159,9 @@ public class ProfileFragment extends Fragment {
     }
 
     private void updateName() {
-        if(name_tv.getText().toString().trim().equals("")) {
+        if (name_tv.getText().toString().trim().equals("")) {
             Toast.makeText(view.getContext(), "This is not a valid name", Toast.LENGTH_SHORT).show();
-        }
-        else {
+        } else {
             name = name_tv.getText().toString();
             UserProfileChangeRequest updateName = new UserProfileChangeRequest.Builder()
                     .setDisplayName(name)
@@ -167,10 +180,9 @@ public class ProfileFragment extends Fragment {
     }
 
     private void updateEmail() {
-        if(name_tv.getText().toString().trim().equals("")) {
+        if (name_tv.getText().toString().trim().equals("")) {
             Toast.makeText(view.getContext(), "This is not a valid name", Toast.LENGTH_SHORT).show();
-        }
-        else {
+        } else {
             email = name_tv.getText().toString();
             user.updateEmail(email)
                     .addOnCompleteListener(new OnCompleteListener<Void>() {
