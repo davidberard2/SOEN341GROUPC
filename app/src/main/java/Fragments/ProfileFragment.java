@@ -43,8 +43,6 @@ public class ProfileFragment extends Fragment {
     private String email;
     private Uri photoUrl;
 
-    // Login button
-
     private FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
     public ProfileFragment() {
@@ -73,7 +71,6 @@ public class ProfileFragment extends Fragment {
         getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
 
         view = inflater.inflate(R.layout.fragment_profile, container, false);
-        setHasOptionsMenu(true);
 
         name_et = (TextView) view.findViewById(R.id.profile_name);
         email_et = (TextView) view.findViewById(R.id.profile_email);
@@ -82,6 +79,9 @@ public class ProfileFragment extends Fragment {
         updatePhoto_ib = (ImageButton) view.findViewById(R.id.profile_update_photo);
 
         if (user != null) {
+            // Display menu save option
+            setHasOptionsMenu(true);
+
             name = user.getDisplayName();
             email = user.getEmail();
             photoUrl = user.getPhotoUrl();
@@ -126,7 +126,6 @@ public class ProfileFragment extends Fragment {
                 updatePhoto();
             }
         });
-        // TODO: Add a single listener for text field modifications
     }
 
     @Override
@@ -172,8 +171,7 @@ public class ProfileFragment extends Fragment {
                 public void onComplete(@NonNull Task<Void> task) {
                     if (task.isSuccessful()) {
                         Log.d("USER_UPDATE", "User profile name updated.");
-                    }
-                    else {
+                    } else {
                         Toast.makeText(view.getContext(), "Name update error", Toast.LENGTH_SHORT).show();
                     }
                 }
@@ -181,6 +179,7 @@ public class ProfileFragment extends Fragment {
         }
     }
 
+    // TODO: Only Gmail updates go through, possibly fix?
     private void updateEmail() {
         if (email_et.getText().toString().trim().equals("")) {
             Toast.makeText(view.getContext(), "Email is invalid", Toast.LENGTH_SHORT).show();
@@ -192,8 +191,7 @@ public class ProfileFragment extends Fragment {
                         public void onComplete(@NonNull Task<Void> task) {
                             if (task.isSuccessful()) {
                                 Log.d("USER_UPDATE", "User email updated.");
-                            }
-                            else {
+                            } else {
                                 Toast.makeText(view.getContext(), "Email update error", Toast.LENGTH_SHORT).show();
                             }
                         }
