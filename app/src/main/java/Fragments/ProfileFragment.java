@@ -120,6 +120,7 @@ public class ProfileFragment extends Fragment {
     }
 
     private void updatePhoto() {
+        // TODO: Select photo from user's local storage after Issue #26
         UserProfileChangeRequest updatePhoto = new UserProfileChangeRequest.Builder()
                 .setPhotoUri(Uri.parse("https://firebasestorage.googleapis.com/v0/b/projectfirebase-9323d.appspot.com/o/test_profile_photo.jpg?alt=media&token=8653a2a4-37e4-4534-a9b0-3de3c54f14c2"))
                 .build();
