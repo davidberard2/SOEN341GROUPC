@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -27,6 +28,7 @@ public class ProfileFragment extends Fragment {
     private TextView name_tv;
     private TextView email_tv;
     private TextView phoneNumber_tv;
+    private TextView loggedOut_tv;
     private ImageView photo_iv;
     private ImageButton addPhoto_ib;
 
@@ -35,6 +37,8 @@ public class ProfileFragment extends Fragment {
     private Uri photoUrl;
 
     // Login button
+    private Button login_b;
+    private Button signup_b;
 
     private FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
@@ -62,6 +66,11 @@ public class ProfileFragment extends Fragment {
         phoneNumber_tv = (TextView) view.findViewById(R.id.profile_phone_number);
         photo_iv = (ImageView) view.findViewById(R.id.profile_photo);
         addPhoto_ib = (ImageButton) view.findViewById(R.id.profile_add_photo);
+
+        loggedOut_tv = (TextView) view.findViewById(R.id.logged_out);
+        login_b = (Button)view.findViewById(R.id.logInB);
+        signup_b = (Button)view.findViewById(R.id.signUpB);
+
 
         if (user != null) {
             name = user.getDisplayName();
@@ -91,6 +100,11 @@ public class ProfileFragment extends Fragment {
             phoneNumber_tv.setVisibility(View.VISIBLE);
             photo_iv.setVisibility(View.VISIBLE);
             addPhoto_ib.setVisibility(View.VISIBLE);
+
+            loggedOut_tv.setVisibility(View.GONE);
+            login_b.setVisibility(View.GONE);
+            signup_b.setVisibility(View.GONE);
+
         } else {
             name_tv.setVisibility(View.GONE);
             email_tv.setVisibility(View.GONE);
@@ -99,6 +113,9 @@ public class ProfileFragment extends Fragment {
             addPhoto_ib.setVisibility(View.GONE);
 
             // TODO: Display message telling user that they are currently not logged in. Suggest signing up or logging in.
+            loggedOut_tv.setVisibility(View.VISIBLE);
+            signup_b.setVisibility(View.VISIBLE);
+            login_b.setVisibility(View.VISIBLE);
         }
 
         // Inflate the layout for this fragment

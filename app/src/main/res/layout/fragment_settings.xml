@@ -10,27 +10,44 @@
         android:id="@+id/signUpB"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="65dp"
-        android:layout_marginTop="75dp"
-        android:text="Sign Up"
-        android:onClick="signUpMethod" />
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="150dp"
+        android:onClick="signUpMethod"
+        android:text="Sign Up" />
 
     <Button
         android:id="@+id/logInB"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="200dp"
+        android:layout_marginLeft="30dp"
         android:layout_marginTop="75dp"
-        android:text="Log in"
-        android:onClick="logInMethod" />
+        android:onClick="logInMethod"
+        android:text="Log in" />
 
     <Button
         android:id="@+id/logOutB"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="200dp"
-        android:layout_marginTop="150dp"
-        android:text="Log out"
-        android:onClick="logOutMethod"/>
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="75dp"
+        android:onClick="logOutMethod"
+        android:text="Log out" />
 
+    <Button
+        android:id="@+id/aboutB"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="300dp"
+        android:onClick ="aboutMethod"
+        android:text="About" />
+
+    <Button
+        android:id="@+id/notificationsB"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="225dp"
+        android:onClick="notificationsMethod"
+        android:text="Notifications" />
 </FrameLayout>

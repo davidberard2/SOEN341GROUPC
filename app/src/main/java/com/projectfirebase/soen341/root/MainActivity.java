@@ -1,5 +1,6 @@
 package com.projectfirebase.soen341.root;
 
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -11,25 +12,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
-import android.widget.TextView;
-import android.view.View;
-import android.content.Intent;
 
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.projectfirebase.soen341.root.Adapters.ListItemAdapter;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 import Fragments.HomeFragment;
 import Fragments.ProfileFragment;
@@ -100,7 +87,17 @@ public class MainActivity extends AppCompatActivity {
         FirebaseAuth.getInstance().signOut();
         Toast.makeText(MainActivity.this, "Logged out!", Toast.LENGTH_SHORT).show();
     }
-	
+
+    public void notificationsMethod(View view)
+    {
+        Toast.makeText(MainActivity.this, "Notifications settings here", Toast.LENGTH_SHORT).show();
+    }
+
+    public void aboutMethod(View view)
+    {
+        Toast.makeText(MainActivity.this, "About app here!", Toast.LENGTH_SHORT).show();
+    }
+
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		MenuInflater inflater = getMenuInflater();
