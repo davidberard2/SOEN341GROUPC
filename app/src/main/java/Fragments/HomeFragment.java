@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -51,7 +52,6 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
         // Required empty public constructor
     }
 
-
     public static HomeFragment newInstance() {
         HomeFragment fragment = new HomeFragment();
         return fragment;
@@ -63,6 +63,12 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
         super.onCreate(savedInstanceState);
 	    setHasOptionsMenu(true);
     }
+
+    @Override
+	public void onCreateOptionsMenu(Menu menu, MenuInflater menuInflater) {
+		menuInflater.inflate(R.menu.search_menu, menu);
+		super.onCreateOptionsMenu(menu, menuInflater);
+	}
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -102,14 +108,13 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
 				    }
 			    }
 
-			    //Once all the items are in the listingsList, notify the adapter that the dataset was changed
+			    //Me all the items are in the listingsList, notify the adapter that the dataset was changed
 			    mAdapter.notifyDataSetChanged();
 		    }
 		    @Override
 		    public void onCancelled(DatabaseError databaseError) {
 		    }
 	    });
-
 	    return view;
     }
 

@@ -10,7 +10,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -25,7 +24,6 @@ import Fragments.SearchFragment;
 import Fragments.SettingsFragment;
 
 public class MainActivity extends AppCompatActivity {
-
     Button logInB;
     Button logOutB;
     Button signUpB;
@@ -35,7 +33,6 @@ public class MainActivity extends AppCompatActivity {
     @RequiresApi(api = Build.VERSION_CODES.GINGERBREAD)
 	@Override
     protected void onCreate(Bundle savedInstanceState) {
-        MainActivity.context = getApplicationContext();
         logInB = (Button) findViewById(R.id.logInB);
         logOutB = (Button) findViewById(R.id.logOutB);
         signUpB = (Button) findViewById(R.id.signUpB);
@@ -100,12 +97,12 @@ public class MainActivity extends AppCompatActivity {
         transaction.commit();
     }
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		MenuInflater inflater = getMenuInflater();
-		inflater.inflate(R.menu.main_menu, menu);
-		return true;
-	}
+//	@Override
+//	public boolean onCreateOptionsMenu(Menu menu) {
+//		MenuInflater inflater = getMenuInflater();
+//		inflater.inflate(R.menu.search_menu, menu);
+//		return true;
+//	}
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
