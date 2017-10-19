@@ -1,5 +1,6 @@
 package com.projectfirebase.soen341.root;
 
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -9,43 +10,29 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
-import android.widget.TextView;
-import android.view.View;
-import android.content.Intent;
 
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.projectfirebase.soen341.root.Adapters.ListItemAdapter;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 import Fragments.HomeFragment;
+import Fragments.ItemDescriptionFragment;
 import Fragments.ProfileFragment;
 import Fragments.SearchFragment;
 import Fragments.SettingsFragment;
 
 public class MainActivity extends AppCompatActivity {
-
     Button logInB;
     Button logOutB;
     Button signUpB;
+    String testID;
+    Menu mainMenu;
 
     @RequiresApi(api = Build.VERSION_CODES.GINGERBREAD)
 	@Override
     protected void onCreate(Bundle savedInstanceState) {
-
         logInB = (Button) findViewById(R.id.logInB);
         logOutB = (Button) findViewById(R.id.logOutB);
         signUpB = (Button) findViewById(R.id.signUpB);
@@ -100,13 +87,22 @@ public class MainActivity extends AppCompatActivity {
         FirebaseAuth.getInstance().signOut();
         Toast.makeText(MainActivity.this, "Logged out!", Toast.LENGTH_SHORT).show();
     }
-	
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		MenuInflater inflater = getMenuInflater();
-		inflater.inflate(R.menu.main_menu, menu);
-		return true;
-	}
+
+    public void showItemDescription(View view){
+        String id = (String) view.getTag();
+        ItemDescriptionFragment.setItemIDToDisplay(id);
+        Fragment selectedFragment = ItemDescriptionFragment.newInstance();
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.frame_layout, selectedFragment);
+        transaction.commit();
+    }
+
+//	@Override
+//	public boolean onCreateOptionsMenu(Menu menu) {
+//		MenuInflater inflater = getMenuInflater();
+//		inflater.inflate(R.menu.search_menu, menu);
+//		return true;
+//	}
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
