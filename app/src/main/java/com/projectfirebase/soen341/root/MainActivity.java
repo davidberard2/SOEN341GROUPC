@@ -91,6 +91,23 @@ public class MainActivity extends AppCompatActivity {
     public void notificationsMethod(View view)
     {
         Toast.makeText(MainActivity.this, "Notifications settings here", Toast.LENGTH_SHORT).show();
+<<<<<<< Updated upstream
+=======
+    }
+
+    public void aboutMethod(View view)
+    {
+        Toast.makeText(MainActivity.this, "About app here!", Toast.LENGTH_SHORT).show();
+    }
+
+    public void showItemDescription(View view){
+        String id = (String) view.getTag();
+        ItemDescriptionFragment.setItemIDToDisplay(id);
+        Fragment selectedFragment = ItemDescriptionFragment.newInstance();
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.frame_layout, selectedFragment);
+        transaction.commit();
+>>>>>>> Stashed changes
     }
 
     public void aboutMethod(View view)

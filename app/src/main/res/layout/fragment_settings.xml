@@ -10,8 +10,13 @@
         android:id="@+id/signUpB"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+<<<<<<< Updated upstream
         android:layout_marginLeft="30dp"
         android:layout_marginTop="150dp"
+=======
+        android:layout_marginLeft="240dp"
+        android:layout_marginTop="75dp"
+>>>>>>> Stashed changes
         android:onClick="signUpMethod"
         android:text="Sign Up" />
 
@@ -32,6 +37,7 @@
         android:layout_marginTop="75dp"
         android:onClick="logOutMethod"
         android:text="Log out" />
+<<<<<<< Updated upstream
 
     <Button
         android:id="@+id/aboutB"
@@ -43,11 +49,28 @@
         android:text="About" />
 
     <Button
-        android:id="@+id/notificationsB"
+=======
+
+    <Button
+        android:id="@+id/aboutB"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="30dp"
         android:layout_marginTop="225dp"
+        android:onClick ="aboutMethod"
+        android:text="About" />
+
+    <Button
+>>>>>>> Stashed changes
+        android:id="@+id/notificationsB"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+<<<<<<< Updated upstream
+        android:layout_marginTop="225dp"
+=======
+        android:layout_marginTop="150dp"
+>>>>>>> Stashed changes
         android:onClick="notificationsMethod"
         android:text="Notifications" />
 </FrameLayout>

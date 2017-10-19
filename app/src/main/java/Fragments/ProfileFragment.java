@@ -9,6 +9,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+<<<<<<< Updated upstream
+=======
+import android.view.WindowManager;
+>>>>>>> Stashed changes
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -30,7 +34,15 @@ public class ProfileFragment extends Fragment {
     private TextView phoneNumber_tv;
     private TextView loggedOut_tv;
     private ImageView photo_iv;
+<<<<<<< Updated upstream
     private ImageButton addPhoto_ib;
+=======
+    private TextView loggedOut_tv;
+
+    private ImageButton updatePhoto_ib;
+    private Button login_b;
+    private Button signup_b;
+>>>>>>> Stashed changes
 
     private String name;
     private String email;
@@ -65,8 +77,12 @@ public class ProfileFragment extends Fragment {
         email_tv = (TextView) view.findViewById(R.id.profile_email);
         phoneNumber_tv = (TextView) view.findViewById(R.id.profile_phone_number);
         photo_iv = (ImageView) view.findViewById(R.id.profile_photo);
+<<<<<<< Updated upstream
         addPhoto_ib = (ImageButton) view.findViewById(R.id.profile_add_photo);
 
+=======
+        updatePhoto_ib = (ImageButton) view.findViewById(R.id.profile_update_photo);
+>>>>>>> Stashed changes
         loggedOut_tv = (TextView) view.findViewById(R.id.logged_out);
         login_b = (Button)view.findViewById(R.id.logInB);
         signup_b = (Button)view.findViewById(R.id.signUpB);
@@ -99,12 +115,19 @@ public class ProfileFragment extends Fragment {
             email_tv.setVisibility(View.VISIBLE);
             phoneNumber_tv.setVisibility(View.VISIBLE);
             photo_iv.setVisibility(View.VISIBLE);
+<<<<<<< Updated upstream
             addPhoto_ib.setVisibility(View.VISIBLE);
+=======
+            updatePhoto_ib.setVisibility(View.VISIBLE);
+>>>>>>> Stashed changes
 
             loggedOut_tv.setVisibility(View.GONE);
             login_b.setVisibility(View.GONE);
             signup_b.setVisibility(View.GONE);
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
         } else {
             name_tv.setVisibility(View.GONE);
             email_tv.setVisibility(View.GONE);
@@ -112,7 +135,10 @@ public class ProfileFragment extends Fragment {
             photo_iv.setVisibility(View.GONE);
             addPhoto_ib.setVisibility(View.GONE);
 
+<<<<<<< Updated upstream
             // TODO: Display message telling user that they are currently not logged in. Suggest signing up or logging in.
+=======
+>>>>>>> Stashed changes
             loggedOut_tv.setVisibility(View.VISIBLE);
             signup_b.setVisibility(View.VISIBLE);
             login_b.setVisibility(View.VISIBLE);
