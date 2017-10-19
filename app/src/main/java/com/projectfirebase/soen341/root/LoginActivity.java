@@ -53,10 +53,10 @@ public class LoginActivity extends AppCompatActivity  {
 
             }
         };
+
+    // ADD Auth State Listener
+        authRef.addAuthStateListener(authListener);
     }
-
-
-
 
     @Override
     protected void onStart() {
@@ -77,13 +77,7 @@ public class LoginActivity extends AppCompatActivity  {
                 authRef.signOut();
             }
         });
-
-    // ADD Auth State Listener
-        authRef.addAuthStateListener(authListener);
     }
-
-
-
 
     private void login() {
     // Handle Empty Fields
@@ -111,11 +105,5 @@ public class LoginActivity extends AppCompatActivity  {
                 }
             });
         }
-
-
-
-
-
     }
-
 }

@@ -5,9 +5,32 @@
     tools:context="Fragments.SettingsFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+
+    <Button
+        android:id="@+id/signUpB"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="65dp"
+        android:layout_marginTop="75dp"
+        android:text="Sign Up"
+        android:onClick="signUpMethod" />
+
+    <Button
+        android:id="@+id/logInB"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="200dp"
+        android:layout_marginTop="75dp"
+        android:text="Log in"
+        android:onClick="logInMethod" />
+
+    <Button
+        android:id="@+id/logOutB"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="200dp"
+        android:layout_marginTop="150dp"
+        android:text="Log out"
+        android:onClick="logOutMethod"/>
 
 </FrameLayout>
