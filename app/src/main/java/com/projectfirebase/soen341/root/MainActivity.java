@@ -10,7 +10,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -19,20 +18,21 @@ import android.widget.Toast;
 import com.google.firebase.auth.FirebaseAuth;
 
 import Fragments.HomeFragment;
+import Fragments.ItemDescriptionFragment;
 import Fragments.ProfileFragment;
 import Fragments.SearchFragment;
 import Fragments.SettingsFragment;
 
 public class MainActivity extends AppCompatActivity {
-
     Button logInB;
     Button logOutB;
     Button signUpB;
+    String testID;
+    Menu mainMenu;
 
     @RequiresApi(api = Build.VERSION_CODES.GINGERBREAD)
 	@Override
     protected void onCreate(Bundle savedInstanceState) {
-
         logInB = (Button) findViewById(R.id.logInB);
         logOutB = (Button) findViewById(R.id.logOutB);
         signUpB = (Button) findViewById(R.id.signUpB);
@@ -86,6 +86,15 @@ public class MainActivity extends AppCompatActivity {
     public void logOutMethod(View view) {
         FirebaseAuth.getInstance().signOut();
         Toast.makeText(MainActivity.this, "Logged out!", Toast.LENGTH_SHORT).show();
+    }
+
+    public void showItemDescription(View view){
+        String id = (String) view.getTag();
+        ItemDescriptionFragment.setItemIDToDisplay(id);
+        Fragment selectedFragment = ItemDescriptionFragment.newInstance();
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.frame_layout, selectedFragment);
+        transaction.commit();
     }
 
 //	@Override

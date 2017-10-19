@@ -4,19 +4,18 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="10sp">
+    android:layout_margin="10sp"
+    android:onClick="showItemDescription">
     <RelativeLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10sp">
-
         <TextView
             android:id="@+id/list_item_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="name"/>
-
         <TextView
             android:id="@+id/list_item_price"
             android:layout_width="wrap_content"

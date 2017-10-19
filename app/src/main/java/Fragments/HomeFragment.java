@@ -81,7 +81,6 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
 	    RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
 	    recyclerView.setLayoutManager(mLayoutManager);
 	    recyclerView.setAdapter(mAdapter);
-
 	    itemsRef.addValueEventListener(new ValueEventListener() {
 		    @Override	//OnDataChange gets the full database every time something is changed inside of it.
 		    public void onDataChange(DataSnapshot dataSnapshot) {
@@ -90,12 +89,15 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
 			    listingsList.clear();
 				//itemsMap is a map of every item in the 'Items' database
 			    Map<String, Object> itemsMap = (HashMap<String, Object>) dataSnapshot.getValue();
-			    for (Object itemMap : itemsMap.values()) {
+
+			    for ( String key : itemsMap.keySet() ) {
+					Object itemMap = itemsMap.get(key);
 					//itemMap is a single item, but still in json format.
 					//From this object, extract wanted data to item, and add it to our list of items.
 				    if(itemMap instanceof Map){
 					    Map<String, Object> itemObj = (Map<String, Object>) itemMap;
 					    Listing item = new Listing();
+						item.setID(key);
 					    item.setName((String) itemObj.get("Name"));
 					    item.setPrice(((Number)itemObj.get("Price")).doubleValue());
 						//filter the item out of the display list if necessary
@@ -113,7 +115,6 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
 		    public void onCancelled(DatabaseError databaseError) {
 		    }
 	    });
-
 	    return view;
     }
 
