@@ -7,9 +7,10 @@ import static org.junit.Assert.assertEquals;
 
 public class ListingTest {
 
+    String id = "id1";
     String name = "name";
     double price = 123.456;
-    Listing listingTest = new Listing(name, price);
+    Listing listingTest = new Listing(id, name, price);
 
     @Test
     public void ListingDefaultConstructorTest() {
@@ -20,12 +21,19 @@ public class ListingTest {
 
     @Test
     public void ListingConstructorTest() {
+        String id = "id1";
         String name = "name";
         double price = 123.456;
-        Listing listing = new Listing(name, price);
+        Listing listing = new Listing(id, name, price);
 
+        assertEquals(listing.getID(), id);
         assertEquals(listing.getName(), name);
         assertEquals(listing.getPrice(), price, 0.001);
+    }
+
+    @Test
+    public void getID() throws Exception {
+        assertEquals(listingTest.getID(), id);
     }
 
     @Test
