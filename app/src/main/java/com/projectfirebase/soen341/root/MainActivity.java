@@ -22,7 +22,6 @@ import Fragments.ItemDescriptionFragment;
 import Fragments.ProfileFragment;
 import Fragments.SearchFragment;
 import Fragments.SettingsFragment;
-import com.google.firebase.storage.FirebaseStorage;
 
 public class MainActivity extends AppCompatActivity {
     Button logInB;

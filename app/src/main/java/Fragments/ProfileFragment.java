@@ -30,6 +30,11 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -50,6 +55,7 @@ public class ProfileFragment extends Fragment {
     private TextView name_et;
     private TextView email_et;
     private TextView phoneNumber_et;
+    private TextView ZIP_et;
     private ImageView photo_iv;
 
     private ImageButton updatePhoto_ib;
@@ -99,6 +105,7 @@ public class ProfileFragment extends Fragment {
         name_et = (TextView) view.findViewById(R.id.profile_name);
         email_et = (TextView) view.findViewById(R.id.profile_email);
         phoneNumber_et = (TextView) view.findViewById(R.id.profile_phone_number);
+        ZIP_et = (TextView) view.findViewById(R.id.profile_zip);
         photo_iv = (ImageView) view.findViewById(R.id.profile_photo);
         updatePhoto_ib = (ImageButton) view.findViewById(R.id.profile_update_photo);
         update_ib = (Button) view.findViewById(R.id.button2);
@@ -122,18 +129,18 @@ public class ProfileFragment extends Fragment {
 
             name = user.getDisplayName();
             email = user.getEmail();
-            photoUrl = user.getPhotoUrl();
+            //photoUrl = user.getPhotoUrl();
 
-            if (name != null) {
+            /*if (name != null) {
                 name_et.setText(name);
-            }
+            }*/
 
             // TODO: Check if user's email is verified?
             email_et.setText(email);
 
-            if (photoUrl != null) {
+           /* if (photoUrl != null) {
                 new DownloadImageTask(photo_iv).execute(photoUrl.toString());
-            }
+            }*/
 
             name_et.setVisibility(View.VISIBLE);
             email_et.setVisibility(View.VISIBLE);
@@ -160,6 +167,34 @@ public class ProfileFragment extends Fragment {
     public void onStart() {
         super.onStart();
 
+        if (user != null) {
+            DatabaseReference myRootRef = FirebaseDatabase.getInstance().getReference();
+            DatabaseReference myUser = myRootRef.child("Users");
+            DatabaseReference myUID = myUser.child(user.getUid());
+
+            myUID.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                            String imgUrl = dataSnapshot.child("ImageURL").getValue(String.class);
+                    Toast.makeText(getActivity(), imgUrl, Toast.LENGTH_LONG)
+                            .show();
+                            new DownloadImageTask(photo_iv).execute(imgUrl);
+
+                            String name = dataSnapshot.child("FirstName").getValue(String.class) + " " + dataSnapshot.child("LastName").getValue(String.class);
+                            name_et.setText(name);
+
+                            String phoneNbr = dataSnapshot.child("PhoneNumber").getValue(String.class);
+                            phoneNumber_et.setText(phoneNbr);
+
+                            String ZIP = dataSnapshot.child("ZIPCode").getValue(String.class);
+                            ZIP_et.setText(ZIP);
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {}
+            });
+         }
+
         updatePhoto_ib.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -183,7 +218,7 @@ public class ProfileFragment extends Fragment {
 
     private void updatePhoto() {
         // TODO: Select photo from user's local storage after Issue #26
-        UserProfileChangeRequest updatePhoto = new UserProfileChangeRequest.Builder()
+        /*UserProfileChangeRequest updatePhoto = new UserProfileChangeRequest.Builder()
                 .setPhotoUri(Uri.parse("https://firebasestorage.googleapis.com/v0/b/projectfirebase-9323d.appspot.com/o/test_profile_photo.jpg?alt=media&token=8653a2a4-37e4-4534-a9b0-3de3c54f14c2"))
                 .build();
 
@@ -194,7 +229,7 @@ public class ProfileFragment extends Fragment {
                     Log.d("USER_UPDATE", "User profile photo updated.");
                 }
             }
-        });
+        });*/
     }
 
     private void updateName() {
@@ -276,6 +311,8 @@ public class ProfileFragment extends Fragment {
                             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                                 // Get a URL to the uploaded content
                                 Uri downloadUrl = taskSnapshot.getDownloadUrl();
+                                Toast.makeText(getActivity(), downloadUrl.toString(), Toast.LENGTH_LONG)
+                                        .show();
                             }
                         })
                         .addOnFailureListener(new OnFailureListener() {
