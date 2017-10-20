@@ -17,7 +17,10 @@ android:
 
     # The SDK version used to compile your project
     - android-26
-    
+
+  script:
+    - ./gradlew build connectedCheck test testDebugUnitTest
+
   licenses:
     - 'android-sdk-preview-license-.+'
     - 'android-sdk-license-.+'

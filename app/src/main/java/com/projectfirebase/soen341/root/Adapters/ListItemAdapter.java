@@ -54,4 +54,5 @@ public class ListItemAdapter extends RecyclerView.Adapter<ListItemAdapter.ViewHo
 		return listingsList.size();
 	}
 
+	public Listing getListItem(int pos){ return listingsList.get(pos); }
 }
