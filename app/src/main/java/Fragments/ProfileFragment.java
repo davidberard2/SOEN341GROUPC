@@ -4,6 +4,7 @@ package Fragments;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.BitmapFactory;
+import android.icu.text.SimpleDateFormat;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -42,6 +43,9 @@ import com.projectfirebase.soen341.root.R;
 
 
 import java.io.File;
+import java.security.Timestamp;
+import java.text.DateFormat;
+import java.util.Date;
 
 import Tasks.DownloadImageTask;
 
@@ -66,6 +70,11 @@ public class ProfileFragment extends Fragment {
     private Uri photoUrl;
 
     private FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+    //Database Update
+    private DatabaseReference myRootRef;
+    private DatabaseReference myUser;
+    private DatabaseReference myUID;
 
     //Image upload variable
     private static int IMG_RESULT = 1;
@@ -168,16 +177,15 @@ public class ProfileFragment extends Fragment {
         super.onStart();
 
         if (user != null) {
-            DatabaseReference myRootRef = FirebaseDatabase.getInstance().getReference();
-            DatabaseReference myUser = myRootRef.child("Users");
-            DatabaseReference myUID = myUser.child(user.getUid());
+            myRootRef = FirebaseDatabase.getInstance().getReference();
+            myUser = myRootRef.child("Users");
+            myUID = myUser.child(user.getUid());
 
             myUID.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                             String imgUrl = dataSnapshot.child("ImageURL").getValue(String.class);
-                    Toast.makeText(getActivity(), imgUrl, Toast.LENGTH_LONG)
-                            .show();
+                    //Toast.makeText(getActivity(), "OnStart " + imgUrl, Toast.LENGTH_LONG).show();
                             new DownloadImageTask(photo_iv).execute(imgUrl);
 
                             String name = dataSnapshot.child("FirstName").getValue(String.class) + " " + dataSnapshot.child("LastName").getValue(String.class);
@@ -280,7 +288,7 @@ public class ProfileFragment extends Fragment {
         try {
 
             if (requestCode == IMG_RESULT && resultCode == RESULT_OK
-                    && null != data) {
+                    && null != data && user != null) {
 
 
                 Uri URI = data.getData();
@@ -296,14 +304,12 @@ public class ProfileFragment extends Fragment {
                 ImageDecode = cursor.getString(columnIndex);
                 cursor.close();
 
-                photo_iv.setImageBitmap(BitmapFactory
-                        .decodeFile(ImageDecode));
-                Toast.makeText(getActivity(), ImageDecode, Toast.LENGTH_LONG).show();
-
-
+               /* photo_iv.setImageBitmap(BitmapFactory
+                        .decodeFile(ImageDecode));*/
+               // Toast.makeText(getActivity(), ImageDecode, Toast.LENGTH_LONG).show();
 
                 Uri file = Uri.fromFile(new File(ImageDecode));
-                StorageReference riversRef = storageRef.child("WORD HERE");
+                StorageReference riversRef = storageRef.child(user.getUid());
 
                 riversRef.putFile(file)
                         .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
@@ -311,8 +317,22 @@ public class ProfileFragment extends Fragment {
                             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                                 // Get a URL to the uploaded content
                                 Uri downloadUrl = taskSnapshot.getDownloadUrl();
-                                Toast.makeText(getActivity(), downloadUrl.toString(), Toast.LENGTH_LONG)
-                                        .show();
+
+                                if (user != null) {
+                                    myRootRef = FirebaseDatabase.getInstance().getReference();
+                                    //Toast.makeText(getActivity(), "CHECK 1", Toast.LENGTH_LONG).show();
+
+                                    myUser = myRootRef.child("Users");
+                                    //Toast.makeText(getActivity(), "CHECK 2", Toast.LENGTH_LONG).show();
+
+                                    myUID = myUser.child(user.getUid());
+                                   // Toast.makeText(getActivity(), "CHECK 3", Toast.LENGTH_LONG).show();
+
+                                    myUID.child("ImageURL").setValue(downloadUrl.toString());
+                                   // Toast.makeText(getActivity(), "CHECK 4", Toast.LENGTH_LONG).show();
+                                }
+
+                               // Toast.makeText(getActivity(), downloadUrl.toString(), Toast.LENGTH_LONG).show();
                             }
                         })
                         .addOnFailureListener(new OnFailureListener() {
