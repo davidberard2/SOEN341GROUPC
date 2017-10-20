@@ -18,6 +18,8 @@ public class SettingsFragment extends Fragment {
     Button logInB;
     Button logOutB;
     Button signUpB;
+    Button aboutB;
+    Button notificationsB;
 
     FirebaseAuth authRef = FirebaseAuth.getInstance();
     FirebaseAuth.AuthStateListener authListener;
@@ -52,18 +54,31 @@ public class SettingsFragment extends Fragment {
 
         logInB = (Button)getView().findViewById(R.id.logInB);
         logOutB = (Button)getView().findViewById(R.id.logOutB);
+        signUpB = (Button)getView().findViewById(R.id.signUpB);
+        aboutB = (Button)getView().findViewById(R.id.aboutB);
+        notificationsB = (Button)getView().findViewById(R.id.notificationsB);
+
+
+
 
         // SET Auth State Listener
         authListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 if(authRef.getCurrentUser() != null) {
+                    signUpB.setVisibility(View.GONE);
                     logInB.setVisibility(View.GONE);
                     logOutB.setVisibility(View.VISIBLE);
+                    aboutB.setVisibility(View.VISIBLE);
+                    notificationsB.setVisibility(View.VISIBLE);
+
                 }
                 else {
+                    signUpB.setVisibility(View.VISIBLE);
                     logInB.setVisibility(View.VISIBLE);
                     logOutB.setVisibility(View.GONE);
+                    aboutB.setVisibility(View.GONE);
+                    notificationsB.setVisibility(View.GONE);
                 }
             }
         };

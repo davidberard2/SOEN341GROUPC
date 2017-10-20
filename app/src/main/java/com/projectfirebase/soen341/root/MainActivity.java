@@ -87,6 +87,16 @@ public class MainActivity extends AppCompatActivity {
         FirebaseAuth.getInstance().signOut();
         Toast.makeText(MainActivity.this, "Logged out!", Toast.LENGTH_SHORT).show();
     }
+    //Placeholder methods for settings menu
+    public void notificationsMethod(View view)
+    {
+        Toast.makeText(MainActivity.this, "Notifications settings here", Toast.LENGTH_SHORT).show();
+    }
+
+    public void aboutMethod(View view)
+    {
+        Toast.makeText(MainActivity.this, "About app here!", Toast.LENGTH_SHORT).show();
+    }
 
     public void showItemDescription(View view){
         String id = (String) view.getTag();

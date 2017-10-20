@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -35,9 +36,13 @@ public class ProfileFragment extends Fragment {
     private TextView name_et;
     private TextView email_et;
     private TextView phoneNumber_et;
+    private TextView loggedOut_tv;
     private ImageView photo_iv;
 
     private ImageButton updatePhoto_ib;
+    private Button login_b;
+    private Button signup_b;
+
 
     private String name;
     private String email;
@@ -77,6 +82,9 @@ public class ProfileFragment extends Fragment {
         phoneNumber_et = (TextView) view.findViewById(R.id.profile_phone_number);
         photo_iv = (ImageView) view.findViewById(R.id.profile_photo);
         updatePhoto_ib = (ImageButton) view.findViewById(R.id.profile_update_photo);
+        loggedOut_tv = (TextView) view.findViewById(R.id.logged_out);
+        login_b = (Button)view.findViewById(R.id.logInB);
+        signup_b = (Button)view.findViewById(R.id.signUpB);
 
         if (user != null) {
             // Display menu save option
@@ -102,12 +110,18 @@ public class ProfileFragment extends Fragment {
             phoneNumber_et.setVisibility(View.VISIBLE);
             photo_iv.setVisibility(View.VISIBLE);
             updatePhoto_ib.setVisibility(View.VISIBLE);
+            loggedOut_tv.setVisibility(View.GONE);
+            login_b.setVisibility(View.GONE);
+            signup_b.setVisibility(View.GONE);
         } else {
             name_et.setVisibility(View.GONE);
             email_et.setVisibility(View.GONE);
             phoneNumber_et.setVisibility(View.GONE);
             photo_iv.setVisibility(View.GONE);
             updatePhoto_ib.setVisibility(View.GONE);
+            loggedOut_tv.setVisibility(View.VISIBLE);
+            signup_b.setVisibility(View.VISIBLE);
+            login_b.setVisibility(View.VISIBLE);
 
             // TODO: Display message telling user that they are currently not logged in. Suggest signing up or logging in.
         }
