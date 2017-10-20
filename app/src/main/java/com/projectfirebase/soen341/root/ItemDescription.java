@@ -6,6 +6,22 @@ public class ItemDescription extends Listing {
     public ItemDescription(){
         super();
         this.Description = "";
+        this.URL = "";
+    }
+
+    public ItemDescription(String d, String url, Listing listing){
+        super(listing.getID(), listing.getName(), listing.getPrice());
+        this.Description = d;
+        this.URL = url;
+    }
+
+    public ItemDescription(String id, String name, double price, String desc, String url){
+        super();
+        this.setID(id);
+        this.setName(name);
+        this.setPrice(price);
+        this.setDescription(desc);
+        this.setURL(url);
     }
 
     public String getDescription(){

@@ -8,6 +8,10 @@ public class User {
 
     public User() {
         // Default constructor required for calls to DataSnapshot.getValue(User.class)
+        FirstName = "";
+        LastName = "";
+        PhoneNumber = "";
+        ZIPCode = "";
     }
 
     public User(String firstName, String lastName, String phoneNumber, String ZIPCode) {
