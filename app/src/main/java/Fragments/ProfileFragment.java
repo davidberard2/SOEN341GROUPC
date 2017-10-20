@@ -155,6 +155,7 @@ public class ProfileFragment extends Fragment {
             email_et.setVisibility(View.VISIBLE);
             phoneNumber_et.setVisibility(View.VISIBLE);
             photo_iv.setVisibility(View.VISIBLE);
+            ZIP_et.setVisibility(View.VISIBLE);
             updatePhoto_ib.setVisibility(View.GONE);
             update_ib.setVisibility(View.VISIBLE);
         } else {
@@ -162,6 +163,7 @@ public class ProfileFragment extends Fragment {
             email_et.setVisibility(View.GONE);
             phoneNumber_et.setVisibility(View.GONE);
             photo_iv.setVisibility(View.GONE);
+            ZIP_et.setVisibility(View.GONE);
             updatePhoto_ib.setVisibility(View.GONE);
             update_ib.setVisibility(View.GONE);
 
