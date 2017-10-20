@@ -24,12 +24,19 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
-import com.projectfirebase.soen341.root.MainActivity;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 import com.projectfirebase.soen341.root.R;
+
+
+import java.io.File;
 
 import Tasks.DownloadImageTask;
 
@@ -58,6 +65,7 @@ public class ProfileFragment extends Fragment {
     private static int IMG_RESULT = 1;
     Intent intent;
     String ImageDecode;
+    private StorageReference storageRef = FirebaseStorage.getInstance("gs://projectfirebase-9323d.appspot.com").getReference();
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -70,6 +78,7 @@ public class ProfileFragment extends Fragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
     }
 
@@ -82,6 +91,7 @@ public class ProfileFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
 
         view = inflater.inflate(R.layout.fragment_profile, container, false);
@@ -255,6 +265,26 @@ public class ProfileFragment extends Fragment {
                         .decodeFile(ImageDecode));
                 Toast.makeText(getActivity(), ImageDecode, Toast.LENGTH_LONG).show();
 
+
+
+                Uri file = Uri.fromFile(new File(ImageDecode));
+                StorageReference riversRef = storageRef.child("WORD HERE");
+
+                riversRef.putFile(file)
+                        .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                            @Override
+                            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                // Get a URL to the uploaded content
+                                Uri downloadUrl = taskSnapshot.getDownloadUrl();
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception exception) {
+                                // Handle unsuccessful uploads
+                                // ...
+                            }
+                        });
             }
         } catch (Exception e) {
             Toast.makeText(getActivity(), "Please try again", Toast.LENGTH_LONG)
