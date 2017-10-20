@@ -7,6 +7,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -15,6 +17,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+
+import Fragments.HomeFragment;
 
 public class signUpActivity extends AppCompatActivity {
 
@@ -89,6 +93,7 @@ public class signUpActivity extends AppCompatActivity {
                         String UID = user.getUid();
                         User newUser = new User(firstName, lastName, phoneNumber, ZIPCode);
                         usersRef.child(UID).setValue(newUser);
+                        finish();
                     } else {
                         try {
                             throw task.getException();

@@ -52,6 +52,7 @@ public class SettingsFragment extends Fragment {
 
         logInB = (Button)getView().findViewById(R.id.logInB);
         logOutB = (Button)getView().findViewById(R.id.logOutB);
+        signUpB = (Button)getView().findViewById(R.id.signUpB);
 
         // SET Auth State Listener
         authListener = new FirebaseAuth.AuthStateListener() {
@@ -60,10 +61,12 @@ public class SettingsFragment extends Fragment {
                 if(authRef.getCurrentUser() != null) {
                     logInB.setVisibility(View.GONE);
                     logOutB.setVisibility(View.VISIBLE);
+                    signUpB.setVisibility(View.GONE);
                 }
                 else {
                     logInB.setVisibility(View.VISIBLE);
                     logOutB.setVisibility(View.GONE);
+                    signUpB.setVisibility(View.VISIBLE);
                 }
             }
         };
