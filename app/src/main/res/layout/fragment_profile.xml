@@ -6,6 +6,21 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <TextView
+        android:id ="@+id/logged_out"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:includeFontPadding="false"
+        android:textAlignment="center"
+        android:text="@string/logged_out"
+        android:layout_marginTop="92dp"
+        app:layout_constraintHorizontal_bias="0.503"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/profile_photo"
+        />
+
     <ImageView
         android:id="@+id/profile_photo"
         android:layout_width="150dp"
@@ -101,6 +116,43 @@
             android:inputType="phone" />
     </android.support.design.widget.TextInputLayout>
 
+
+    <Button
+        android:id="@+id/signUpB"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Sign Up"
+        android:onClick="signUpMethod"
+
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="80dp"
+        android:layout_marginTop="125dp"
+        app:layout_constraintHorizontal_bias="0.849"
+        app:layout_constraintLeft_toLeftOf="parent"
+
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="0dp"
+        app:layout_constraintRight_toLeftOf="@+id/profile_photo"
+        app:layout_constraintTop_toTopOf="@+id/profile_photo" />
+
+    <Button
+        android:id="@+id/logInB"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Log in"
+        android:onClick="logInMethod"
+
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="80dp"
+        android:layout_marginTop="125dp"
+        app:layout_constraintLeft_toRightOf="@+id/profile_photo"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="0dp"
+        app:layout_constraintRight_toLeftOf="parent"
+        app:layout_constraintHorizontal_bias="0.18"
+        app:layout_constraintTop_toTopOf="@+id/profile_photo" />
+
+
     <android.support.design.widget.TextInputLayout
         android:id="@+id/profile_zip_input"
         android:layout_width="0dp"
@@ -131,5 +183,6 @@
         android:text="Mod. photo"
         tools:layout_editor_absoluteY="106dp"
         tools:layout_editor_absoluteX="276dp" />
+
 
 </android.support.constraint.ConstraintLayout>
