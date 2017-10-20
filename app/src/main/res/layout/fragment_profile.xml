@@ -25,7 +25,9 @@
         android:background="@android:color/transparent"
         app:layout_constraintBottom_toBottomOf="@+id/profile_photo"
         app:layout_constraintRight_toRightOf="@+id/profile_photo"
-        app:srcCompat="@android:drawable/ic_menu_camera" />
+        app:srcCompat="@android:drawable/ic_menu_camera"
+        android:layout_marginRight="-40dp"
+        android:layout_marginBottom="-21dp" />
 
     <android.support.design.widget.TextInputLayout
         android:id="@+id/profile_name_input"
@@ -98,5 +100,13 @@
             android:importantForAutofill="noExcludeDescendants"
             android:inputType="phone" />
     </android.support.design.widget.TextInputLayout>
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Mod. photo"
+        tools:layout_editor_absoluteY="106dp"
+        tools:layout_editor_absoluteX="276dp" />
 
 </android.support.constraint.ConstraintLayout>

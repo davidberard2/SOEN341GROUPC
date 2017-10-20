@@ -1,6 +1,7 @@
 package Fragments;
 
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -13,6 +14,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -38,12 +40,17 @@ public class ProfileFragment extends Fragment {
     private ImageView photo_iv;
 
     private ImageButton updatePhoto_ib;
+    Button update_ib;
 
     private String name;
     private String email;
     private Uri photoUrl;
 
     private FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+    //Image upload variable
+    private static int IMG_RESULT = 1;
+    Intent intent;
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -77,6 +84,20 @@ public class ProfileFragment extends Fragment {
         phoneNumber_et = (TextView) view.findViewById(R.id.profile_phone_number);
         photo_iv = (ImageView) view.findViewById(R.id.profile_photo);
         updatePhoto_ib = (ImageButton) view.findViewById(R.id.profile_update_photo);
+        update_ib = (Button) view.findViewById(R.id.button2);
+
+        update_ib.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+
+                intent = new Intent(Intent.ACTION_PICK,
+                        android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+
+                startActivityForResult(intent, IMG_RESULT);
+
+            }
+        });
 
         if (user != null) {
             // Display menu save option
@@ -101,13 +122,15 @@ public class ProfileFragment extends Fragment {
             email_et.setVisibility(View.VISIBLE);
             phoneNumber_et.setVisibility(View.VISIBLE);
             photo_iv.setVisibility(View.VISIBLE);
-            updatePhoto_ib.setVisibility(View.VISIBLE);
+            updatePhoto_ib.setVisibility(View.GONE);
+            update_ib.setVisibility(View.VISIBLE);
         } else {
             name_et.setVisibility(View.GONE);
             email_et.setVisibility(View.GONE);
             phoneNumber_et.setVisibility(View.GONE);
             photo_iv.setVisibility(View.GONE);
             updatePhoto_ib.setVisibility(View.GONE);
+            update_ib.setVisibility(View.GONE);
 
             // TODO: Display message telling user that they are currently not logged in. Suggest signing up or logging in.
         }
