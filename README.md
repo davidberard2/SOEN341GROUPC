@@ -4,6 +4,8 @@
 
 [View Wiki](https://github.com/davidberard2/SOEN341GROUPC/wiki)
 
+[![Waffle.io - Columns and their card count](https://badge.waffle.io/davidberard2/SOEN341GROUPC.svg?columns=all)](http://waffle.io/davidberard2/SOEN341GROUPC)
+
 ## INTRODUCTION
 This is the repository for GROUP C students from Concordia University's Fall 2017 SOEN 341 course. The project contained is a classified site software to be used by the public to buy, as well as to sell, goods and services. All discussion and documentation concerning the project can be found in this GitHub repository. The software process used to develop the product is the agile methodology.
 
