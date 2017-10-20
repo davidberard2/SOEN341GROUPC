@@ -45,17 +45,15 @@ public class SettingsFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_settings, container, false);
+        setAuthStateListener(view);
         return view;
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-
-        logInB = (Button)getView().findViewById(R.id.logInB);
-        logOutB = (Button)getView().findViewById(R.id.logOutB);
-        signUpB = (Button)getView().findViewById(R.id.signUpB);
-        aboutB = (Button)getView().findViewById(R.id.aboutB);
+    public void setAuthStateListener(View view) {
+        logInB = (Button)view.findViewById(R.id.logInB);
+        logOutB = (Button)view.findViewById(R.id.logOutB);
+        signUpB = (Button)view.findViewById(R.id.signUpB);
+        aboutB = (Button)view.findViewById(R.id.aboutB);
         notificationsB = (Button)getView().findViewById(R.id.notificationsB);
 
 
