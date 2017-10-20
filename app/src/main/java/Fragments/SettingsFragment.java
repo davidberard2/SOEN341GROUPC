@@ -54,7 +54,7 @@ public class SettingsFragment extends Fragment {
         logOutB = (Button)view.findViewById(R.id.logOutB);
         signUpB = (Button)view.findViewById(R.id.signUpB);
         aboutB = (Button)view.findViewById(R.id.aboutB);
-        notificationsB = (Button)getView().findViewById(R.id.notificationsB);
+        notificationsB = (Button)view.findViewById(R.id.notificationsB);
 
 
 
