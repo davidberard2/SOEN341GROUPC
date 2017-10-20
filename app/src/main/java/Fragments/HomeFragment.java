@@ -9,10 +9,10 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -27,7 +27,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class HomeFragment extends Fragment implements SearchView.OnQueryTextListener {
+public class HomeFragment extends Fragment {
 	//Listing RecyclerView instances
 	//private View view;
 	//I chose to use an unfilteredlist to base filters off of. This way, the database is only called when something is changed in the database.
@@ -51,7 +51,6 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
         // Required empty public constructor
     }
 
-
     public static HomeFragment newInstance() {
         HomeFragment fragment = new HomeFragment();
         return fragment;
@@ -65,6 +64,12 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
     }
 
     @Override
+	public void onCreateOptionsMenu(Menu menu, MenuInflater menuInflater) {
+		menuInflater.inflate(R.menu.search_menu, menu);
+		super.onCreateOptionsMenu(menu, menuInflater);
+	}
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
@@ -75,7 +80,6 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
 	    RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
 	    recyclerView.setLayoutManager(mLayoutManager);
 	    recyclerView.setAdapter(mAdapter);
-
 	    itemsRef.addValueEventListener(new ValueEventListener() {
 		    @Override	//OnDataChange gets the full database every time something is changed inside of it.
 		    public void onDataChange(DataSnapshot dataSnapshot) {
@@ -84,12 +88,15 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
 			    listingsList.clear();
 				//itemsMap is a map of every item in the 'Items' database
 			    Map<String, Object> itemsMap = (HashMap<String, Object>) dataSnapshot.getValue();
-			    for (Object itemMap : itemsMap.values()) {
+
+			    for ( String key : itemsMap.keySet() ) {
+					Object itemMap = itemsMap.get(key);
 					//itemMap is a single item, but still in json format.
 					//From this object, extract wanted data to item, and add it to our list of items.
 				    if(itemMap instanceof Map){
 					    Map<String, Object> itemObj = (Map<String, Object>) itemMap;
 					    Listing item = new Listing();
+						item.setID(key);
 					    item.setName((String) itemObj.get("Name"));
 					    item.setPrice(((Number)itemObj.get("Price")).doubleValue());
 						//filter the item out of the display list if necessary
@@ -100,14 +107,13 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
 				    }
 			    }
 
-			    //Once all the items are in the listingsList, notify the adapter that the dataset was changed
+			    //Me all the items are in the listingsList, notify the adapter that the dataset was changed
 			    mAdapter.notifyDataSetChanged();
 		    }
 		    @Override
 		    public void onCancelled(DatabaseError databaseError) {
 		    }
 	    });
-
 	    return view;
     }
 
@@ -115,13 +121,11 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
 	public void onPrepareOptionsMenu(Menu menu) {
 		MenuItem mSearchMenuItem = menu.findItem(R.id.action_search_query);
 		SearchView searchView = (SearchView) mSearchMenuItem.getActionView();
-		searchView.setOnQueryTextListener(this);
 
 		searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
 			    @Override
 			    public boolean onQueryTextSubmit(String query) {
 					//Filters the listingsListdata set
-					Toast.makeText(getActivity(), query, Toast.LENGTH_SHORT).show();
 
 					if (query != null && !query.isEmpty()) {
 						isViewFiltered = true;
@@ -139,19 +143,21 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
 				}
 
 			    @Override
+				// Responsible for displaying all possible string from the list based on each additionnal character input made by user
 			    public boolean onQueryTextChange(String newText) {
-					// Reset listing list on empty search
-					if (newText == null || newText.isEmpty()) {
-						filterString = "";
-						isViewFiltered = false;
 
-						listingsList.clear();
-						for(Listing item : unfilteredList){
-							listingsList.add(item);
-						}
-						mAdapter.notifyDataSetChanged();
-					}
-					return false;
+				    newText = newText.toLowerCase(); //eliminate possibility of uppercases
+
+				    listingsList.clear();
+				    for (Listing list : unfilteredList) {
+					    final String text = list.getName().toLowerCase();
+					    if (text.contains(newText)) { //adding all items that match the query string to the filtered arraylist
+						    listingsList.add(list);
+					    }
+				    }
+
+				    mAdapter.notifyDataSetChanged(); //notify the adapter that the dataset was changed
+				    return true;
 				}
 
 			});
@@ -161,24 +167,6 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		switch (item.getItemId()) {
-//			case R.id.action_search_query:
-//				// Not implemented here
-//				Toast.makeText(getActivity(),"Text!",Toast.LENGTH_SHORT).show();
-//				return true;
-		}
-
-		return false;
-	}
-
-	@Override
-	public boolean onQueryTextChange(String query) {
-		// Here is where we are going to implement the filter logic
-		return false;
-	}
-
-	@Override
-	public boolean onQueryTextSubmit(String query) {
 		return false;
 	}
 
