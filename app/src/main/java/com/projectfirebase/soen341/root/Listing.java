@@ -11,7 +11,8 @@ public class Listing {
 		this.price = 0;
 	}
 
-	public Listing(String name, double price) {
+	public Listing(String id, String name, double price) {
+		this.ID = id;
 		this.name = name;
 		this.price = price;
 	}

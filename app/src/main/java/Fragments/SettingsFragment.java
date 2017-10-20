@@ -57,6 +57,9 @@ public class SettingsFragment extends Fragment {
         notificationsB = (Button)view.findViewById(R.id.notificationsB);
 
 
+        logInB = (Button)getView().findViewById(R.id.logInB);
+        logOutB = (Button)getView().findViewById(R.id.logOutB);
+        signUpB = (Button)getView().findViewById(R.id.signUpB);
 
 
         // SET Auth State Listener
@@ -67,16 +70,24 @@ public class SettingsFragment extends Fragment {
                     signUpB.setVisibility(View.GONE);
                     logInB.setVisibility(View.GONE);
                     logOutB.setVisibility(View.VISIBLE);
+
                     aboutB.setVisibility(View.VISIBLE);
                     notificationsB.setVisibility(View.VISIBLE);
+
+
+                    signUpB.setVisibility(View.GONE);
 
                 }
                 else {
                     signUpB.setVisibility(View.VISIBLE);
                     logInB.setVisibility(View.VISIBLE);
                     logOutB.setVisibility(View.GONE);
+
                     aboutB.setVisibility(View.GONE);
                     notificationsB.setVisibility(View.GONE);
+
+                    signUpB.setVisibility(View.VISIBLE);
+
                 }
             }
         };
