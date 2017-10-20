@@ -2,8 +2,11 @@ package Fragments;
 
 
 import android.content.Intent;
+import android.database.Cursor;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -25,9 +28,12 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
+import com.projectfirebase.soen341.root.MainActivity;
 import com.projectfirebase.soen341.root.R;
 
 import Tasks.DownloadImageTask;
+
+import static android.app.Activity.RESULT_OK;
 
 public class ProfileFragment extends Fragment {
 
@@ -51,6 +57,7 @@ public class ProfileFragment extends Fragment {
     //Image upload variable
     private static int IMG_RESULT = 1;
     Intent intent;
+    String ImageDecode;
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -220,5 +227,39 @@ public class ProfileFragment extends Fragment {
                         }
                     });
         }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        try {
+
+            if (requestCode == IMG_RESULT && resultCode == RESULT_OK
+                    && null != data) {
+
+
+                Uri URI = data.getData();
+                String[] FILE = { MediaStore.Images.Media.DATA };
+
+
+                Cursor cursor = getContext().getContentResolver().query(URI,
+                        FILE, null, null, null);
+
+                cursor.moveToFirst();
+
+                int columnIndex = cursor.getColumnIndex(FILE[0]);
+                ImageDecode = cursor.getString(columnIndex);
+                cursor.close();
+
+                photo_iv.setImageBitmap(BitmapFactory
+                        .decodeFile(ImageDecode));
+                Toast.makeText(getActivity(), ImageDecode, Toast.LENGTH_LONG).show();
+
+            }
+        } catch (Exception e) {
+            Toast.makeText(getActivity(), "Please try again", Toast.LENGTH_LONG)
+                    .show();
+        }
+
     }
 }
