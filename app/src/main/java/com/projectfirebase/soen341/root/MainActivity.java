@@ -88,6 +88,21 @@ public class MainActivity extends AppCompatActivity {
         Toast.makeText(MainActivity.this, "Logged out!", Toast.LENGTH_SHORT).show();
     }
 
+<<<<<<< HEAD
+    public void notificationsMethod(View view)
+    {
+        Toast.makeText(MainActivity.this, "Notifications settings here", Toast.LENGTH_SHORT).show();
+<<<<<<< Updated upstream
+=======
+    }
+
+    public void aboutMethod(View view)
+    {
+        Toast.makeText(MainActivity.this, "About app here!", Toast.LENGTH_SHORT).show();
+    }
+
+=======
+>>>>>>> f9bc36e6c80d08514a7b2890353add22313c686f
     public void showItemDescription(View view){
         String id = (String) view.getTag();
         ItemDescriptionFragment.setItemIDToDisplay(id);
@@ -95,6 +110,22 @@ public class MainActivity extends AppCompatActivity {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.frame_layout, selectedFragment);
         transaction.commit();
+<<<<<<< HEAD
+>>>>>>> Stashed changes
+    }
+
+    public void aboutMethod(View view)
+    {
+        Toast.makeText(MainActivity.this, "About app here!", Toast.LENGTH_SHORT).show();
+    }
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.main_menu, menu);
+		return true;
+	}
+=======
     }
 
 //	@Override
@@ -103,6 +134,7 @@ public class MainActivity extends AppCompatActivity {
 //		inflater.inflate(R.menu.search_menu, menu);
 //		return true;
 //	}
+>>>>>>> f9bc36e6c80d08514a7b2890353add22313c686f
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {

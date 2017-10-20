@@ -12,7 +12,15 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+<<<<<<< HEAD
+<<<<<<< Updated upstream
+=======
 import android.view.WindowManager;
+>>>>>>> Stashed changes
+import android.widget.Button;
+=======
+import android.view.WindowManager;
+>>>>>>> f9bc36e6c80d08514a7b2890353add22313c686f
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -29,6 +37,22 @@ import Tasks.DownloadImageTask;
 
 public class ProfileFragment extends Fragment {
 
+<<<<<<< HEAD
+    private TextView name_tv;
+    private TextView email_tv;
+    private TextView phoneNumber_tv;
+    private TextView loggedOut_tv;
+    private ImageView photo_iv;
+<<<<<<< Updated upstream
+    private ImageButton addPhoto_ib;
+=======
+    private TextView loggedOut_tv;
+
+    private ImageButton updatePhoto_ib;
+    private Button login_b;
+    private Button signup_b;
+>>>>>>> Stashed changes
+=======
     View view;
 
     // TODO:  Refactor to abide by name conventions
@@ -38,11 +62,19 @@ public class ProfileFragment extends Fragment {
     private ImageView photo_iv;
 
     private ImageButton updatePhoto_ib;
+>>>>>>> f9bc36e6c80d08514a7b2890353add22313c686f
 
     private String name;
     private String email;
     private Uri photoUrl;
 
+<<<<<<< HEAD
+    // Login button
+    private Button login_b;
+    private Button signup_b;
+
+=======
+>>>>>>> f9bc36e6c80d08514a7b2890353add22313c686f
     private FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
     public ProfileFragment() {
@@ -76,7 +108,20 @@ public class ProfileFragment extends Fragment {
         email_et = (TextView) view.findViewById(R.id.profile_email);
         phoneNumber_et = (TextView) view.findViewById(R.id.profile_phone_number);
         photo_iv = (ImageView) view.findViewById(R.id.profile_photo);
+<<<<<<< HEAD
+<<<<<<< Updated upstream
+        addPhoto_ib = (ImageButton) view.findViewById(R.id.profile_add_photo);
+=======
         updatePhoto_ib = (ImageButton) view.findViewById(R.id.profile_update_photo);
+>>>>>>> f9bc36e6c80d08514a7b2890353add22313c686f
+
+=======
+        updatePhoto_ib = (ImageButton) view.findViewById(R.id.profile_update_photo);
+>>>>>>> Stashed changes
+        loggedOut_tv = (TextView) view.findViewById(R.id.logged_out);
+        login_b = (Button)view.findViewById(R.id.logInB);
+        signup_b = (Button)view.findViewById(R.id.signUpB);
+
 
         if (user != null) {
             // Display menu save option
@@ -101,7 +146,23 @@ public class ProfileFragment extends Fragment {
             email_et.setVisibility(View.VISIBLE);
             phoneNumber_et.setVisibility(View.VISIBLE);
             photo_iv.setVisibility(View.VISIBLE);
+<<<<<<< HEAD
+<<<<<<< Updated upstream
+            addPhoto_ib.setVisibility(View.VISIBLE);
+=======
             updatePhoto_ib.setVisibility(View.VISIBLE);
+>>>>>>> Stashed changes
+
+            loggedOut_tv.setVisibility(View.GONE);
+            login_b.setVisibility(View.GONE);
+            signup_b.setVisibility(View.GONE);
+<<<<<<< Updated upstream
+
+=======
+>>>>>>> Stashed changes
+=======
+            updatePhoto_ib.setVisibility(View.VISIBLE);
+>>>>>>> f9bc36e6c80d08514a7b2890353add22313c686f
         } else {
             name_et.setVisibility(View.GONE);
             email_et.setVisibility(View.GONE);
@@ -109,7 +170,13 @@ public class ProfileFragment extends Fragment {
             photo_iv.setVisibility(View.GONE);
             updatePhoto_ib.setVisibility(View.GONE);
 
+<<<<<<< Updated upstream
             // TODO: Display message telling user that they are currently not logged in. Suggest signing up or logging in.
+=======
+>>>>>>> Stashed changes
+            loggedOut_tv.setVisibility(View.VISIBLE);
+            signup_b.setVisibility(View.VISIBLE);
+            login_b.setVisibility(View.VISIBLE);
         }
 
         // Inflate the layout for this fragment
