@@ -3,8 +3,6 @@ package Fragments;
 
 import android.content.Intent;
 import android.database.Cursor;
-import android.graphics.BitmapFactory;
-import android.icu.text.SimpleDateFormat;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -41,11 +39,7 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.projectfirebase.soen341.root.R;
 
-
 import java.io.File;
-import java.security.Timestamp;
-import java.text.DateFormat;
-import java.util.Date;
 
 import Tasks.DownloadImageTask;
 
@@ -210,7 +204,8 @@ public class ProfileFragment extends Fragment {
                 public void onDataChange(DataSnapshot dataSnapshot) {
                             String imgUrl = dataSnapshot.child("ImageURL").getValue(String.class);
                     //Toast.makeText(getActivity(), "OnStart " + imgUrl, Toast.LENGTH_LONG).show();
-                            new DownloadImageTask(photo_iv).execute(imgUrl);
+                            if(imgUrl != null)
+                                new DownloadImageTask(photo_iv).execute(imgUrl);
 
                             String name = dataSnapshot.child("FirstName").getValue(String.class) + " " + dataSnapshot.child("LastName").getValue(String.class);
                             name_et.setText(name);
@@ -334,7 +329,6 @@ public class ProfileFragment extends Fragment {
 
                 Uri file = Uri.fromFile(new File(ImageDecode));
                 StorageReference riversRef = storageRef.child(user.getUid());
-
                 riversRef.putFile(file)
                         .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                             @Override
@@ -356,7 +350,7 @@ public class ProfileFragment extends Fragment {
                                    // Toast.makeText(getActivity(), "CHECK 4", Toast.LENGTH_LONG).show();
                                 }
 
-                               // Toast.makeText(getActivity(), downloadUrl.toString(), Toast.LENGTH_LONG).show();
+                                Toast.makeText(getActivity(), "Successfully uploaded!", Toast.LENGTH_LONG).show();
                             }
                         })
                         .addOnFailureListener(new OnFailureListener() {
@@ -364,6 +358,7 @@ public class ProfileFragment extends Fragment {
                             public void onFailure(@NonNull Exception exception) {
                                 // Handle unsuccessful uploads
                                 // ...
+                                Toast.makeText(getActivity(), "Failed to upload! Check app permissions!", Toast.LENGTH_LONG).show();
                             }
                         });
             }
