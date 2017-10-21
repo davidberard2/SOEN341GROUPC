@@ -57,9 +57,9 @@ public class SettingsFragment extends Fragment {
         notificationsB = (Button)view.findViewById(R.id.notificationsB);
 
 
-        logInB = (Button)getView().findViewById(R.id.logInB);
-        logOutB = (Button)getView().findViewById(R.id.logOutB);
-        signUpB = (Button)getView().findViewById(R.id.signUpB);
+        logInB = (Button)view.findViewById(R.id.logInB);
+        logOutB = (Button)view.findViewById(R.id.logOutB);
+        signUpB = (Button)view.findViewById(R.id.signUpB);
 
 
         // SET Auth State Listener
