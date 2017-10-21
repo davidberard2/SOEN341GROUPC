@@ -115,31 +115,15 @@ public class ProfileFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
-
+        // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_profile, container, false);
         setAuthStateListener(view);
-        if (user != null) {
-
-
-        }
-        // Inflate the layout for this fragment
         return view;
     }
 
     @Override
     public void onStart() {
         super.onStart();
-
-        if (user != null) {
-
-         }
-
-        updatePhoto_ib.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                updatePhoto();
-            }
-        });
     }
 
     @Override
@@ -276,6 +260,7 @@ public class ProfileFragment extends Fragment {
     }
 
     public void setAuthStateListener(View view) {
+    // Initialize controls
         name_et = (TextView) view.findViewById(R.id.profile_name);
         email_et = (TextView) view.findViewById(R.id.profile_email);
         phoneNumber_et = (TextView) view.findViewById(R.id.profile_phone_number);
@@ -287,6 +272,8 @@ public class ProfileFragment extends Fragment {
         login_b = (Button)view.findViewById(logInB);
         signup_b = (Button)view.findViewById(signUpB);
         update_ib = (Button) view.findViewById(R.id.button2);
+
+    // Set onClick listener to Update Photo button
         update_ib.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -300,7 +287,7 @@ public class ProfileFragment extends Fragment {
             }
         });
 
-        // SET Auth State Listener
+    // SET Auth State Listener
         authListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
@@ -336,7 +323,14 @@ public class ProfileFragment extends Fragment {
                     ZIP_et.setVisibility(View.VISIBLE);
                     updatePhoto_ib.setVisibility(View.GONE);
                     update_ib.setVisibility(View.VISIBLE);
+                    updatePhoto_ib.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            updatePhoto();
+                        }
+                    });
 
+                // SET Data Listener
                     myUID = myUser.child(authRef.getCurrentUser().getUid());
                     myUID.addValueEventListener(new ValueEventListener() {
                         @Override
