@@ -55,13 +55,7 @@ public class SettingsFragment extends Fragment {
         signUpB = (Button)view.findViewById(R.id.signUpB);
         aboutB = (Button)view.findViewById(R.id.aboutB);
         notificationsB = (Button)view.findViewById(R.id.notificationsB);
-
-
-        logInB = (Button)view.findViewById(R.id.logInB);
-        logOutB = (Button)view.findViewById(R.id.logOutB);
-        signUpB = (Button)view.findViewById(R.id.signUpB);
-
-
+        
         // SET Auth State Listener
         authListener = new FirebaseAuth.AuthStateListener() {
             @Override
