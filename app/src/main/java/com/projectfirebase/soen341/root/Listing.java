@@ -13,6 +13,10 @@ public class Listing {
 		this.imageURL = "";
 	}
 
+	public Listing(String id){
+		this.ID = id;
+	}
+
 	public Listing(String id, String name, double price, String imageURL) {
 		this.ID = id;
 		this.name = name;
