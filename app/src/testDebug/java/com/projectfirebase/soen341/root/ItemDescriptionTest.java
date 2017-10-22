@@ -13,8 +13,8 @@ public class ItemDescriptionTest {
     String description = "test";
     String url = "wabadabadingdong";
     ItemDescription itemTest = new ItemDescription(id, name, price, description, url);
-    Listing listTest = new Listing(id, name, price);
-    ItemDescription itemTest2 = new ItemDescription(description, url, listTest);
+    Listing listTest = new Listing(id, name, price, url);
+    ItemDescription itemTest2 = new ItemDescription(description, listTest);
 
     @Test
     public void ItemDescriptionDefaultConstructorTest() {
@@ -22,7 +22,7 @@ public class ItemDescriptionTest {
         assertEquals(item.getID(), "");
         assertEquals(item.getName(), "");
         assertEquals(item.getPrice(), 0, 0.001);
-        assertEquals(item.getURL(), "");
+        assertEquals(item.getImageURL(), "");
         assertEquals(item.getDescription(), "");
 
     }
@@ -40,14 +40,18 @@ public class ItemDescriptionTest {
         assertEquals(item.getName(), name);
         assertEquals(item.getPrice(), price, 0.001);
         assertEquals(item.getDescription(), description);
-        assertEquals(item.getURL(), url);
+        assertEquals(item.getImageURL(), url);
     }
 
     @Test
     public void ItemDescriptionOtherConstructorTest(){
         String description = "test";
-        String url = "wabadabadingdong";
-        ItemDescription item = new ItemDescription(description, url, listTest);
+        ItemDescription item = new ItemDescription(description, listTest);
+        assertEquals(item.getDescription(), description);
+        assertEquals(item.getImageURL(), listTest.getImageURL());
+        assertEquals(item.getName(), listTest.getName());
+        assertEquals(item.getID(), listTest.getID());
+        assertEquals(item.getPrice(), listTest.getPrice(), 0.001);
     }
 
     @Test
@@ -76,8 +80,8 @@ public class ItemDescriptionTest {
 
     @Test
     public void getURL() throws Exception {
-        assertEquals(itemTest.getURL(), url);
-        assertEquals(itemTest2.getURL(), url);
+        assertEquals(itemTest.getImageURL(), url);
+        assertEquals(itemTest2.getImageURL(), url);
     }
 
 
@@ -102,11 +106,10 @@ public class ItemDescriptionTest {
         assertEquals(itemTest.getDescription(), description);
     }
 
-
     @Test
     public void setURL() throws Exception{
         String url = "wabadabadingdong";
-        itemTest.setURL(url);
-        assertEquals(itemTest.getURL(), url);
+        itemTest.setImageURL(url);
+        assertEquals(itemTest.getImageURL(), url);
     }
 }

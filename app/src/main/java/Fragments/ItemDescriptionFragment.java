@@ -84,16 +84,15 @@ public class ItemDescriptionFragment extends Fragment {
 
                 Map<String, Object> itemObj = (Map<String, Object>) itemsInDB;
 
-                //set the data for the item to display
-                itemToDisplay.setID(id);
+                //get the data for the item to display
                 String name = (String) itemObj.get("Name");
-                itemToDisplay.setName(name);
                 String description = (String) itemObj.get("Description");
-                itemToDisplay.setDescription(description);
                 String url = (String) itemObj.get("ImageURL");
-                itemToDisplay.setURL(url);
                 Double price = ((Number) itemObj.get("Price")).doubleValue();
-                itemToDisplay.setPrice(price);
+
+                //set it
+                itemToDisplay = new ItemDescription(id, name, price, description, url);
+
                 setDisplayViews();
 
             }
@@ -114,7 +113,7 @@ public class ItemDescriptionFragment extends Fragment {
             description_tv.setTypeface(null);
             description_tv.setText(this.itemToDisplay.getDescription());
         }
-        new DownloadImageTask(photo_iv).execute(itemToDisplay.getURL());
+        new DownloadImageTask(photo_iv).execute(itemToDisplay.getImageURL());
     }
 
     public static void setItemIDToDisplay(String id){

@@ -10,7 +10,8 @@ public class ListingTest {
     String id = "id1";
     String name = "name";
     double price = 123.456;
-    Listing listingTest = new Listing(id, name, price);
+    String imageURL = "testURL";
+    Listing listingTest = new Listing(id, name, price, imageURL);
 
     @Test
     public void ListingDefaultConstructorTest() {
@@ -24,7 +25,8 @@ public class ListingTest {
         String id = "id1";
         String name = "name";
         double price = 123.456;
-        Listing listing = new Listing(id, name, price);
+        String imageURL = "testURL";
+        Listing listing = new Listing(id, name, price, imageURL);
 
         assertEquals(listing.getID(), id);
         assertEquals(listing.getName(), name);
@@ -47,6 +49,11 @@ public class ListingTest {
     }
 
     @Test
+    public void getImageURL() throws Exception {
+        assertEquals(listingTest.getImageURL(), imageURL);
+    }
+
+    @Test
     public void setName() throws Exception {
         String newName = "newName";
         listingTest.setName(newName);
@@ -58,6 +65,13 @@ public class ListingTest {
         double newPrice = 123.45;
         listingTest.setPrice(newPrice);
         assertEquals(listingTest.getPrice(), newPrice, 0.001);
+    }
+
+    @Test
+    public void setImageURL() throws Exception{
+        String url = "wabadabadingdong";
+        listingTest.setImageURL(url);
+        assertEquals(listingTest.getImageURL(), url);
     }
 
 }

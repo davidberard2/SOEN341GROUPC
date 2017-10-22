@@ -95,10 +95,14 @@ public class HomeFragment extends Fragment {
 					//From this object, extract wanted data to item, and add it to our list of items.
 				    if(itemMap instanceof Map){
 					    Map<String, Object> itemObj = (Map<String, Object>) itemMap;
-					    Listing item = new Listing();
-						item.setID(key);
-					    item.setName((String) itemObj.get("Name"));
-					    item.setPrice(((Number)itemObj.get("Price")).doubleValue());
+
+						String id = key;
+						String name = (String) itemObj.get("Name");
+						Double price = ((Number)itemObj.get("Price")).doubleValue();
+						String url = (String) itemObj.get("ImageURL");
+
+					    Listing item = new Listing(key, name, price, url);
+
 						//filter the item out of the display list if necessary
 						if(!isViewFiltered || isViewFiltered && item.getName().toLowerCase().contains(filterString.toLowerCase())){
 							listingsList.add(item);
