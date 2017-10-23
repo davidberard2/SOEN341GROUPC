@@ -17,11 +17,12 @@ import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 
+import Fragments.FavoriteFragment;
 import Fragments.HomeFragment;
 import Fragments.ItemDescriptionFragment;
 import Fragments.ProfileFragment;
 import Fragments.SearchFragment;
-import Fragments.SettingsFragment;
+import Fragments.AdditionFragment;
 
 public class MainActivity extends AppCompatActivity {
     Button logInB;
@@ -55,12 +56,16 @@ public class MainActivity extends AppCompatActivity {
                             case R.id.action_search:
                                 selectedFragment = SearchFragment.newInstance();
                                 break;
+                            case R.id.action_addition:
+                                selectedFragment = AdditionFragment.newInstance();
+                                break;
                             case R.id.action_profile:
                                 selectedFragment = ProfileFragment.newInstance();
                                 break;
-                            case R.id.action_settings:
-                                selectedFragment = SettingsFragment.newInstance();
+                            case R.id.action_favorite:
+                                selectedFragment = FavoriteFragment.newInstance();
                                 break;
+
                         }
                         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
                         transaction.replace(R.id.frame_layout, selectedFragment);

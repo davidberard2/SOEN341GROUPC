@@ -3,18 +3,23 @@
     <item
         android:id="@+id/action_home"
         android:icon="@drawable/ic_action_home"
-        android:title="@string/home_button" />
+        android:title="@string/home_button"
+        />
 
     <item
         android:id="@+id/action_search"
         android:icon="@drawable/ic_action_search"
         android:title="@string/search_button"/>
     <item
+        android:id="@+id/action_addition"
+        android:icon="@drawable/ic_action_add"
+        android:title="Add Item"/>
+    <item
         android:id="@+id/action_profile"
         android:icon="@drawable/ic_action_profile"
         android:title="@string/profile_button"/>
     <item
-        android:id="@+id/action_settings"
-        android:icon="@drawable/ic_action_settings"
-        android:title="@string/settings_button"/>
+        android:id="@+id/action_favorite"
+        android:icon="@drawable/ic_action_favorite"
+        android:title="@string/favorite_button"/>
 </menu>

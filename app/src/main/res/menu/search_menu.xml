@@ -6,4 +6,8 @@
         android:title="@string/action_search"
         app:actionViewClass="android.support.v7.widget.SearchView"
         app:showAsAction="always" />
+    <item
+        android:id="@+id/Settings"
+        android:title="Logout"
+        android:icon="@drawable/ic_action_settings"/>
 </menu>

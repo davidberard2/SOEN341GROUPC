@@ -14,10 +14,11 @@
     <string name="permission_rationale">"Contacts permissions are needed for providing emailcompletions."</string>
     <string name="logged_out">"You are logged out! \n Please sign in or sign up for this page!</string>
     <!-- Strings related to fragment buttons -->
-    <string name = "home_button">Home</string>
-    <string name = "profile_button">Profile</string>
-    <string name = "settings_button">Settings</string>
-    <string name = "search_button">Search</string>
+    <string name="home_button">Home</string>
+    <string name="profile_button">Profile</string>
+    <string name="settings_button">Settings</string>
+    <string name="search_button">Search</string>
+    <string name="favorite_button">Favorites</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="action_search">search</string>
