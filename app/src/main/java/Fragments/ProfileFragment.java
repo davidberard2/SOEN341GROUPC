@@ -383,8 +383,6 @@ public class ProfileFragment extends Fragment {
 
                     update_ib.setVisibility(View.GONE);
 
-
-
                 }
             }
         };
