@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -129,11 +130,25 @@ public class ProfileFragment extends Fragment {
     @Override
     public void onPrepareOptionsMenu(Menu menu) {
         MenuItem saveMenuItem = menu.findItem(R.id.profile_save_button);
+        MenuItem settingsMenuItem = menu.findItem(R.id.profile_settings_button);
         saveMenuItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem menuItem) {
                 updateName();
                 updateEmail();
+                return true;
+            }
+        });
+        settingsMenuItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener()
+        {
+            @Override
+            public boolean onMenuItemClick(MenuItem menuItem)
+            {
+                Fragment newFragment = new SettingsFragment();
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                transaction.replace(R.id.frame_layout, newFragment);
+                transaction.addToBackStack(null);
+                transaction.commit();
                 return true;
             }
         });
@@ -369,7 +384,7 @@ public class ProfileFragment extends Fragment {
                     update_ib.setVisibility(View.GONE);
 
 
-                    // TODO: Display message telling user that they are currently not logged in. Suggest signing up or logging in.
+
                 }
             }
         };

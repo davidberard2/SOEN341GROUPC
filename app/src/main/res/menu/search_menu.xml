@@ -7,7 +7,11 @@
         app:actionViewClass="android.support.v7.widget.SearchView"
         app:showAsAction="always" />
     <item
-        android:id="@+id/Settings"
-        android:title="Logout"
-        android:icon="@drawable/ic_action_settings"/>
+        android:id="@+id/action_to_settings"
+        android:title="Settings"
+        android:color="#ffffff"
+        android:icon="@drawable/ic_action_settings"
+        app:showAsAction="always"/>
+
+
 </menu>

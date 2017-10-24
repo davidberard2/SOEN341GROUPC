@@ -1,25 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu   xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
     <item
+
         android:id="@+id/action_home"
         android:icon="@drawable/ic_action_home"
         android:title="@string/home_button"
         />
-
     <item
+
         android:id="@+id/action_search"
         android:icon="@drawable/ic_action_search"
-        android:title="@string/search_button"/>
+        android:title="@string/search_button"
+     />
     <item
+
         android:id="@+id/action_addition"
         android:icon="@drawable/ic_action_add"
         android:title="Add Item"/>
+
     <item
         android:id="@+id/action_profile"
         android:icon="@drawable/ic_action_profile"
-        android:title="@string/profile_button"/>
+        android:title="@string/profile_button"
+        />
     <item
+
         android:id="@+id/action_favorite"
         android:icon="@drawable/ic_action_favorite"
-        android:title="@string/favorite_button"/>
+        android:title="@string/favorite_button"
+       />
+
 </menu>

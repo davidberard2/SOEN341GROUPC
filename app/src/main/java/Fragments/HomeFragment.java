@@ -175,7 +175,7 @@ public class HomeFragment extends Fragment {
 		transaction.addToBackStack(null);
 		transaction.commit();
 
-		return false;
+		return true;
 	}
 
 	@Override
