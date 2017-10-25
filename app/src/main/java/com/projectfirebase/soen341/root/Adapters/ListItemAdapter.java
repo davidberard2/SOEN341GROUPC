@@ -1,14 +1,18 @@
 package com.projectfirebase.soen341.root.Adapters;
+
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.projectfirebase.soen341.root.Listing;
 import com.projectfirebase.soen341.root.R;
 
 import java.util.List;
+
+import Tasks.DownloadImageTask;
 
 public class ListItemAdapter extends RecyclerView.Adapter<ListItemAdapter.ViewHolder>{
 	private List<Listing> listingsList;
@@ -18,12 +22,14 @@ public class ListItemAdapter extends RecyclerView.Adapter<ListItemAdapter.ViewHo
 		public View view;
 		public TextView name;
 		public TextView price;
+		public ImageView image;
 		public String id;
 
 		public ViewHolder(View v) {
 			super(v);
 			name = (TextView) v.findViewById(R.id.list_item_name);
 			price = (TextView) v.findViewById(R.id.list_item_price);
+			image = (ImageView) v.findViewById(R.id.list_item_photo);
 			view = v;
 		}
 	}
@@ -47,6 +53,8 @@ public class ListItemAdapter extends RecyclerView.Adapter<ListItemAdapter.ViewHo
 		holder.name.setText(listItem.getName());
 		holder.price.setText(String.valueOf(listItem.getPrice()));
 		holder.view.setTag(listItem.getID());
+
+		new DownloadImageTask(holder.image).execute(listItem.getImageURL());
 	}
 
 	@Override
