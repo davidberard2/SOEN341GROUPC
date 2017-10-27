@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:android="http://schemas.android.com/tools">
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
@@ -6,6 +6,12 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+
+
+    </style>
+    <style name="ActionButtonStyle" parent="Widget.Design.BottomNavigationView">
+        <!-- Style for modifying the bottom navigation bar-->
+        <item name="android:color">#ffffff</item>
     </style>
 
 </resources>

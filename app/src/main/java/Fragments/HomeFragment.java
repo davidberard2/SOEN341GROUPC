@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
@@ -38,11 +39,11 @@ public class HomeFragment extends Fragment {
 	private ListItemAdapter mAdapter;
 	private boolean isViewFiltered;
 	private String filterString;
-
+	MenuItem loginLogout;
 	// Fragment View
 	private Context context;
 
-//	MenuItem fav;  //Commented out until we use it.
+	MenuItem login_logout;  //Commented out until we use it.
 
 	DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
 	DatabaseReference itemsRef = rootRef.child("Items");
@@ -171,7 +172,14 @@ public class HomeFragment extends Fragment {
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		return false;
+
+		Fragment newFragment = new SettingsFragment();
+		FragmentTransaction transaction = getFragmentManager().beginTransaction();
+		transaction.replace(R.id.frame_layout, newFragment);
+		transaction.addToBackStack(null);
+		transaction.commit();
+
+		return true;
 	}
 
 	@Override
