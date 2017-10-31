@@ -17,7 +17,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -45,27 +44,25 @@ import java.io.File;
 import Tasks.DownloadImageTask;
 
 import static android.app.Activity.RESULT_OK;
-import static com.projectfirebase.soen341.root.R.id.logInB;
-import static com.projectfirebase.soen341.root.R.id.signUpB;
 
 public class ProfileFragment extends Fragment {
     View view;
 
-    private TextView name_et;
+    private TextView first_name_et;
+    private TextView last_name_et;
     private TextView email_et;
     private TextView phoneNumber_et;
-
-    private TextView loggedOut_tv;
-    private Button login_b;
-    private Button signup_b;
 
     private TextView ZIP_et;
     private ImageView photo_iv;
 
     private ImageButton updatePhoto_ib;
 
-    private String name;
+    private String firstName;
+    private String lastName;
     private String email;
+    private String phoneNumber;
+    private String postalCode;
     private Uri photoUrl;
 
     private FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -94,7 +91,6 @@ public class ProfileFragment extends Fragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
     }
 
@@ -107,7 +103,6 @@ public class ProfileFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
         getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_profile, container, false);
@@ -127,16 +122,14 @@ public class ProfileFragment extends Fragment {
         saveMenuItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem menuItem) {
-                updateName();
+                // updateName();
                 updateEmail();
                 return true;
             }
         });
-        settingsMenuItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener()
-        {
+        settingsMenuItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
-            public boolean onMenuItemClick(MenuItem menuItem)
-            {
+            public boolean onMenuItemClick(MenuItem menuItem) {
                 Fragment newFragment = new SettingsFragment();
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
                 transaction.replace(R.id.frame_layout, newFragment);
@@ -147,6 +140,7 @@ public class ProfileFragment extends Fragment {
         });
     }
 
+    // Not currently used
     private void updatePhoto() {
         // TODO: Select photo from user's local storage after Issue #26
         UserProfileChangeRequest updatePhoto = new UserProfileChangeRequest.Builder()
@@ -161,28 +155,6 @@ public class ProfileFragment extends Fragment {
                 }
             }
         });
-    }
-
-    private void updateName() {
-        if (name_et.getText().toString().trim().equals("")) {
-            Toast.makeText(view.getContext(), "Name is invalid", Toast.LENGTH_SHORT).show();
-        } else {
-            name = name_et.getText().toString();
-            UserProfileChangeRequest updateName = new UserProfileChangeRequest.Builder()
-                    .setDisplayName(name)
-                    .build();
-
-            user.updateProfile(updateName).addOnCompleteListener(new OnCompleteListener<Void>() {
-                @Override
-                public void onComplete(@NonNull Task<Void> task) {
-                    if (task.isSuccessful()) {
-                        Log.d("USER_UPDATE", "User profile name updated.");
-                    } else {
-                        Toast.makeText(view.getContext(), "Name update error", Toast.LENGTH_SHORT).show();
-                    }
-                }
-            });
-        }
     }
 
     // TODO: Only Gmail updates go through, possibly fix?
@@ -209,12 +181,11 @@ public class ProfileFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         try {
-
             if (requestCode == IMG_RESULT && resultCode == RESULT_OK
                     && null != data && user != null) {
 
                 Uri URI = data.getData();
-                String[] FILE = { MediaStore.Images.Media.DATA };
+                String[] FILE = {MediaStore.Images.Media.DATA};
 
                 Cursor cursor = getContext().getContentResolver().query(URI,
                         FILE, null, null, null);
@@ -227,7 +198,7 @@ public class ProfileFragment extends Fragment {
 
                /* photo_iv.setImageBitmap(BitmapFactory
                         .decodeFile(ImageDecode));*/
-               // Toast.makeText(getActivity(), ImageDecode, Toast.LENGTH_LONG).show();
+                // Toast.makeText(getActivity(), ImageDecode, Toast.LENGTH_LONG).show();
 
                 Uri file = Uri.fromFile(new File(imageDecode));
                 StorageReference riversRef = storageRef.child(user.getUid());
@@ -240,10 +211,10 @@ public class ProfileFragment extends Fragment {
 
                                 if (user != null) {
                                     myUID = myUser.child(user.getUid());
-                                   // Toast.makeText(getActivity(), "CHECK 3", Toast.LENGTH_LONG).show();
+                                    // Toast.makeText(getActivity(), "CHECK 3", Toast.LENGTH_LONG).show();
 
                                     myUID.child("ImageURL").setValue(downloadUrl.toString());
-                                   // Toast.makeText(getActivity(), "CHECK 4", Toast.LENGTH_LONG).show();
+                                    // Toast.makeText(getActivity(), "CHECK 4", Toast.LENGTH_LONG).show();
                                 }
 
                                 Toast.makeText(getActivity(), "Successfully uploaded!", Toast.LENGTH_LONG).show();
@@ -262,70 +233,52 @@ public class ProfileFragment extends Fragment {
             Toast.makeText(getActivity(), "Please try again", Toast.LENGTH_LONG)
                     .show();
         }
-
     }
 
     public void setAuthStateListener(View view) {
-    // Initialize controls
-        name_et = (TextView) view.findViewById(R.id.profile_name);
+        // Initialize controls
+        first_name_et = (TextView) view.findViewById(R.id.profile_first_name);
+        last_name_et = (TextView) view.findViewById(R.id.profile_last_name);
         email_et = (TextView) view.findViewById(R.id.profile_email);
         phoneNumber_et = (TextView) view.findViewById(R.id.profile_phone_number);
         ZIP_et = (TextView) view.findViewById(R.id.profile_zip);
         photo_iv = (ImageView) view.findViewById(R.id.profile_photo);
         updatePhoto_ib = (ImageButton) view.findViewById(R.id.profile_update_photo);
 
-        loggedOut_tv = (TextView) view.findViewById(R.id.logged_out);
-        login_b = (Button)view.findViewById(logInB);
-        signup_b = (Button)view.findViewById(signUpB);
-
-    // Set onClick listener to Update Photo button
+        // Set onClick listener to Update Photo button
         updatePhoto_ib.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View v) {
-
                 intent = new Intent(Intent.ACTION_PICK,
                         android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-
                 startActivityForResult(intent, IMG_RESULT);
-
             }
         });
 
-    // SET Auth State Listener
+        // SET Auth State Listener
         authListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                if(authRef.getCurrentUser() != null) {
+                if (authRef.getCurrentUser() != null) {
                     // Display menu save option
                     setHasOptionsMenu(true);
 
-                    name = authRef.getCurrentUser().getDisplayName();
+                    // name = authRef.getCurrentUser().getDisplayName();
+                    // if (name != null) { name_et.setText(name); }
                     email = authRef.getCurrentUser().getEmail();
                     //photoUrl = user.getPhotoUrl();
 
-                /*if (name != null) {
-                    name_et.setText(name);
-                }*/
-
                     // TODO: Check if user's email is verified?
                     email_et.setText(email);
+                    //if (photoUrl != null) { new DownloadImageTask(photo_iv).execute(photoUrl.toString()); }
 
-               /* if (photoUrl != null) {
-                    new DownloadImageTask(photo_iv).execute(photoUrl.toString());
-                }*/
-
-                    name_et.setVisibility(View.VISIBLE);
+                    first_name_et.setVisibility(View.VISIBLE);
+                    last_name_et.setVisibility(View.VISIBLE);
                     email_et.setVisibility(View.VISIBLE);
                     phoneNumber_et.setVisibility(View.VISIBLE);
                     photo_iv.setVisibility(View.VISIBLE);
-
-
-                    loggedOut_tv.setVisibility(View.GONE);
-                    login_b.setVisibility(View.GONE);
-                    signup_b.setVisibility(View.GONE);
-
                     ZIP_et.setVisibility(View.VISIBLE);
+
                     updatePhoto_ib.setVisibility(View.VISIBLE);
                     /*updatePhoto_ib.setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -334,44 +287,32 @@ public class ProfileFragment extends Fragment {
                         }
                     });*/
 
-                // SET Data Listener
+                    // SET Data Listener
                     myUID = myUser.child(authRef.getCurrentUser().getUid());
                     myUID.addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             String imgUrl = dataSnapshot.child("ImageURL").getValue(String.class);
-                            //Toast.makeText(getActivity(), "OnStart " + imgUrl, Toast.LENGTH_LONG).show();
-                            if(imgUrl != null)
+                            if (imgUrl != null)
                                 new DownloadImageTask(photo_iv).execute(imgUrl);
 
-                            String name = dataSnapshot.child("FirstName").getValue(String.class) + " " + dataSnapshot.child("LastName").getValue(String.class);
-                            name_et.setText(name);
+                            firstName = dataSnapshot.child("FirstName").getValue(String.class);
+                            first_name_et.setText(firstName);
 
-                            String phoneNbr = dataSnapshot.child("PhoneNumber").getValue(String.class);
-                            phoneNumber_et.setText(phoneNbr);
+                            lastName = dataSnapshot.child("LastName").getValue(String.class);
+                            first_name_et.setText(lastName);
 
-                            String ZIP = dataSnapshot.child("ZIPCode").getValue(String.class);
-                            ZIP_et.setText(ZIP);
+                            phoneNumber = dataSnapshot.child("PhoneNumber").getValue(String.class);
+                            phoneNumber_et.setText(phoneNumber);
+
+                            postalCode = dataSnapshot.child("ZIPCode").getValue(String.class);
+                            ZIP_et.setText(postalCode);
                         }
 
                         @Override
-                        public void onCancelled(DatabaseError databaseError) {}
+                        public void onCancelled(DatabaseError databaseError) {
+                        }
                     });
-                }
-                else {
-                    name_et.setVisibility(View.GONE);
-                    email_et.setVisibility(View.GONE);
-                    phoneNumber_et.setVisibility(View.GONE);
-                    photo_iv.setVisibility(View.GONE);
-                    ZIP_et.setVisibility(View.GONE);
-                    updatePhoto_ib.setVisibility(View.GONE);
-
-                    loggedOut_tv.setVisibility(View.VISIBLE);
-                    signup_b.setVisibility(View.VISIBLE);
-                    login_b.setVisibility(View.VISIBLE);
-
-                    updatePhoto_ib.setVisibility(View.GONE);
-
                 }
             }
         };

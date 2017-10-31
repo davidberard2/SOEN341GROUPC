@@ -16,11 +16,13 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import Fragments.FavoriteFragment;
 import Fragments.HomeFragment;
 import Fragments.ItemDescriptionFragment;
 import Fragments.ProfileFragment;
+import Fragments.ProfileLoginFragment;
 import Fragments.SearchFragment;
 import Fragments.AdditionFragment;
 
@@ -28,8 +30,8 @@ public class MainActivity extends AppCompatActivity {
     Button logInB;
     Button logOutB;
     Button signUpB;
-    String testID;
-    Menu mainMenu;
+
+    FirebaseAuth authRef = FirebaseAuth.getInstance();
 
     @RequiresApi(api = Build.VERSION_CODES.GINGERBREAD)
 	@Override
@@ -61,7 +63,10 @@ public class MainActivity extends AppCompatActivity {
                                 selectedFragment = AdditionFragment.newInstance();
                                 break;
                             case R.id.action_profile:
-                                selectedFragment = ProfileFragment.newInstance();
+                                if (authRef.getCurrentUser() != null)
+                                    selectedFragment = ProfileFragment.newInstance();
+                                else
+                                    selectedFragment = ProfileLoginFragment.newInstance();
                                 break;
                             case R.id.action_favorite:
                                 selectedFragment = FavoriteFragment.newInstance();
