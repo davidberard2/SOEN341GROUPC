@@ -122,8 +122,9 @@ public class ProfileFragment extends Fragment {
         saveMenuItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem menuItem) {
-                // updateName();
+                updateName();
                 updateEmail();
+                // TODO: Update the rest of the profile changes
                 return true;
             }
         });
@@ -157,20 +158,34 @@ public class ProfileFragment extends Fragment {
         });
     }
 
+    private void updateName() {
+        if (first_name_et.getText().toString().trim().equals("") || last_name_et.getText().toString().trim().equals("")) {
+            Toast.makeText(view.getContext(), "Name field is invalid", Toast.LENGTH_SHORT).show();
+        }
+        else if (!first_name_et.getText().toString().trim().equals(firstName) || !last_name_et.getText().toString().trim().equals(lastName)) {
+            firstName = first_name_et.getText().toString().trim();
+            lastName = last_name_et.getText().toString().trim();
+
+            myUID.child("FirstName").setValue(firstName);
+            myUID.child("LastName").setValue(lastName);
+        }
+    }
+
     // TODO: Only Gmail updates go through, possibly fix?
     private void updateEmail() {
         if (email_et.getText().toString().trim().equals("")) {
             Toast.makeText(view.getContext(), "Email is invalid", Toast.LENGTH_SHORT).show();
-        } else {
-            email = email_et.getText().toString();
+        }
+        else if (!email_et.getText().toString().trim().equals(email)){
+            email = email_et.getText().toString().trim();
             user.updateEmail(email)
                     .addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             if (task.isSuccessful()) {
-                                Log.d("USER_UPDATE", "User email updated.");
+                                Log.d("USER_EMAIL_UPDATE", "User email updated.");
                             } else {
-                                Toast.makeText(view.getContext(), "Email update error", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(view.getContext(), "Email update error.", Toast.LENGTH_SHORT).show();
                             }
                         }
                     });
@@ -181,9 +196,7 @@ public class ProfileFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         try {
-            if (requestCode == IMG_RESULT && resultCode == RESULT_OK
-                    && null != data && user != null) {
-
+            if (requestCode == IMG_RESULT && resultCode == RESULT_OK && data != null && user != null) {
                 Uri URI = data.getData();
                 String[] FILE = {MediaStore.Images.Media.DATA};
 
@@ -224,14 +237,12 @@ public class ProfileFragment extends Fragment {
                             @Override
                             public void onFailure(@NonNull Exception exception) {
                                 // Handle unsuccessful uploads
-                                // ...
                                 Toast.makeText(getActivity(), "Failed to upload! Check app permissions!", Toast.LENGTH_LONG).show();
                             }
                         });
             }
         } catch (Exception e) {
-            Toast.makeText(getActivity(), "Please try again", Toast.LENGTH_LONG)
-                    .show();
+            Toast.makeText(getActivity(), "Please try again", Toast.LENGTH_LONG).show();
         }
     }
 
@@ -263,15 +274,11 @@ public class ProfileFragment extends Fragment {
                     // Display menu save option
                     setHasOptionsMenu(true);
 
-                    // name = authRef.getCurrentUser().getDisplayName();
-                    // if (name != null) { name_et.setText(name); }
                     email = authRef.getCurrentUser().getEmail();
                     //photoUrl = user.getPhotoUrl();
-
                     // TODO: Check if user's email is verified?
                     email_et.setText(email);
                     //if (photoUrl != null) { new DownloadImageTask(photo_iv).execute(photoUrl.toString()); }
-
                     first_name_et.setVisibility(View.VISIBLE);
                     last_name_et.setVisibility(View.VISIBLE);
                     email_et.setVisibility(View.VISIBLE);
@@ -300,7 +307,7 @@ public class ProfileFragment extends Fragment {
                             first_name_et.setText(firstName);
 
                             lastName = dataSnapshot.child("LastName").getValue(String.class);
-                            first_name_et.setText(lastName);
+                            last_name_et.setText(lastName);
 
                             phoneNumber = dataSnapshot.child("PhoneNumber").getValue(String.class);
                             phoneNumber_et.setText(phoneNumber);
