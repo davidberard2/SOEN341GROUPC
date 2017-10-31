@@ -49,10 +49,8 @@ import static com.projectfirebase.soen341.root.R.id.logInB;
 import static com.projectfirebase.soen341.root.R.id.signUpB;
 
 public class ProfileFragment extends Fragment {
-
     View view;
 
-    // TODO:  Refactor to abide by name conventions
     private TextView name_et;
     private TextView email_et;
     private TextView phoneNumber_et;
@@ -65,8 +63,6 @@ public class ProfileFragment extends Fragment {
     private ImageView photo_iv;
 
     private ImageButton updatePhoto_ib;
-    Button update_ib;
-
 
     private String name;
     private String email;
@@ -83,11 +79,9 @@ public class ProfileFragment extends Fragment {
     FirebaseAuth authRef = FirebaseAuth.getInstance();
     FirebaseAuth.AuthStateListener authListener;
 
-
     //Image upload variable
-    private static int IMG_RESULT = 1;
-    Intent intent;
-    String ImageDecode;
+    private static final int IMG_RESULT = 1;
+    private Intent intent;
     private StorageReference storageRef = FirebaseStorage.getInstance("gs://projectfirebase-9323d.appspot.com").getReference();
 
     public ProfileFragment() {
@@ -95,8 +89,7 @@ public class ProfileFragment extends Fragment {
     }
 
     public static ProfileFragment newInstance() {
-        ProfileFragment fragment = new ProfileFragment();
-        return fragment;
+        return new ProfileFragment();
     }
 
     @Override
@@ -156,7 +149,7 @@ public class ProfileFragment extends Fragment {
 
     private void updatePhoto() {
         // TODO: Select photo from user's local storage after Issue #26
-        /*UserProfileChangeRequest updatePhoto = new UserProfileChangeRequest.Builder()
+        UserProfileChangeRequest updatePhoto = new UserProfileChangeRequest.Builder()
                 .setPhotoUri(Uri.parse("https://firebasestorage.googleapis.com/v0/b/projectfirebase-9323d.appspot.com/o/test_profile_photo.jpg?alt=media&token=8653a2a4-37e4-4534-a9b0-3de3c54f14c2"))
                 .build();
 
@@ -167,7 +160,7 @@ public class ProfileFragment extends Fragment {
                     Log.d("USER_UPDATE", "User profile photo updated.");
                 }
             }
-        });*/
+        });
     }
 
     private void updateName() {
@@ -220,10 +213,8 @@ public class ProfileFragment extends Fragment {
             if (requestCode == IMG_RESULT && resultCode == RESULT_OK
                     && null != data && user != null) {
 
-
                 Uri URI = data.getData();
                 String[] FILE = { MediaStore.Images.Media.DATA };
-
 
                 Cursor cursor = getContext().getContentResolver().query(URI,
                         FILE, null, null, null);
@@ -231,14 +222,14 @@ public class ProfileFragment extends Fragment {
                 cursor.moveToFirst();
 
                 int columnIndex = cursor.getColumnIndex(FILE[0]);
-                ImageDecode = cursor.getString(columnIndex);
+                String imageDecode = cursor.getString(columnIndex);
                 cursor.close();
 
                /* photo_iv.setImageBitmap(BitmapFactory
                         .decodeFile(ImageDecode));*/
                // Toast.makeText(getActivity(), ImageDecode, Toast.LENGTH_LONG).show();
 
-                Uri file = Uri.fromFile(new File(ImageDecode));
+                Uri file = Uri.fromFile(new File(imageDecode));
                 StorageReference riversRef = storageRef.child(user.getUid());
                 riversRef.putFile(file)
                         .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
@@ -286,10 +277,9 @@ public class ProfileFragment extends Fragment {
         loggedOut_tv = (TextView) view.findViewById(R.id.logged_out);
         login_b = (Button)view.findViewById(logInB);
         signup_b = (Button)view.findViewById(signUpB);
-        update_ib = (Button) view.findViewById(R.id.button2);
 
     // Set onClick listener to Update Photo button
-        update_ib.setOnClickListener(new View.OnClickListener() {
+        updatePhoto_ib.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
@@ -336,14 +326,13 @@ public class ProfileFragment extends Fragment {
                     signup_b.setVisibility(View.GONE);
 
                     ZIP_et.setVisibility(View.VISIBLE);
-                    updatePhoto_ib.setVisibility(View.GONE);
-                    update_ib.setVisibility(View.VISIBLE);
-                    updatePhoto_ib.setOnClickListener(new View.OnClickListener() {
+                    updatePhoto_ib.setVisibility(View.VISIBLE);
+                    /*updatePhoto_ib.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
                             updatePhoto();
                         }
-                    });
+                    });*/
 
                 // SET Data Listener
                     myUID = myUser.child(authRef.getCurrentUser().getUid());
@@ -381,7 +370,7 @@ public class ProfileFragment extends Fragment {
                     signup_b.setVisibility(View.VISIBLE);
                     login_b.setVisibility(View.VISIBLE);
 
-                    update_ib.setVisibility(View.GONE);
+                    updatePhoto_ib.setVisibility(View.GONE);
 
                 }
             }
