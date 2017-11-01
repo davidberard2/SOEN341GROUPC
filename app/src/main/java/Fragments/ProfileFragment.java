@@ -52,8 +52,7 @@ public class ProfileFragment extends Fragment {
     private TextView last_name_et;
     private TextView email_et;
     private TextView phoneNumber_et;
-
-    private TextView ZIP_et;
+    private TextView zip_et;
     private ImageView photo_iv;
 
     private ImageButton updatePhoto_ib;
@@ -164,9 +163,9 @@ public class ProfileFragment extends Fragment {
         }
         else if (!first_name_et.getText().toString().trim().equals(firstName) || !last_name_et.getText().toString().trim().equals(lastName)) {
             firstName = first_name_et.getText().toString().trim();
-            lastName = last_name_et.getText().toString().trim();
-
             myUID.child("FirstName").setValue(firstName);
+
+            lastName = last_name_et.getText().toString().trim();
             myUID.child("LastName").setValue(lastName);
         }
     }
@@ -189,6 +188,22 @@ public class ProfileFragment extends Fragment {
                             }
                         }
                     });
+        }
+    }
+
+    // Do we want to allow people to remove their phone numbers?
+    private void updatePhoneNumber() {
+        if (!phoneNumber_et.getText().toString().trim().equals(phoneNumber)) {
+            phoneNumber = phoneNumber_et.getText().toString().trim();
+            myUID.child("PhoneNumber").setValue(phoneNumber);
+        }
+    }
+
+    // Do we want to allow people to remove their postal codes?
+    private void updatePostalCode() {
+        if (!zip_et.getText().toString().trim().equals(postalCode)) {
+            postalCode = zip_et.getText().toString().trim();
+            myUID.child("ZIPCode").setValue(postalCode);
         }
     }
 
@@ -252,7 +267,7 @@ public class ProfileFragment extends Fragment {
         last_name_et = (TextView) view.findViewById(R.id.profile_last_name);
         email_et = (TextView) view.findViewById(R.id.profile_email);
         phoneNumber_et = (TextView) view.findViewById(R.id.profile_phone_number);
-        ZIP_et = (TextView) view.findViewById(R.id.profile_zip);
+        zip_et = (TextView) view.findViewById(R.id.profile_zip);
         photo_iv = (ImageView) view.findViewById(R.id.profile_photo);
         updatePhoto_ib = (ImageButton) view.findViewById(R.id.profile_update_photo);
 
@@ -284,7 +299,7 @@ public class ProfileFragment extends Fragment {
                     email_et.setVisibility(View.VISIBLE);
                     phoneNumber_et.setVisibility(View.VISIBLE);
                     photo_iv.setVisibility(View.VISIBLE);
-                    ZIP_et.setVisibility(View.VISIBLE);
+                    zip_et.setVisibility(View.VISIBLE);
 
                     updatePhoto_ib.setVisibility(View.VISIBLE);
                     /*updatePhoto_ib.setOnClickListener(new View.OnClickListener() {
@@ -313,7 +328,7 @@ public class ProfileFragment extends Fragment {
                             phoneNumber_et.setText(phoneNumber);
 
                             postalCode = dataSnapshot.child("ZIPCode").getValue(String.class);
-                            ZIP_et.setText(postalCode);
+                            zip_et.setText(postalCode);
                         }
 
                         @Override
