@@ -67,6 +67,7 @@ public class ProfileFragment extends Fragment {
 
     private MenuItem editMenuItem;
     private MenuItem saveMenuItem;
+    private MenuItem cancelMenuItem;
     private MenuItem settingsMenuItem;
 
     private FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -123,7 +124,9 @@ public class ProfileFragment extends Fragment {
     public void onPrepareOptionsMenu(Menu menu) {
         editMenuItem = menu.findItem(R.id.profile_edit_button);
         saveMenuItem = menu.findItem(R.id.profile_save_button);
+        cancelMenuItem = menu.findItem(R.id.profile_cancel_button);
         settingsMenuItem = menu.findItem(R.id.profile_settings_button);
+
         editMenuItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem menuItem) {
@@ -139,6 +142,14 @@ public class ProfileFragment extends Fragment {
                 updatePhoneNumber();
                 updatePostalCode();
 
+                toggleEditMode(false);
+                return true;
+            }
+        });
+        cancelMenuItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem menuItem) {
+                setProfileFields();
                 toggleEditMode(false);
                 return true;
             }
@@ -169,6 +180,8 @@ public class ProfileFragment extends Fragment {
             postalCode_et.setEnabled(editMode);
             editMenuItem.setVisible(!editMode);
             saveMenuItem.setVisible(editMode);
+            cancelMenuItem.setVisible(editMode);
+            settingsMenuItem.setVisible(!editMode);
 
             if (!editMode) {
                 firstName_et.clearFocus();
@@ -177,6 +190,14 @@ public class ProfileFragment extends Fragment {
                 phoneNumber_et.clearFocus();
                 postalCode_et.clearFocus();
             }
+    }
+
+    private void setProfileFields() {
+        firstName_et.setText(firstName);
+        lastName_et.setText(lastName);
+        email_et.setText(email);
+        phoneNumber_et.setText(phoneNumber);
+        postalCode_et.setText(postalCode);
     }
 
     // Not currently used
@@ -358,16 +379,11 @@ public class ProfileFragment extends Fragment {
                                 new DownloadImageTask(photo_iv).execute(imgUrl);
 
                             firstName = dataSnapshot.child("FirstName").getValue(String.class);
-                            firstName_et.setText(firstName);
-
                             lastName = dataSnapshot.child("LastName").getValue(String.class);
-                            lastName_et.setText(lastName);
-
                             phoneNumber = dataSnapshot.child("PhoneNumber").getValue(String.class);
-                            phoneNumber_et.setText(phoneNumber);
-
                             postalCode = dataSnapshot.child("ZIPCode").getValue(String.class);
-                            postalCode_et.setText(postalCode);
+
+                            setProfileFields();
                         }
 
                         @Override
