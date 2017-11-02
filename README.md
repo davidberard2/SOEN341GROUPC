@@ -4,6 +4,8 @@
 
 [View Wiki](https://github.com/davidberard2/SOEN341GROUPC/wiki)
 
+[![Build Status](https://travis-ci.org/freeCodeCamp/how-to-contribute-to-open-source.svg?branch=master)](https://travis-ci.org/freeCodeCamp/how-to-contribute-to-open-source)
+
 [![Waffle.io - Columns and their card count](https://badge.waffle.io/davidberard2/SOEN341GROUPC.svg?columns=all)](http://waffle.io/davidberard2/SOEN341GROUPC)
 
 ## INTRODUCTION
