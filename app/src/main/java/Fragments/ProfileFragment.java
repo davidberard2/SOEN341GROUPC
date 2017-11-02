@@ -9,6 +9,7 @@ import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.text.method.KeyListener;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -52,7 +53,7 @@ public class ProfileFragment extends Fragment {
     private TextView lastName_et;
     private TextView email_et;
     private TextView phoneNumber_et;
-    private TextView zip_et;
+    private TextView postalCode_et;
     private ImageView photo_iv;
 
     private ImageButton updatePhoto_ib;
@@ -63,6 +64,10 @@ public class ProfileFragment extends Fragment {
     private String phoneNumber;
     private String postalCode;
     private Uri photoUrl;
+
+    private MenuItem editMenuItem;
+    private MenuItem saveMenuItem;
+    private MenuItem settingsMenuItem;
 
     private FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
@@ -116,8 +121,16 @@ public class ProfileFragment extends Fragment {
 
     @Override
     public void onPrepareOptionsMenu(Menu menu) {
-        MenuItem saveMenuItem = menu.findItem(R.id.profile_save_button);
-        MenuItem settingsMenuItem = menu.findItem(R.id.profile_settings_button);
+        editMenuItem = menu.findItem(R.id.profile_edit_button);
+        saveMenuItem = menu.findItem(R.id.profile_save_button);
+        settingsMenuItem = menu.findItem(R.id.profile_settings_button);
+        editMenuItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem menuItem) {
+                toggleEditMode(true);
+                return true;
+            }
+        });
         saveMenuItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem menuItem) {
@@ -125,6 +138,8 @@ public class ProfileFragment extends Fragment {
                 updateEmail();
                 updatePhoneNumber();
                 updatePostalCode();
+
+                toggleEditMode(false);
                 return true;
             }
         });
@@ -139,6 +154,29 @@ public class ProfileFragment extends Fragment {
                 return true;
             }
         });
+    }
+
+    private void toggleEditMode(boolean editMode) {
+            firstName_et.setFocusableInTouchMode(editMode);
+            firstName_et.setEnabled(editMode);
+            lastName_et.setFocusableInTouchMode(editMode);
+            lastName_et.setEnabled(editMode);
+            email_et.setFocusableInTouchMode(editMode);
+            email_et.setEnabled(editMode);
+            phoneNumber_et.setFocusableInTouchMode(editMode);
+            phoneNumber_et.setEnabled(editMode);
+            postalCode_et.setFocusableInTouchMode(editMode);
+            postalCode_et.setEnabled(editMode);
+            editMenuItem.setVisible(!editMode);
+            saveMenuItem.setVisible(editMode);
+
+            if (!editMode) {
+                firstName_et.clearFocus();
+                lastName_et.clearFocus();
+                email_et.clearFocus();
+                phoneNumber_et.clearFocus();
+                postalCode_et.clearFocus();
+            }
     }
 
     // Not currently used
@@ -202,8 +240,8 @@ public class ProfileFragment extends Fragment {
 
     // Do we want to allow people to remove their postal codes?
     private void updatePostalCode() {
-        if (!zip_et.getText().toString().trim().equals(postalCode)) {
-            postalCode = zip_et.getText().toString().trim();
+        if (!postalCode_et.getText().toString().trim().equals(postalCode)) {
+            postalCode = postalCode_et.getText().toString().trim();
             myUID.child("ZIPCode").setValue(postalCode);
         }
     }
@@ -268,7 +306,7 @@ public class ProfileFragment extends Fragment {
         lastName_et = (TextView) view.findViewById(R.id.profile_last_name);
         email_et = (TextView) view.findViewById(R.id.profile_email);
         phoneNumber_et = (TextView) view.findViewById(R.id.profile_phone_number);
-        zip_et = (TextView) view.findViewById(R.id.profile_zip);
+        postalCode_et = (TextView) view.findViewById(R.id.profile_zip);
         photo_iv = (ImageView) view.findViewById(R.id.profile_photo);
         updatePhoto_ib = (ImageButton) view.findViewById(R.id.profile_update_photo);
 
@@ -300,7 +338,7 @@ public class ProfileFragment extends Fragment {
                     email_et.setVisibility(View.VISIBLE);
                     phoneNumber_et.setVisibility(View.VISIBLE);
                     photo_iv.setVisibility(View.VISIBLE);
-                    zip_et.setVisibility(View.VISIBLE);
+                    postalCode_et.setVisibility(View.VISIBLE);
 
                     updatePhoto_ib.setVisibility(View.VISIBLE);
                     /*updatePhoto_ib.setOnClickListener(new View.OnClickListener() {
@@ -329,7 +367,7 @@ public class ProfileFragment extends Fragment {
                             phoneNumber_et.setText(phoneNumber);
 
                             postalCode = dataSnapshot.child("ZIPCode").getValue(String.class);
-                            zip_et.setText(postalCode);
+                            postalCode_et.setText(postalCode);
                         }
 
                         @Override

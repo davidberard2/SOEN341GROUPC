@@ -4,6 +4,7 @@
 
 
     <item
+        android:id="@+id/profile_edit_button"
         android:icon="@drawable/ic_edit_white_24dp"
         android:title="Item"
         app:showAsAction="always" />
