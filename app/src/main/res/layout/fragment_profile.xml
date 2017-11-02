@@ -1,32 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<ScrollView
-    android:layout_height="match_parent"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="match_parent">
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <ImageView
+        <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/profile_photo"
-            android:focusable="true"
-            android:focusableInTouchMode="true"
             android:layout_width="125dp"
             android:layout_height="125dp"
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
             android:layout_marginTop="18dp"
-            android:scaleType="centerCrop"
-            android:adjustViewBounds="true"
             android:contentDescription="@string/profile_photo"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:src="@drawable/default_photo"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/default_photo" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageButton
             android:id="@+id/profile_update_photo"
@@ -56,13 +53,13 @@
                 android:id="@+id/profile_first_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:nextFocusUp="@id/profile_first_name_input"
-                android:nextFocusLeft="@id/profile_first_name_input"
+                android:enabled="false"
                 android:hint="@string/profile_first_name"
                 android:importantForAutofill="noExcludeDescendants"
-                android:enabled="false"
-                android:textColor="@drawable/edit_text_selector"
-                android:inputType="textPersonName" />
+                android:inputType="textPersonName"
+                android:nextFocusLeft="@id/profile_first_name_input"
+                android:nextFocusUp="@id/profile_first_name_input"
+                android:textColor="@drawable/edit_text_selector" />
 
         </android.support.design.widget.TextInputLayout>
 
@@ -82,11 +79,11 @@
                 android:id="@+id/profile_last_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:enabled="false"
                 android:hint="@string/profile_last_name"
                 android:importantForAutofill="noExcludeDescendants"
-                android:enabled="false"
-                android:textColor="@drawable/edit_text_selector"
-                android:inputType="textPersonName" />
+                android:inputType="textPersonName"
+                android:textColor="@drawable/edit_text_selector" />
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
@@ -105,11 +102,11 @@
                 android:id="@+id/profile_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:enabled="false"
                 android:hint="@string/profile_email"
                 android:importantForAutofill="noExcludeDescendants"
-                android:enabled="false"
-                android:textColor="@drawable/edit_text_selector"
-                android:inputType="textEmailAddress" />
+                android:inputType="textEmailAddress"
+                android:textColor="@drawable/edit_text_selector" />
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
@@ -130,11 +127,11 @@
                 android:id="@+id/profile_phone_number"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:enabled="false"
                 android:hint="@string/profile_phone_number"
                 android:importantForAutofill="noExcludeDescendants"
-                android:enabled="false"
-                android:textColor="@drawable/edit_text_selector"
-                android:inputType="phone" />
+                android:inputType="phone"
+                android:textColor="@drawable/edit_text_selector" />
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
@@ -153,11 +150,11 @@
                 android:id="@+id/profile_zip"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:enabled="false"
                 android:hint="@string/profile_postal_code"
                 android:importantForAutofill="noExcludeDescendants"
-                android:enabled="false"
-                android:textColor="@drawable/edit_text_selector"
-                android:inputType="textCapWords" />
+                android:inputType="textCapWords"
+                android:textColor="@drawable/edit_text_selector" />
         </android.support.design.widget.TextInputLayout>
     </android.support.constraint.ConstraintLayout>
 </ScrollView>
