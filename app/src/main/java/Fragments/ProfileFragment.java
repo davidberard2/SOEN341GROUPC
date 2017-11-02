@@ -48,8 +48,8 @@ import static android.app.Activity.RESULT_OK;
 public class ProfileFragment extends Fragment {
     View view;
 
-    private TextView first_name_et;
-    private TextView last_name_et;
+    private TextView firstName_et;
+    private TextView lastName_et;
     private TextView email_et;
     private TextView phoneNumber_et;
     private TextView zip_et;
@@ -81,7 +81,7 @@ public class ProfileFragment extends Fragment {
     private StorageReference storageRef = FirebaseStorage.getInstance("gs://projectfirebase-9323d.appspot.com").getReference();
 
     public ProfileFragment() {
-        // Required empty public constructor
+        // Required empty default constructor
     }
 
     public static ProfileFragment newInstance() {
@@ -123,7 +123,8 @@ public class ProfileFragment extends Fragment {
             public boolean onMenuItemClick(MenuItem menuItem) {
                 updateName();
                 updateEmail();
-                // TODO: Update the rest of the profile changes
+                updatePhoneNumber();
+                updatePostalCode();
                 return true;
             }
         });
@@ -158,14 +159,14 @@ public class ProfileFragment extends Fragment {
     }
 
     private void updateName() {
-        if (first_name_et.getText().toString().trim().equals("") || last_name_et.getText().toString().trim().equals("")) {
+        if (firstName_et.getText().toString().trim().equals("") || lastName_et.getText().toString().trim().equals("")) {
             Toast.makeText(view.getContext(), "Name field is invalid", Toast.LENGTH_SHORT).show();
         }
-        else if (!first_name_et.getText().toString().trim().equals(firstName) || !last_name_et.getText().toString().trim().equals(lastName)) {
-            firstName = first_name_et.getText().toString().trim();
+        else if (!firstName_et.getText().toString().trim().equals(firstName) || !lastName_et.getText().toString().trim().equals(lastName)) {
+            firstName = firstName_et.getText().toString().trim();
             myUID.child("FirstName").setValue(firstName);
 
-            lastName = last_name_et.getText().toString().trim();
+            lastName = lastName_et.getText().toString().trim();
             myUID.child("LastName").setValue(lastName);
         }
     }
@@ -263,8 +264,8 @@ public class ProfileFragment extends Fragment {
 
     public void setAuthStateListener(View view) {
         // Initialize controls
-        first_name_et = (TextView) view.findViewById(R.id.profile_first_name);
-        last_name_et = (TextView) view.findViewById(R.id.profile_last_name);
+        firstName_et = (TextView) view.findViewById(R.id.profile_first_name);
+        lastName_et = (TextView) view.findViewById(R.id.profile_last_name);
         email_et = (TextView) view.findViewById(R.id.profile_email);
         phoneNumber_et = (TextView) view.findViewById(R.id.profile_phone_number);
         zip_et = (TextView) view.findViewById(R.id.profile_zip);
@@ -294,8 +295,8 @@ public class ProfileFragment extends Fragment {
                     // TODO: Check if user's email is verified?
                     email_et.setText(email);
                     //if (photoUrl != null) { new DownloadImageTask(photo_iv).execute(photoUrl.toString()); }
-                    first_name_et.setVisibility(View.VISIBLE);
-                    last_name_et.setVisibility(View.VISIBLE);
+                    firstName_et.setVisibility(View.VISIBLE);
+                    lastName_et.setVisibility(View.VISIBLE);
                     email_et.setVisibility(View.VISIBLE);
                     phoneNumber_et.setVisibility(View.VISIBLE);
                     photo_iv.setVisibility(View.VISIBLE);
@@ -319,10 +320,10 @@ public class ProfileFragment extends Fragment {
                                 new DownloadImageTask(photo_iv).execute(imgUrl);
 
                             firstName = dataSnapshot.child("FirstName").getValue(String.class);
-                            first_name_et.setText(firstName);
+                            firstName_et.setText(firstName);
 
                             lastName = dataSnapshot.child("LastName").getValue(String.class);
-                            last_name_et.setText(lastName);
+                            lastName_et.setText(lastName);
 
                             phoneNumber = dataSnapshot.child("PhoneNumber").getValue(String.class);
                             phoneNumber_et.setText(phoneNumber);

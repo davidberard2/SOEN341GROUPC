@@ -4,9 +4,14 @@
 
 
     <item
-        android:id="@+id/profile_save_button"
-        android:icon="@android:drawable/ic_menu_save"
+        android:icon="@drawable/ic_edit_white_24dp"
         android:title="Item"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/profile_save_button"
+        android:icon="@drawable/ic_check_white_24dp"
+        android:title="Item"
+        android:visible="false"
         app:showAsAction="always" />
     <item
         android:id="@+id/profile_settings_button"

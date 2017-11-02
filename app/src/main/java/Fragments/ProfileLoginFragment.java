@@ -24,7 +24,7 @@ public class ProfileLoginFragment extends Fragment {
     FirebaseAuth.AuthStateListener authListener;
 
     public ProfileLoginFragment() {
-        // Required empty public constructor
+        // Required empty default constructor
     }
 
     public static ProfileLoginFragment newInstance() {
@@ -37,8 +37,7 @@ public class ProfileLoginFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_profile_login, container, false);
         setAuthStateListener(view);
         return view;
