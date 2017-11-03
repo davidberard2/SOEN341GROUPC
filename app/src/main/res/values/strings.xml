@@ -32,4 +32,8 @@
     <string name="profile_postal_code">Postal Code</string>
     <string name="profile_photo">This is your profile photo.</string>
     <string name="profile_update_photo">Update your profile photo.</string>
+  
+    <!-- Favorite details -->
+    <string name="no_favorites">You have no favorites!</string>
+
 </resources>
