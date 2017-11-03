@@ -1,188 +1,160 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
-    <TextView
-        android:id ="@+id/logged_out"
-        android:layout_width="wrap_content"
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:includeFontPadding="false"
-        android:textAlignment="center"
-        android:text="@string/logged_out"
-        android:layout_marginTop="92dp"
-        app:layout_constraintHorizontal_bias="0.503"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/profile_photo"
-        />
+        android:orientation="vertical">
 
-    <ImageView
-        android:id="@+id/profile_photo"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginTop="18dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/default_photo" />
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/profile_photo"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="18dp"
+            android:contentDescription="@string/profile_photo"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:src="@drawable/default_photo"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageButton
-        android:id="@+id/profile_update_photo"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:background="@android:color/transparent"
-        app:layout_constraintBottom_toBottomOf="@+id/profile_photo"
-        app:layout_constraintRight_toRightOf="@+id/profile_photo"
-        app:srcCompat="@android:drawable/ic_menu_camera"
-        android:layout_marginRight="-40dp"
-        android:layout_marginBottom="-21dp" />
+        <ImageButton
+            android:id="@+id/profile_update_photo"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginBottom="-21dp"
+            android:layout_marginEnd="-40dp"
+            android:background="@drawable/circular_bg"
+            android:contentDescription="@string/profile_update_photo"
+            app:layout_constraintBottom_toBottomOf="@+id/profile_photo"
+            app:layout_constraintRight_toRightOf="@+id/profile_photo"
+            app:srcCompat="@drawable/ic_photo_camera_white_24dp" />
 
-    <android.support.design.widget.TextInputLayout
-        android:id="@+id/profile_name_input"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginTop="12dp"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/profile_photo"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp">
-
-        <EditText
-            android:id="@+id/profile_name"
-            android:layout_width="match_parent"
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/profile_first_name_input"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:hint="@string/profile_name"
-            android:importantForAutofill="noExcludeDescendants"
-            android:inputType="textPersonName"/>
-    </android.support.design.widget.TextInputLayout>
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="28dp"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/profile_photo">
 
-    <android.support.design.widget.TextInputLayout
-        android:id="@+id/profile_email_input"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginTop="15dp"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/profile_name_input"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp">
+            <EditText
+                android:id="@+id/profile_first_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:enabled="false"
+                android:hint="@string/profile_first_name"
+                android:importantForAutofill="noExcludeDescendants"
+                android:inputType="textPersonName"
+                android:nextFocusLeft="@id/profile_first_name_input"
+                android:nextFocusUp="@id/profile_first_name_input"
+                android:textColor="@drawable/edit_text_selector" />
 
-        <EditText
-            android:id="@+id/profile_email"
-            android:layout_width="match_parent"
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/profile_last_name_input"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:hint="@string/profile_email"
-            android:importantForAutofill="noExcludeDescendants"
-            android:inputType="textEmailAddress" />
-    </android.support.design.widget.TextInputLayout>
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="15dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/profile_first_name_input">
 
-    <android.support.design.widget.TextInputLayout
-        android:id="@+id/profile_phone_input"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginTop="15dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/profile_email_input"
-        app:layout_constraintVertical_bias="0.011"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp">
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/profile_last_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:enabled="false"
+                android:hint="@string/profile_last_name"
+                android:importantForAutofill="noExcludeDescendants"
+                android:inputType="textPersonName"
+                android:textColor="@drawable/edit_text_selector" />
+        </android.support.design.widget.TextInputLayout>
 
-        <EditText
-            android:id="@+id/profile_phone_number"
-            android:layout_width="match_parent"
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/profile_email_input"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:hint="@string/profile_phone_number"
-            android:importantForAutofill="noExcludeDescendants"
-            android:inputType="phone" />
-    </android.support.design.widget.TextInputLayout>
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="15dp"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/profile_last_name_input">
 
+            <EditText
+                android:id="@+id/profile_email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:enabled="false"
+                android:hint="@string/profile_email"
+                android:importantForAutofill="noExcludeDescendants"
+                android:inputType="textEmailAddress"
+                android:textColor="@drawable/edit_text_selector" />
+        </android.support.design.widget.TextInputLayout>
 
-    <Button
-        android:id="@+id/signUpB"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Sign Up"
-        android:onClick="signUpMethod"
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/profile_phone_input"
+            android:layout_width="0dp"
+            android:layout_height="53dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="15dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/profile_email_input"
+            app:layout_constraintVertical_bias="0.039">
 
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="80dp"
-        android:layout_marginTop="125dp"
-        app:layout_constraintHorizontal_bias="0.849"
-        app:layout_constraintLeft_toLeftOf="parent"
+            <EditText
+                android:id="@+id/profile_phone_number"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:enabled="false"
+                android:hint="@string/profile_phone_number"
+                android:importantForAutofill="noExcludeDescendants"
+                android:inputType="phone"
+                android:textColor="@drawable/edit_text_selector" />
+        </android.support.design.widget.TextInputLayout>
 
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="0dp"
-        app:layout_constraintRight_toLeftOf="@+id/profile_photo"
-        app:layout_constraintTop_toTopOf="@+id/profile_photo" />
-
-    <Button
-        android:id="@+id/logInB"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Log in"
-        android:onClick="logInMethod"
-
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="80dp"
-        android:layout_marginTop="125dp"
-        app:layout_constraintLeft_toRightOf="@+id/profile_photo"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="0dp"
-        app:layout_constraintRight_toLeftOf="parent"
-        app:layout_constraintHorizontal_bias="0.18"
-        app:layout_constraintTop_toTopOf="@+id/profile_photo" />
-
-
-    <android.support.design.widget.TextInputLayout
-        android:id="@+id/profile_zip_input"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginTop="15dp"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/profile_phone_input"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp">
-
-        <EditText
-            android:id="@+id/profile_zip"
-            android:layout_width="match_parent"
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/profile_zip_input"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:hint="ZIP"
-            android:importantForAutofill="noExcludeDescendants"
-            android:inputType="textCapWords" />
-    </android.support.design.widget.TextInputLayout>
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="15dp"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/profile_phone_input">
 
-    <Button
-        android:id="@+id/button2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Mod. photo"
-        tools:layout_editor_absoluteY="106dp"
-        tools:layout_editor_absoluteX="276dp" />
-
-
-</android.support.constraint.ConstraintLayout>
+            <EditText
+                android:id="@+id/profile_zip"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:enabled="false"
+                android:hint="@string/profile_postal_code"
+                android:importantForAutofill="noExcludeDescendants"
+                android:inputType="textCapWords"
+                android:textColor="@drawable/edit_text_selector" />
+        </android.support.design.widget.TextInputLayout>
+    </android.support.constraint.ConstraintLayout>
+</ScrollView>
