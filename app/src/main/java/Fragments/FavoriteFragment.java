@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -40,12 +41,16 @@ public class FavoriteFragment extends Fragment {
 
 
     private ArrayList<Listing> listingsList = new ArrayList<>();
-    private List<String> favList;
+    private List<String> favList = new ArrayList<String>();
     private RecyclerView recyclerView;
     private ListItemAdapter mAdapter;
 
     private boolean isViewFiltered;
     private String filterString;
+
+    private TextView fav_message_tv;
+
+
 
 
 
@@ -53,11 +58,11 @@ public class FavoriteFragment extends Fragment {
         // Required empty public constructor
     }
 
+
     public static FavoriteFragment newInstance() {
         FavoriteFragment fragment = new FavoriteFragment();
         return fragment;
     }
-
 
 
     @Override
@@ -65,7 +70,6 @@ public class FavoriteFragment extends Fragment {
     {
         super.onCreate(savedInstanceState);
     }
-
 
 
     @Override
@@ -76,22 +80,31 @@ public class FavoriteFragment extends Fragment {
 
         if(user != null) {
             favRef = myUser.child(user.getUid());
-
-            favRef.addValueEventListener(new ValueEventListener() {
+            favRef.addListenerForSingleValueEvent(new ValueEventListener() {
 
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     String favString = dataSnapshot.child("Favorites").getValue(String.class);
-                    favList = Arrays.asList(favString.split(";"));
-
+                    if(favString != null)
+                        favList = Arrays.asList(favString.split(";"));
                 }
 
                 @Override
                 public void onCancelled(DatabaseError databaseError) {
                 }
             });
+            populateFavoritesList(view);
+        }
+        else {
+            setMessage(view, R.string.logged_out);
+        }
+        return view;
+
+    }
 
 
+    public void populateFavoritesList(View view) {
+        if(!favList.isEmpty()) {
             recyclerView = (RecyclerView) view.findViewById(R.id.fav_recycler_view);
             mAdapter = new ListItemAdapter(listingsList);
             RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
@@ -130,10 +143,14 @@ public class FavoriteFragment extends Fragment {
                 }
             });
         }
-
-        return view;
-
+        else {
+            setMessage(view, R.string.no_favorites);
+        }
     }
 
 
+    public void setMessage(View view, int messageID) {
+        fav_message_tv = (TextView) view.findViewById(R.id.fav_message);
+        fav_message_tv.setText(messageID);
+    }
 }
