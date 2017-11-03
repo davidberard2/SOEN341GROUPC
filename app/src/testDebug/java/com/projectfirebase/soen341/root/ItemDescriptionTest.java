@@ -12,9 +12,9 @@ public class ItemDescriptionTest {
     double price = 123.456;
     String description = "test";
     String url = "wabadabadingdong";
-    ItemDescription itemTest = new ItemDescription(id, name, price, description, url);
+    ItemDescription itemTest = new ItemDescription(id, name, price, url, description);
     Listing listTest = new Listing(id, name, price, url);
-    ItemDescription itemTest2 = new ItemDescription(description, listTest);
+    ItemDescription itemTest2 = new ItemDescription(listTest, description);
 
     @Test
     public void ItemDescriptionDefaultConstructorTest() {
@@ -34,7 +34,7 @@ public class ItemDescriptionTest {
         double price = 123.456;
         String description = "test";
         String url = "wabadabadingdong";
-        ItemDescription item = new ItemDescription(id, name, price, description, url);
+        ItemDescription item = new ItemDescription(id, name, price, url, description);
 
         assertEquals(item.getID(), id);
         assertEquals(item.getName(), name);
@@ -46,7 +46,7 @@ public class ItemDescriptionTest {
     @Test
     public void ItemDescriptionOtherConstructorTest(){
         String description = "test";
-        ItemDescription item = new ItemDescription(description, listTest);
+        ItemDescription item = new ItemDescription(listTest, description);
         assertEquals(item.getDescription(), description);
         assertEquals(item.getImageURL(), listTest.getImageURL());
         assertEquals(item.getName(), listTest.getName());
