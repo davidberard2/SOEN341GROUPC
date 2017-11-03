@@ -47,6 +47,7 @@ public class FavoriteFragment extends Fragment {
 
     private boolean isViewFiltered;
     private String filterString;
+    private String favString;
 
     private TextView fav_message_tv;
 
@@ -84,7 +85,7 @@ public class FavoriteFragment extends Fragment {
 
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
-                    String favString = dataSnapshot.child("Favorites").getValue(String.class);
+                    favString = dataSnapshot.child("Favorites").getValue(String.class);
                     if(favString != null)
                         favList = Arrays.asList(favString.split(";"));
                     populateFavoritesList(currentView);
@@ -103,7 +104,7 @@ public class FavoriteFragment extends Fragment {
 
 
     public void populateFavoritesList(View view) {
-        if(!favList.isEmpty()) {
+        if(!favList.isEmpty() && favString.length() > 0) {
             recyclerView = (RecyclerView) view.findViewById(R.id.fav_recycler_view);
             mAdapter = new ListItemAdapter(listingsList);
             RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
