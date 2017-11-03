@@ -31,7 +31,6 @@ public class ListItemAdapter extends RecyclerView.Adapter<ListItemAdapter.ViewHo
 	private List<Listing> listingsList;
 	private List<String> favList;
 	private String favString;
-	private View view;
 
 	private DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
 	private DatabaseReference usersRef = rootRef.child("Users");
@@ -67,7 +66,6 @@ public class ListItemAdapter extends RecyclerView.Adapter<ListItemAdapter.ViewHo
 	public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 		View itemView = LayoutInflater.from(parent.getContext())
 				.inflate(R.layout.item_list_row, parent, false);
-		this.view = itemView;
 		return new ViewHolder(itemView);
 	}
 
@@ -92,7 +90,7 @@ public class ListItemAdapter extends RecyclerView.Adapter<ListItemAdapter.ViewHo
 				favString = dataSnapshot.child("Favorites").getValue(String.class);
 				if(favString != null)
 					favList = new LinkedList<String>(Arrays.asList(favString.split(";")));
-				setFavToggle(currentHolder);
+				setFavToggle(currentHolder, favList);
 			}
 			@Override
 			public void onCancelled(DatabaseError databaseError) {
@@ -107,9 +105,9 @@ public class ListItemAdapter extends RecyclerView.Adapter<ListItemAdapter.ViewHo
 
 	public Listing getListItem(int pos){ return listingsList.get(pos); }
 
-	public void setFavToggle(final ViewHolder holder) {
+	public void setFavToggle(final ViewHolder holder, final List<String> newFavList) {
 
-		if(favList.contains(holder.id)) {
+		if(newFavList.contains(holder.id)) {
 			holder.fav.setChecked(true);
 			holder.fav.setBackgroundResource(R.drawable.ic_action_favorite);
 		}
@@ -118,24 +116,21 @@ public class ListItemAdapter extends RecyclerView.Adapter<ListItemAdapter.ViewHo
 			holder.fav.setBackgroundResource(0);
 		}
 
-		final ViewHolder currentHolder = holder;
-		final View currentView = view;
-		holder.fav.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-			@Override
-			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-				if (isChecked) {
-					currentHolder.fav.setBackgroundResource(R.drawable.ic_action_favorite);
-					if(user != null) {
+		if(user != null) {
+			holder.fav.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+				@Override
+				public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+					if (isChecked) {
+						holder.fav.setBackgroundResource(R.drawable.ic_action_favorite);
 						usersRef.child(user.getUid()).child("Favorites").setValue(favString + ";" + holder.id.toString());
+					} else {
+						holder.fav.setBackgroundResource(0);
+						newFavList.remove(newFavList.indexOf(holder.id.toString()));
+						usersRef.child(user.getUid()).child("Favorites").setValue(android.text.TextUtils.join(";", newFavList));
 					}
-				}
-				else {
-					currentHolder.fav.setBackgroundResource(0);
-					favList.remove(favList.indexOf(holder.id.toString()));
-					usersRef.child(user.getUid()).child("Favorites").setValue(android.text.TextUtils.join(";", favList));
-				}
 
-			}
-		});
+				}
+			});
+		}
 	}
 }
