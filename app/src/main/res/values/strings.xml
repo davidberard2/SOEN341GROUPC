@@ -29,6 +29,13 @@
     <string name="profile_last_name">Last Name</string>
     <string name="profile_email">Email</string>
     <string name="profile_phone_number">Phone Number</string>
+    <string name="what_would_you_like_to_sell">What would you like to sell?</string>
+    <string name="name_of_item">Name of item</string>
+    <string name="price">Price</string>
+    <string name="description_of_the_object">Description of the object</string>
+    <string name="post_my_item">Post my item</string>
+    <string name="choose_from_gallery">Choose From Gallery</string>
+    <string name="take_a_photo">Take A photo</string>
     <string name="profile_postal_code">Postal Code</string>
     <string name="profile_photo">This is your profile photo.</string>
     <string name="profile_update_photo">Update your profile photo.</string>

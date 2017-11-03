@@ -22,7 +22,7 @@ import Fragments.ItemDescriptionFragment;
 import Fragments.ProfileFragment;
 import Fragments.ProfileLoginFragment;
 import Fragments.SearchFragment;
-import Fragments.AdditionFragment;
+import Fragments.AddItemFragment;
 
 public class MainActivity extends AppCompatActivity {
     Button logInB;
@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
                                 selectedFragment = SearchFragment.newInstance();
                                 break;
                             case R.id.action_addition:
-                                selectedFragment = AdditionFragment.newInstance();
+                                selectedFragment = AddItemFragment.newInstance();
                                 break;
                             case R.id.action_profile:
                                 if (authRef.getCurrentUser() != null)
