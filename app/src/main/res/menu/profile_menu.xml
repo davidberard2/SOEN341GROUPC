@@ -4,10 +4,22 @@
 
 
     <item
-        android:id="@+id/profile_save_button"
-        android:icon="@android:drawable/ic_menu_save"
+        android:id="@+id/profile_edit_button"
+        android:icon="@drawable/ic_edit_white_30dp"
         android:title="Item"
-        app:showAsAction="always" />
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/profile_save_button"
+        android:icon="@drawable/ic_check_white_36dp"
+        android:title="Item"
+        android:visible="false"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/profile_cancel_button"
+        android:icon="@drawable/ic_clear_white_36dp"
+        android:title="Item"
+        android:visible="false"
+        app:showAsAction="ifRoom" />
     <item
         android:id="@+id/profile_settings_button"
         android:title="Settings"
