@@ -9,7 +9,6 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -21,6 +20,7 @@ import Fragments.FavoriteFragment;
 import Fragments.HomeFragment;
 import Fragments.ItemDescriptionFragment;
 import Fragments.ProfileFragment;
+import Fragments.ProfileLoginFragment;
 import Fragments.SearchFragment;
 import Fragments.AddItemFragment;
 
@@ -28,8 +28,8 @@ public class MainActivity extends AppCompatActivity {
     Button logInB;
     Button logOutB;
     Button signUpB;
-    String testID;
-    Menu mainMenu;
+
+    FirebaseAuth authRef = FirebaseAuth.getInstance();
 
     @RequiresApi(api = Build.VERSION_CODES.GINGERBREAD)
 	@Override
@@ -61,7 +61,10 @@ public class MainActivity extends AppCompatActivity {
                                 selectedFragment = AddItemFragment.newInstance();
                                 break;
                             case R.id.action_profile:
-                                selectedFragment = ProfileFragment.newInstance();
+                                if (authRef.getCurrentUser() != null)
+                                    selectedFragment = ProfileFragment.newInstance();
+                                else
+                                    selectedFragment = ProfileLoginFragment.newInstance();
                                 break;
                             case R.id.action_favorite:
                                 selectedFragment = FavoriteFragment.newInstance();
