@@ -77,7 +77,7 @@ public class FavoriteFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_favorite, container, false);
-
+        final View currentView = view;
         if(user != null) {
             favRef = myUser.child(user.getUid());
             favRef.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -87,13 +87,12 @@ public class FavoriteFragment extends Fragment {
                     String favString = dataSnapshot.child("Favorites").getValue(String.class);
                     if(favString != null)
                         favList = Arrays.asList(favString.split(";"));
+                    populateFavoritesList(currentView);
                 }
-
                 @Override
                 public void onCancelled(DatabaseError databaseError) {
                 }
             });
-            populateFavoritesList(view);
         }
         else {
             setMessage(view, R.string.logged_out);
