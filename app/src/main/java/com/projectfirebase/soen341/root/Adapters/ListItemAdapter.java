@@ -25,6 +25,8 @@ import java.util.List;
 
 import Tasks.DownloadImageTask;
 
+import static com.projectfirebase.soen341.root.R.drawable.ic_star_border;
+
 public class ListItemAdapter extends RecyclerView.Adapter<ListItemAdapter.ViewHolder>{
 	private List<Listing> listingsList;
 	private List<String> favList;
@@ -114,11 +116,11 @@ public class ListItemAdapter extends RecyclerView.Adapter<ListItemAdapter.ViewHo
 		user = FirebaseAuth.getInstance().getCurrentUser();
 		if(newFavList.contains(holder.id)) {
 			holder.fav.setChecked(true);
-			holder.fav.setBackgroundResource(R.drawable.ic_action_favorite);
+			holder.fav.setBackgroundResource(R.drawable.ic_star_black);
 		}
 		else {
 			holder.fav.setChecked(false);
-			holder.fav.setBackgroundResource(0);
+			holder.fav.setBackgroundResource(ic_star_border);
 		}
 
 		if(user != null) {
@@ -126,14 +128,13 @@ public class ListItemAdapter extends RecyclerView.Adapter<ListItemAdapter.ViewHo
 				@Override
 				public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 					if (isChecked) {
-						holder.fav.setBackgroundResource(R.drawable.ic_action_favorite);
+						holder.fav.setBackgroundResource(R.drawable.ic_star_black);
 						usersRef.child(user.getUid()).child("Favorites").setValue(favString + ";" + holder.id.toString());
 					} else {
-						holder.fav.setBackgroundResource(0);
+						holder.fav.setBackgroundResource(ic_star_border);
 						newFavList.remove(newFavList.indexOf(holder.id.toString()));
 						usersRef.child(user.getUid()).child("Favorites").setValue(android.text.TextUtils.join(";", newFavList));
 					}
-
 				}
 			});
 		}
