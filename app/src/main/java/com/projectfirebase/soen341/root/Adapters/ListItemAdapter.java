@@ -32,11 +32,11 @@ public class ListItemAdapter extends RecyclerView.Adapter<ListItemAdapter.ViewHo
 	private List<String> favList;
 	private String favString;
 
-	private DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
-	private DatabaseReference usersRef = rootRef.child("Users");
+	private DatabaseReference rootRef;
+	private DatabaseReference usersRef;
 	private DatabaseReference favRef;
 
-	private FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+	private FirebaseUser user;
 
 
 	// View holder is what holds the views
@@ -71,6 +71,10 @@ public class ListItemAdapter extends RecyclerView.Adapter<ListItemAdapter.ViewHo
 
 	@Override
 	public void onBindViewHolder(ViewHolder holder, int position) {
+		rootRef = FirebaseDatabase.getInstance().getReference();
+		usersRef = rootRef.child("Users");
+		user = FirebaseAuth.getInstance().getCurrentUser();
+
 		Listing listItem = listingsList.get(position);
 
 		holder.id = listItem.getID();
@@ -106,7 +110,9 @@ public class ListItemAdapter extends RecyclerView.Adapter<ListItemAdapter.ViewHo
 	public Listing getListItem(int pos){ return listingsList.get(pos); }
 
 	public void setFavToggle(final ViewHolder holder, final List<String> newFavList) {
-
+		rootRef = FirebaseDatabase.getInstance().getReference();
+		usersRef = rootRef.child("Users");
+		user = FirebaseAuth.getInstance().getCurrentUser();
 		if(newFavList.contains(holder.id)) {
 			holder.fav.setChecked(true);
 			holder.fav.setBackgroundResource(R.drawable.ic_action_favorite);
