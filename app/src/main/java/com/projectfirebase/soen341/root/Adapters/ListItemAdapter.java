@@ -128,12 +128,12 @@ public class ListItemAdapter extends RecyclerView.Adapter<ListItemAdapter.ViewHo
 				@Override
 				public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 					if (isChecked) {
-						holder.fav.setBackgroundResource(R.drawable.ic_star_black);
 						usersRef.child(user.getUid()).child("Favorites").setValue(favString + ";" + holder.id.toString());
+						holder.fav.setBackgroundResource(R.drawable.ic_star_black);
 					} else {
-						holder.fav.setBackgroundResource(ic_star_border);
 						newFavList.remove(newFavList.indexOf(holder.id.toString()));
 						usersRef.child(user.getUid()).child("Favorites").setValue(android.text.TextUtils.join(";", newFavList));
+						holder.fav.setBackgroundResource(ic_star_border);
 					}
 				}
 			});

@@ -47,8 +47,8 @@
         </RelativeLayout>
         <ToggleButton
             android:id="@+id/list_item_fav"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:padding="30dp"
             android:layout_centerVertical="true"
             android:layout_alignEnd="@+id/item_list_info"
