@@ -9,7 +9,6 @@ import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.text.method.KeyListener;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -23,6 +22,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -375,8 +375,16 @@ public class ProfileFragment extends Fragment {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             String imgUrl = dataSnapshot.child("ImageURL").getValue(String.class);
-                            if (imgUrl != null)
-                                new DownloadImageTask(photo_iv).execute(imgUrl);
+                            if (getActivity() != null) {
+                                Glide.with(getActivity())
+                                        .load(imgUrl)
+                                        .into(photo_iv);
+                            }
+                            else {
+                                if (imgUrl != null)
+                                    new DownloadImageTask(photo_iv).execute(imgUrl);
+                            }
+
 
                             firstName = dataSnapshot.child("FirstName").getValue(String.class);
                             lastName = dataSnapshot.child("LastName").getValue(String.class);

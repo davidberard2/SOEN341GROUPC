@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.projectfirebase.soen341.root.Listing;
 import com.projectfirebase.soen341.root.R;
 
@@ -54,7 +55,17 @@ public class ListItemAdapter extends RecyclerView.Adapter<ListItemAdapter.ViewHo
 		holder.price.setText(String.valueOf(listItem.getPrice()));
 		holder.view.setTag(listItem.getID());
 
-		new DownloadImageTask(holder.image).execute(listItem.getImageURL());
+		String imgUrl = listItem.getImageURL();
+		if (holder != null) {
+			Glide.with(holder.view)
+					.load(imgUrl)
+					.into(holder.image);
+		}
+		else {
+			if (imgUrl != null)
+				new DownloadImageTask(holder.image).execute(listItem.getImageURL());
+		}
+
 	}
 
 	@Override

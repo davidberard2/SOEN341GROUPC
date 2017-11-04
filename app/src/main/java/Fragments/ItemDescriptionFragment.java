@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -113,7 +114,18 @@ public class ItemDescriptionFragment extends Fragment {
             description_tv.setTypeface(null);
             description_tv.setText(this.itemToDisplay.getDescription());
         }
-        new DownloadImageTask(photo_iv).execute(itemToDisplay.getImageURL());
+
+        String imgUrl = itemToDisplay.getImageURL();
+        if (getActivity() != null) {
+            Glide.with(getActivity())
+                    .load(imgUrl)
+                    .into(photo_iv);
+        }
+        else {
+            if (imgUrl != null)
+                new DownloadImageTask(photo_iv).execute(itemToDisplay.getImageURL());
+        }
+
     }
 
     public static void setItemIDToDisplay(String id){
