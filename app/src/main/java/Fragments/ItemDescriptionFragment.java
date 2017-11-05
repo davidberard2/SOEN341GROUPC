@@ -21,7 +21,7 @@ import com.projectfirebase.soen341.root.R;
 import java.util.HashMap;
 import java.util.Map;
 
-import Tasks.DownloadImageTask;
+import static com.projectfirebase.soen341.root.Helper.setImage;
 
 public class ItemDescriptionFragment extends Fragment {
     public static String itemIDToDisplay;
@@ -113,7 +113,9 @@ public class ItemDescriptionFragment extends Fragment {
             description_tv.setTypeface(null);
             description_tv.setText(this.itemToDisplay.getDescription());
         }
-        new DownloadImageTask(photo_iv).execute(itemToDisplay.getImageURL());
+
+        String imgUrl = itemToDisplay.getImageURL();
+        setImage(getActivity(), imgUrl, photo_iv);
     }
 
     public static void setItemIDToDisplay(String id){

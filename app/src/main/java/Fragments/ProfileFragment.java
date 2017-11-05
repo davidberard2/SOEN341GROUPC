@@ -9,7 +9,6 @@ import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.text.method.KeyListener;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -42,9 +41,8 @@ import com.projectfirebase.soen341.root.R;
 
 import java.io.File;
 
-import Tasks.DownloadImageTask;
-
 import static android.app.Activity.RESULT_OK;
+import static com.projectfirebase.soen341.root.Helper.setImage;
 
 public class ProfileFragment extends Fragment {
     View view;
@@ -375,8 +373,7 @@ public class ProfileFragment extends Fragment {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             String imgUrl = dataSnapshot.child("ImageURL").getValue(String.class);
-                            if (imgUrl != null)
-                                new DownloadImageTask(photo_iv).execute(imgUrl);
+                            setImage(getActivity(), imgUrl, photo_iv);
 
                             firstName = dataSnapshot.child("FirstName").getValue(String.class);
                             lastName = dataSnapshot.child("LastName").getValue(String.class);

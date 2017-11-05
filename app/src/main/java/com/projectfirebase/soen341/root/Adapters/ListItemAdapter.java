@@ -12,7 +12,7 @@ import com.projectfirebase.soen341.root.R;
 
 import java.util.List;
 
-import Tasks.DownloadImageTask;
+import static com.projectfirebase.soen341.root.Helper.setImage;
 
 public class ListItemAdapter extends RecyclerView.Adapter<ListItemAdapter.ViewHolder>{
 	private List<Listing> listingsList;
@@ -54,7 +54,8 @@ public class ListItemAdapter extends RecyclerView.Adapter<ListItemAdapter.ViewHo
 		holder.price.setText(String.valueOf(listItem.getPrice()));
 		holder.view.setTag(listItem.getID());
 
-		new DownloadImageTask(holder.image).execute(listItem.getImageURL());
+		String imgUrl = listItem.getImageURL();
+		setImage(holder.view, imgUrl, holder.image);
 	}
 
 	@Override
