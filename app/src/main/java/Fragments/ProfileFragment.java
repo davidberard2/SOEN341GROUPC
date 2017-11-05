@@ -22,7 +22,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -42,9 +41,8 @@ import com.projectfirebase.soen341.root.R;
 
 import java.io.File;
 
-import Tasks.DownloadImageTask;
-
 import static android.app.Activity.RESULT_OK;
+import static com.projectfirebase.soen341.root.Helper.setImage;
 
 public class ProfileFragment extends Fragment {
     View view;
@@ -375,16 +373,7 @@ public class ProfileFragment extends Fragment {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             String imgUrl = dataSnapshot.child("ImageURL").getValue(String.class);
-                            if (getActivity() != null) {
-                                Glide.with(getActivity())
-                                        .load(imgUrl)
-                                        .into(photo_iv);
-                            }
-                            else {
-                                if (imgUrl != null)
-                                    new DownloadImageTask(photo_iv).execute(imgUrl);
-                            }
-
+                            setImage(getActivity(), imgUrl, photo_iv);
 
                             firstName = dataSnapshot.child("FirstName").getValue(String.class);
                             lastName = dataSnapshot.child("LastName").getValue(String.class);

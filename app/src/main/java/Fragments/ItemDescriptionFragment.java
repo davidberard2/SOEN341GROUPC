@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -22,7 +21,7 @@ import com.projectfirebase.soen341.root.R;
 import java.util.HashMap;
 import java.util.Map;
 
-import Tasks.DownloadImageTask;
+import static com.projectfirebase.soen341.root.Helper.setImage;
 
 public class ItemDescriptionFragment extends Fragment {
     public static String itemIDToDisplay;
@@ -116,16 +115,7 @@ public class ItemDescriptionFragment extends Fragment {
         }
 
         String imgUrl = itemToDisplay.getImageURL();
-        if (getActivity() != null) {
-            Glide.with(getActivity())
-                    .load(imgUrl)
-                    .into(photo_iv);
-        }
-        else {
-            if (imgUrl != null)
-                new DownloadImageTask(photo_iv).execute(itemToDisplay.getImageURL());
-        }
-
+        setImage(getActivity(), imgUrl, photo_iv);
     }
 
     public static void setItemIDToDisplay(String id){
