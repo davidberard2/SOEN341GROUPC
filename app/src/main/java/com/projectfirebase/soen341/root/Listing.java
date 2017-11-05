@@ -2,15 +2,15 @@ package com.projectfirebase.soen341.root;
 
 public class Listing {
 	private String ID;
-	private String name;
-	private double price;
-	private String imageURL;
+	private String Name;
+	private double Price;
+	private String ImageURL;
 
 	public Listing(){
 		this.ID = "";
-		this.name = "";
-		this.price = 0;
-		this.imageURL = "";
+		this.Name = "";
+		this.Price = 0;
+		this.ImageURL = "";
 	}
 
 	public Listing(String id){
@@ -19,9 +19,9 @@ public class Listing {
 
 	public Listing(String id, String name, double price, String imageURL) {
 		this.ID = id;
-		this.name = name;
-		this.price = price;
-		this.imageURL = imageURL;
+		this.Name = name;
+		this.Price = price;
+		this.ImageURL = imageURL;
 	}
 
 	public String getID() {
@@ -29,26 +29,26 @@ public class Listing {
 	}
 
 	public String getName() {
-		return name;
+		return Name;
 	}
 
 	public double getPrice() {
-		return price;
+		return Price;
 	}
 
 	public String getImageURL(){
-		return this.imageURL;
+		return this.ImageURL;
 	}
 
 	public void setName(String name) {
-		this.name = name;
+		this.Name = name;
 	}
 
 	public void setPrice(double price) {
-		this.price = price;
+		this.Price = price;
 	}
 
 	public void setImageURL(String url){
-		this.imageURL = url;
+		this.ImageURL = url;
 	}
 }

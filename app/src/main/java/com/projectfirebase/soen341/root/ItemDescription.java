@@ -7,17 +7,17 @@ public class ItemDescription extends Listing {
         this.Description = "";
     }
 
-    public ItemDescription(String d, Listing listing){
+    public ItemDescription(Listing listing, String d){
         super(listing.getID(), listing.getName(), listing.getPrice(), listing.getImageURL());
         this.Description = d;
     }
 
-    public ItemDescription(String id, String name, double price, String desc, String url){
+    public ItemDescription(String id, String name, double price, String url, String desc){
         super(id);
         this.setName(name);
         this.setPrice(price);
-        this.setDescription(desc);
         this.setImageURL(url);
+        this.setDescription(desc);
     }
 
     public String getDescription(){

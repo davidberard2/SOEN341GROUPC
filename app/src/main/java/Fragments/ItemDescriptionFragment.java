@@ -91,7 +91,7 @@ public class ItemDescriptionFragment extends Fragment {
                 Double price = ((Number) itemObj.get("Price")).doubleValue();
 
                 //set it
-                itemToDisplay = new ItemDescription(id, name, price, description, url);
+                itemToDisplay = new ItemDescription(id, name, price, url, description);
 
                 setDisplayViews();
 
