@@ -23,7 +23,7 @@
     <item
         android:id="@+id/profile_settings_button"
         android:title="Settings"
-        android:icon="@drawable/ic_action_settings"
+        android:icon="@drawable/ic_settings_white_24dp"
         app:showAsAction="always"/>
 
 </menu>
