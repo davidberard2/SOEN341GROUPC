@@ -19,7 +19,11 @@ import com.google.firebase.database.ValueEventListener;
 import com.projectfirebase.soen341.root.Listing;
 import com.projectfirebase.soen341.root.R;
 
+import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
+
+import Tasks.DownloadImageTask;
 
 import static com.projectfirebase.soen341.root.Helper.setImage;
 import static com.projectfirebase.soen341.root.R.drawable.ic_star_border;
@@ -106,7 +110,6 @@ public class ListItemAdapter extends RecyclerView.Adapter<ListItemAdapter.ViewHo
 	public Listing getListItem(int pos){ return listingsList.get(pos); }
 
 
-
 	public void setFavToggle(final ViewHolder holder, final boolean isFavorite) {
 		rootRef = FirebaseDatabase.getInstance().getReference();
 		user = FirebaseAuth.getInstance().getCurrentUser();
@@ -134,6 +137,7 @@ public class ListItemAdapter extends RecyclerView.Adapter<ListItemAdapter.ViewHo
 						/*newFavList.remove(newFavList.indexOf(holder.id.toString()));
 						usersRef.child(user.getUid()).child("Favorites").setValue(android.text.TextUtils.join(";", newFavList));*/
 						currentUserRef.child("Favorites").child(holder.id).removeValue();
+
 						holder.fav.setBackgroundResource(ic_star_border);
 					}
 				}

@@ -22,6 +22,7 @@ import com.projectfirebase.soen341.root.Listing;
 import com.projectfirebase.soen341.root.R;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -44,6 +45,7 @@ public class FavoriteFragment extends Fragment {
 
     private boolean isViewFiltered;
     private String filterString;
+    private String favString;
 
     private TextView fav_message_tv;
 
@@ -96,6 +98,7 @@ public class FavoriteFragment extends Fragment {
         return view;
 
     }
+
 
 
     public void populateFavoritesList(View view, final DataSnapshot favRef) {
