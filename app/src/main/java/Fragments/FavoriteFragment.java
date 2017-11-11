@@ -22,9 +22,7 @@ import com.projectfirebase.soen341.root.Listing;
 import com.projectfirebase.soen341.root.R;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class FavoriteFragment extends Fragment {
@@ -35,19 +33,17 @@ public class FavoriteFragment extends Fragment {
 
     private DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
     private DatabaseReference itemsRef = rootRef.child("Items");
-    private DatabaseReference myUser = rootRef.child("Users");
-    private DatabaseReference favRef;
+    private DatabaseReference currentUserRef = rootRef.child("Users").child(user.getUid());
+    private DatabaseReference favRef = currentUserRef.child("Favorites");
 
 
 
     private ArrayList<Listing> listingsList = new ArrayList<>();
-    private List<String> favList = new ArrayList<String>();
     private RecyclerView recyclerView;
     private ListItemAdapter mAdapter;
 
     private boolean isViewFiltered;
     private String filterString;
-    private String favString;
 
     private TextView fav_message_tv;
 
@@ -78,17 +74,16 @@ public class FavoriteFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_favorite, container, false);
+
         final View currentView = view;
         if(user != null) {
-            favRef = myUser.child(user.getUid());
             favRef.addListenerForSingleValueEvent(new ValueEventListener() {
-
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
-                    favString = dataSnapshot.child("Favorites").getValue(String.class);
-                    if(favString != null)
-                        favList = Arrays.asList(favString.split(";"));
-                    populateFavoritesList(currentView);
+                    if(dataSnapshot.hasChildren())
+                        populateFavoritesList(currentView, dataSnapshot);
+                    else
+                        setMessage(currentView, R.string.no_favorites);
                 }
                 @Override
                 public void onCancelled(DatabaseError databaseError) {
@@ -103,49 +98,44 @@ public class FavoriteFragment extends Fragment {
     }
 
 
-    public void populateFavoritesList(View view) {
-        if(!favList.isEmpty() && favString.length() > 0) {
-            recyclerView = (RecyclerView) view.findViewById(R.id.fav_recycler_view);
-            mAdapter = new ListItemAdapter(listingsList);
-            RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
-            recyclerView.setLayoutManager(mLayoutManager);
-            recyclerView.setAdapter(mAdapter);
-            itemsRef.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    listingsList.clear();
+    public void populateFavoritesList(View view, final DataSnapshot favRef) {
 
-                    Map<String, Object> itemsMap = (HashMap<String, Object>) dataSnapshot.getValue();
+        recyclerView = (RecyclerView) view.findViewById(R.id.fav_recycler_view);
+        mAdapter = new ListItemAdapter(listingsList);
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
+        recyclerView.setLayoutManager(mLayoutManager);
+        recyclerView.setAdapter(mAdapter);
 
-                    for (String key : itemsMap.keySet()) {
-                        if (favList.contains(key)) {
-                            Object itemMap = itemsMap.get(key);
-                            if (itemMap instanceof Map) {
-                                Map<String, Object> itemObj = (Map<String, Object>) itemMap;
+        itemsRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                listingsList.clear();
+                Map<String, Object> favMap = (HashMap<String, Object>) favRef.getValue();
+                Map<String, Object> itemsMap = (HashMap<String, Object>) dataSnapshot.getValue();
 
-                                String id = key;
-                                String name = (String) itemObj.get("Name");
-                                Double price = ((Number) itemObj.get("Price")).doubleValue();
-                                String url = (String) itemObj.get("ImageURL");
+                for (String key : favMap.keySet()) {
+                        Object itemMap = itemsMap.get(key);
+                        if (itemMap instanceof Map) {
+                            Map<String, Object> itemObj = (Map<String, Object>) itemMap;
 
-                                Listing item = new Listing(key, name, price, url);
+                            String id = key;
+                            String name = (String) itemObj.get("Name");
+                            Double price = ((Number) itemObj.get("Price")).doubleValue();
+                            String url = (String) itemObj.get("ImageURL");
 
-                                listingsList.add(item);
+                            Listing item = new Listing(key, name, price, url);
 
-                            }
+                            listingsList.add(item);
                         }
-                    }
-                    mAdapter.notifyDataSetChanged();
                 }
+                mAdapter.notifyDataSetChanged();
+            }
 
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-                }
-            });
-        }
-        else {
-            setMessage(view, R.string.no_favorites);
-        }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
+
     }
 
 

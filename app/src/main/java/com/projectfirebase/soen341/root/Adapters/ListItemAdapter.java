@@ -19,11 +19,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.projectfirebase.soen341.root.Listing;
 import com.projectfirebase.soen341.root.R;
 
-import java.util.Arrays;
-import java.util.LinkedList;
 import java.util.List;
-
-import Tasks.DownloadImageTask;
 
 import static com.projectfirebase.soen341.root.Helper.setImage;
 import static com.projectfirebase.soen341.root.R.drawable.ic_star_border;
@@ -34,7 +30,7 @@ public class ListItemAdapter extends RecyclerView.Adapter<ListItemAdapter.ViewHo
 	private String favString;
 
 	private DatabaseReference rootRef;
-	private DatabaseReference usersRef;
+	private DatabaseReference currentUserRef;
 	private DatabaseReference favRef;
 
 	private FirebaseUser user;
@@ -73,8 +69,8 @@ public class ListItemAdapter extends RecyclerView.Adapter<ListItemAdapter.ViewHo
 	@Override
 	public void onBindViewHolder(ViewHolder holder, int position) {
 		rootRef = FirebaseDatabase.getInstance().getReference();
-		usersRef = rootRef.child("Users");
 		user = FirebaseAuth.getInstance().getCurrentUser();
+		currentUserRef = rootRef.child("Users").child(user.getUid());
 
 		Listing listItem = listingsList.get(position);
 
@@ -87,15 +83,14 @@ public class ListItemAdapter extends RecyclerView.Adapter<ListItemAdapter.ViewHo
 		setImage(holder.view, imgUrl, holder.image);
 
 		final ViewHolder currentHolder = holder;
-		favRef = usersRef.child(user.getUid());
+		favRef = currentUserRef.child("Favorites");
 		favRef.addListenerForSingleValueEvent(new ValueEventListener() {
-
 			@Override
 			public void onDataChange(DataSnapshot dataSnapshot) {
-				favString = dataSnapshot.child("Favorites").getValue(String.class);
-				if(favString != null)
-					favList = new LinkedList<String>(Arrays.asList(favString.split(";")));
-				setFavToggle(currentHolder, favList);
+				if(dataSnapshot.hasChild(currentHolder.id))
+					setFavToggle(currentHolder, true);
+				else
+					setFavToggle(currentHolder, false);
 			}
 			@Override
 			public void onCancelled(DatabaseError databaseError) {
@@ -110,11 +105,15 @@ public class ListItemAdapter extends RecyclerView.Adapter<ListItemAdapter.ViewHo
 
 	public Listing getListItem(int pos){ return listingsList.get(pos); }
 
-	public void setFavToggle(final ViewHolder holder, final List<String> newFavList) {
+
+
+	public void setFavToggle(final ViewHolder holder, final boolean isFavorite) {
 		rootRef = FirebaseDatabase.getInstance().getReference();
-		usersRef = rootRef.child("Users");
 		user = FirebaseAuth.getInstance().getCurrentUser();
-		if(newFavList.contains(holder.id)) {
+		currentUserRef = rootRef.child("Users").child(user.getUid());
+
+
+		if(isFavorite) {
 			holder.fav.setChecked(true);
 			holder.fav.setBackgroundResource(R.drawable.ic_star_black);
 		}
@@ -128,11 +127,13 @@ public class ListItemAdapter extends RecyclerView.Adapter<ListItemAdapter.ViewHo
 				@Override
 				public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 					if (isChecked) {
-						usersRef.child(user.getUid()).child("Favorites").setValue(favString + ";" + holder.id.toString());
+						//usersRef.child(user.getUid()).child("Favorites").setValue(favString + ";" + holder.id.toString());
+						currentUserRef.child("Favorites").child(holder.id).setValue(true);
 						holder.fav.setBackgroundResource(R.drawable.ic_star_black);
 					} else {
-						newFavList.remove(newFavList.indexOf(holder.id.toString()));
-						usersRef.child(user.getUid()).child("Favorites").setValue(android.text.TextUtils.join(";", newFavList));
+						/*newFavList.remove(newFavList.indexOf(holder.id.toString()));
+						usersRef.child(user.getUid()).child("Favorites").setValue(android.text.TextUtils.join(";", newFavList));*/
+						currentUserRef.child("Favorites").child(holder.id).removeValue();
 						holder.fav.setBackgroundResource(ic_star_border);
 					}
 				}
