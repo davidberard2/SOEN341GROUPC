@@ -4,7 +4,8 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="Fragments.SearchFragment"
-    android:padding="15dp">
+    android:padding="15dp"
+    android:id="@+id/fragment_add_listing_item">
 
 
     <TextView

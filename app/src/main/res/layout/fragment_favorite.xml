@@ -2,7 +2,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="Fragments.FavoriteFragment">
+    tools:context="Fragments.FavoriteFragment"
+    android:id="@+id/fragment_favorite">
 
     <!-- TODO: Update blank fragment layout -->
     <android.support.v7.widget.RecyclerView
