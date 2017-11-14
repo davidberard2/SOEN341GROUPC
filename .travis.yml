@@ -6,7 +6,7 @@ before_install:
   - echo -e "\nd975f751698a77b662f1254ddbeed3901e976f5a" > "$ANDROID_HOME/licenses/intel-android-extra-license"
 env:
   matrix:
-    - ANDROID_TARGET=android-22 ANDROID_ABI=armeabi-v7a
+    - ANDROID_TARGET=android-21 ANDROID_ABI=armeabi-v7a
 install:
   - echo yes | sdkmanager "extras;m2repository;com;android;support;constraint;constraint-layout;1.0.2"
   - echo yes | sdkmanager "extras;m2repository;com;android;support;constraint;constraint-layout-solver;1.0.2"
@@ -22,12 +22,12 @@ android:
     - android-26
     
     - extra-android-m2repository
-    - sys-img-armeabi-v7a-android-22
+    - sys-img-armeabi-v7a-android-21
     
   script:
     - ./wait_for_emulator
     - ./gradlew build
-    - ./gradlew test --info
+    - ./gradlew test --info --continue
     - ./gradlew --info connectedAndroidTest
   licenses:
     - 'android-sdk-preview-license-.+'
