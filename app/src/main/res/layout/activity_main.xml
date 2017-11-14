@@ -23,7 +23,7 @@
         android:background="@color/colorPrimary"
         style="@style/ActionButtonStyle"
         app:itemIconTint="@color/white"
-        app:itemTextColor="@color/colorPrimary"
+        app:itemTextColor="@color/white"
         app:menu="@menu/bottom_navigation_menu"/>
 
 </RelativeLayout>
