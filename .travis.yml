@@ -7,13 +7,6 @@ before_install:
 install:
   - echo yes | sdkmanager "extras;m2repository;com;android;support;constraint;constraint-layout;1.0.2"
   - echo yes | sdkmanager "extras;m2repository;com;android;support;constraint;constraint-layout-solver;1.0.2"
-env:
-  global:
-    - ANDROID_API_LEVEL=24
-    - EMULATOR_API_LEVEL=21
-    - ANDROID_BUILD_TOOLS_VERSION=24.0.1
-    - ANDROID_ABI=google_apis/armeabi-v7a
-    - ADB_INSTALL_TIMEOUT=10
 android:
   components:
     - tools
@@ -24,6 +17,7 @@ android:
 
     # The SDK version used to compile your project
     - android-26
+    - sys-img-armeabi-v7a-android-22
 
   script:
     - ./gradlew build connectedCheck test
@@ -36,7 +30,7 @@ android:
 after_script:
   - bash gradlew test
 before_script:
-  - echo no | android create avd --force -n test -t "Google Inc.:Google APIs:"$EMULATOR_API_LEVEL --abi $ANDROID_ABI
+  - echo no | android create avd --force -n test -t android-22 --abi armeabi-v7a
   - emulator -avd test -no-skin -no-audio -no-window &
   - android-wait-for-emulator
 
