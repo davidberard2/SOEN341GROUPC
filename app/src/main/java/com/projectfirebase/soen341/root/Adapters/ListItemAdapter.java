@@ -19,11 +19,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.projectfirebase.soen341.root.Listing;
 import com.projectfirebase.soen341.root.R;
 
-import java.util.Arrays;
-import java.util.LinkedList;
 import java.util.List;
-
-import Tasks.DownloadImageTask;
 
 import static com.projectfirebase.soen341.root.Helper.setImage;
 import static com.projectfirebase.soen341.root.R.drawable.ic_star_border;
@@ -74,7 +70,6 @@ public class ListItemAdapter extends RecyclerView.Adapter<ListItemAdapter.ViewHo
 	public void onBindViewHolder(ViewHolder holder, int position) {
 		rootRef = FirebaseDatabase.getInstance().getReference();
 		user = FirebaseAuth.getInstance().getCurrentUser();
-		currentUserRef = rootRef.child("Users").child(user.getUid());
 
 		Listing listItem = listingsList.get(position);
 
@@ -86,20 +81,28 @@ public class ListItemAdapter extends RecyclerView.Adapter<ListItemAdapter.ViewHo
 		String imgUrl = listItem.getImageURL();
 		setImage(holder.view, imgUrl, holder.image);
 
-		final ViewHolder currentHolder = holder;
-		favRef = currentUserRef.child("Favorites");
-		favRef.addListenerForSingleValueEvent(new ValueEventListener() {
-			@Override
-			public void onDataChange(DataSnapshot dataSnapshot) {
-				if(dataSnapshot.hasChild(currentHolder.id))
-					setFavToggle(currentHolder, true);
-				else
-					setFavToggle(currentHolder, false);
-			}
-			@Override
-			public void onCancelled(DatabaseError databaseError) {
-			}
-		});
+		if(user != null) {
+			currentUserRef = rootRef.child("Users").child(user.getUid());
+			favRef = currentUserRef.child("Favorites");
+
+			final ViewHolder currentHolder = holder;
+			favRef.addListenerForSingleValueEvent(new ValueEventListener() {
+				@Override
+				public void onDataChange(DataSnapshot dataSnapshot) {
+					if (dataSnapshot.hasChild(currentHolder.id))
+						setFavToggle(currentHolder, true);
+					else
+						setFavToggle(currentHolder, false);
+				}
+
+				@Override
+				public void onCancelled(DatabaseError databaseError) {
+				}
+			});
+		}
+		else {
+			holder.fav.setVisibility(View.GONE);
+		}
 	}
 
 	@Override
@@ -113,35 +116,36 @@ public class ListItemAdapter extends RecyclerView.Adapter<ListItemAdapter.ViewHo
 	public void setFavToggle(final ViewHolder holder, final boolean isFavorite) {
 		rootRef = FirebaseDatabase.getInstance().getReference();
 		user = FirebaseAuth.getInstance().getCurrentUser();
-		currentUserRef = rootRef.child("Users").child(user.getUid());
-
-
-		if(isFavorite) {
-			holder.fav.setChecked(true);
-			holder.fav.setBackgroundResource(R.drawable.ic_star_black);
-		}
-		else {
-			holder.fav.setChecked(false);
-			holder.fav.setBackgroundResource(ic_star_border);
-		}
 
 		if(user != null) {
-			holder.fav.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-				@Override
-				public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-					if (isChecked) {
-						//usersRef.child(user.getUid()).child("Favorites").setValue(favString + ";" + holder.id.toString());
-						currentUserRef.child("Favorites").child(holder.id).setValue(true);
-						holder.fav.setBackgroundResource(R.drawable.ic_star_black);
-					} else {
+			currentUserRef = rootRef.child("Users").child(user.getUid());
+
+			if (isFavorite) {
+				holder.fav.setChecked(true);
+				holder.fav.setBackgroundResource(R.drawable.ic_star_black);
+			} else {
+				holder.fav.setChecked(false);
+				holder.fav.setBackgroundResource(ic_star_border);
+			}
+
+			if (user != null) {
+				holder.fav.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+					@Override
+					public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+						if (isChecked) {
+							//usersRef.child(user.getUid()).child("Favorites").setValue(favString + ";" + holder.id.toString());
+							currentUserRef.child("Favorites").child(holder.id).setValue(true);
+							holder.fav.setBackgroundResource(R.drawable.ic_star_black);
+						} else {
 						/*newFavList.remove(newFavList.indexOf(holder.id.toString()));
 						usersRef.child(user.getUid()).child("Favorites").setValue(android.text.TextUtils.join(";", newFavList));*/
-						currentUserRef.child("Favorites").child(holder.id).removeValue();
+							currentUserRef.child("Favorites").child(holder.id).removeValue();
 
-						holder.fav.setBackgroundResource(ic_star_border);
+							holder.fav.setBackgroundResource(ic_star_border);
+						}
 					}
-				}
-			});
+				});
+			}
 		}
 	}
 }

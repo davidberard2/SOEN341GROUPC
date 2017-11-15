@@ -22,7 +22,6 @@ import com.projectfirebase.soen341.root.Listing;
 import com.projectfirebase.soen341.root.R;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -34,8 +33,8 @@ public class FavoriteFragment extends Fragment {
 
     private DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
     private DatabaseReference itemsRef = rootRef.child("Items");
-    private DatabaseReference currentUserRef = rootRef.child("Users").child(user.getUid());
-    private DatabaseReference favRef = currentUserRef.child("Favorites");
+    private DatabaseReference currentUserRef;
+    private DatabaseReference favRef;
 
 
 
@@ -77,8 +76,11 @@ public class FavoriteFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_favorite, container, false);
 
-        final View currentView = view;
         if(user != null) {
+            currentUserRef = rootRef.child("Users").child(user.getUid());
+            favRef = currentUserRef.child("Favorites");
+
+            final View currentView = view;
             favRef.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
