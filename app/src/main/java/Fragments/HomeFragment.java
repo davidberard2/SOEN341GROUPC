@@ -176,7 +176,6 @@ public class HomeFragment extends Fragment {
 		Fragment newFragment = new SettingsFragment();
 		FragmentTransaction transaction = getFragmentManager().beginTransaction();
 		transaction.replace(R.id.frame_layout, newFragment);
-		transaction.addToBackStack(null);
 		transaction.commit();
 
 		return true;
