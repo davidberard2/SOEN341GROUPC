@@ -172,7 +172,6 @@ public class HomeFragment extends Fragment {
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-
 		Fragment newFragment = new SettingsFragment();
 		FragmentTransaction transaction = getFragmentManager().beginTransaction();
 		transaction.replace(R.id.frame_layout, newFragment);

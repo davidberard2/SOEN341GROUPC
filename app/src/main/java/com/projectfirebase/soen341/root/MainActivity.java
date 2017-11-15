@@ -116,13 +116,6 @@ public class MainActivity extends AppCompatActivity {
         transaction.commit();
     }
 
-//	@Override
-//	public boolean onCreateOptionsMenu(Menu menu) {
-//		MenuInflater inflater = getMenuInflater();
-//		inflater.inflate(R.menu.search_menu, menu);
-//		return true;
-//	}
-
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		return false;
