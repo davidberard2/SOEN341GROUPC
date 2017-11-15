@@ -16,16 +16,17 @@ env:
     - ANDROID_BUILD_TOOLS_VERSION=26.0.1
     - ANDROID_ABI=armeabi-v7a
     - ANDROID_TAG=google_apis
-    - ADB_INSTALL_TIMEOUT=30
+    - ADB_INSTALL_TIMEOUT=5
 install:
   - echo yes | sdkmanager "extras;m2repository;com;android;support;constraint;constraint-layout;1.0.2"
   - echo yes | sdkmanager "extras;m2repository;com;android;support;constraint;constraint-layout-solver;1.0.2"
 android:
   components:
-
+    - tools
+    - platform-tools
 
     # The BuildTools version used by your project
-    - build-tools-26.0.1
+    - build-tools-$ANDROID_BUILD_TOOLS_VERSION
 
     # The SDK version used to compile your project
     - android-26
@@ -59,5 +60,5 @@ after_script:
   - bash gradlew test
 before_script:
   - echo no | android create avd --force -n test -t "android-"$EMULATOR_API_LEVEL --abi $ANDROID_ABI --tag $ANDROID_TAG
-  - emulator -avd test -no-skin -no-audio -no-window &
+  - emulator -avd test -no-audio -no-window &
   - android-wait-for-emulator
