@@ -48,9 +48,8 @@ android:
     - sys-img-armeabi-v7a-google_apis-$EMULATOR_API_LEVEL
     
   script:
-    - ./gradlew build connectedCheck --stacktrace
-    - ./gradlew test --info --continue
-    - ./gradlew --info connectedAndroidTest
+    - ./gradlew build --stacktrace
+    - ./gradlew androidTestImplementation --info --continue
   licenses:
     - 'android-sdk-preview-license-.+'
     - 'android-sdk-license-.+'
