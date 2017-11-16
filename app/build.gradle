@@ -48,7 +48,7 @@ dependencies {
     androidTestCompile 'com.android.support:support-annotations:20.+'
     androidTestCompile 'com.android.support.test.espresso:espresso-core:2.2'
     androidTestCompile 'com.android.support.test:runner:0.3'
-    androidTestCompile 'com.squareup:fest-android:1.0.7
+    androidTestCompile 'com.squareup:fest-android:1.0.7'
 }
 
 
