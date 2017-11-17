@@ -48,7 +48,7 @@ android:
     - sys-img-armeabi-v7a-google_apis-$EMULATOR_API_LEVEL
     
   script:
-    - travis_wait 20 ./gradlew build --stacktrace --info
+    #- travis_wait 20 ./gradlew build --stacktrace --info
     - ./gradlew cC --info
     - ./gradlew androidTestImplementation --stacktrace --info
   licenses:
