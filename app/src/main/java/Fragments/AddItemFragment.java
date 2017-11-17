@@ -29,6 +29,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.projectfirebase.soen341.root.Helper;
 import com.projectfirebase.soen341.root.ItemDescription;
 import com.projectfirebase.soen341.root.Listing;
 import com.projectfirebase.soen341.root.R;
@@ -137,17 +138,17 @@ public class AddItemFragment extends Fragment {
                             }
                         });
 
-                if (isEmpty(itemNameET)) {
+                if (Helper.isEmpty(itemNameET)) {
                     builder1.setMessage("Please enter a name for your item!");
                     AlertDialog alert11 = builder1.create();
                     alert11.show();
 
-                } else if (isEmpty(itemPriceET)) {
+                } else if (Helper.isEmpty(itemPriceET)) {
                     builder1.setMessage("Please enter a price for your item!");
                     AlertDialog alert11 = builder1.create();
                     alert11.show();
 
-                } else if (isEmpty(itemDescriptionET)) {
+                } else if (Helper.isEmpty(itemDescriptionET)) {
                     builder1.setMessage("Please enter a description for your item!");
                     AlertDialog alert11 = builder1.create();
                     alert11.show();
@@ -206,12 +207,4 @@ public class AddItemFragment extends Fragment {
             }
         });
     }
-
-    private boolean isEmpty(EditText etText) {
-        if (etText.getText().toString().trim().length() > 0)
-            return false;
-
-        return true;
-    }
-
 }

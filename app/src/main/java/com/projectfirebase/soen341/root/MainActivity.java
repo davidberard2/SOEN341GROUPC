@@ -52,9 +52,17 @@ public class MainActivity extends AppCompatActivity {
                         Fragment selectedFragment = null;
                         switch (item.getItemId()) {
                             case R.id.action_home:
+                                if(HomeFragment.itemFilter == null){
+                                    HomeFragment.itemFilter = new FilterObject();
+                                }
+                                HomeFragment.applyAdvancedFilter = false;
+                                HomeFragment.itemFilter.resetFilter();
                                 selectedFragment = HomeFragment.newInstance();
                                 break;
                             case R.id.action_search:
+                                if(HomeFragment.itemFilter == null){
+                                    HomeFragment.itemFilter = new FilterObject();
+                                }
                                 selectedFragment = SearchFragment.newInstance();
                                 break;
                             case R.id.action_addition:

@@ -22,7 +22,19 @@
     <string name="favorite_button">Favorites</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!-- Search Options -->
     <string name="action_search">search</string>
+    <string name="search_string">What would you like to search for?</string>
+    <string name="search_minprice">Minimum Price</string>
+    <string name="search_maxprice">Maximum Price</string>
+    <string name="search_choose_categories">Choose a category to search for</string>
+    <string-array name="search_loading">
+        <item>Loading...</item>
+    </string-array>
+    <string-array name="search_chooseParent">
+        <item>Please choose a category.</item>
+    </string-array>
 
     <!-- Profile details -->
     <string name="profile_first_name">First Name</string>

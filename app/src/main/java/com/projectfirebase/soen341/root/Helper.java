@@ -2,6 +2,7 @@ package com.projectfirebase.soen341.root;
 
 import android.app.Activity;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
@@ -35,6 +36,13 @@ public class Helper{
             if (URL != null)
                 new DownloadImageTask(view).execute(URL);
         }
+    }
+
+    public static boolean isEmpty(EditText etText) {
+        if (etText.getText().toString().trim().length() > 0)
+            return false;
+
+        return true;
     }
 }
 

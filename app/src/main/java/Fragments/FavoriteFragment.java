@@ -97,6 +97,7 @@ public class FavoriteFragment extends Fragment {
         else {
             setMessage(view, R.string.logged_out);
         }
+
         return view;
 
     }
