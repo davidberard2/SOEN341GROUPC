@@ -47,15 +47,15 @@ android:
     - sys-img-armeabi-v7a-google_apis-$ANDROID_API_LEVEL
     - sys-img-armeabi-v7a-google_apis-$EMULATOR_API_LEVEL
     
-  script:
-    #- travis_wait 20 ./gradlew build --stacktrace --info
-    - ./gradlew cC --info
-    - ./gradlew androidTestImplementation --stacktrace --info
-  licenses:
-    - 'android-sdk-preview-license-.+'
-    - 'android-sdk-license-.+'
-    - 'google-gdk-license-.+'
-    - '.+'
+script:
+  - travis_wait 20 ./gradlew build --stacktrace --info
+  - ./gradlew cC --info
+  - ./gradlew androidTestImplementation --stacktrace --info
+licenses:
+  - 'android-sdk-preview-license-.+'
+  - 'android-sdk-license-.+'
+  - 'google-gdk-license-.+'
+  - '.+'
 before_script:
   - echo no | android create avd --force -n test -t android-$EMULATOR_API_LEVEL --abi $ANDROID_ABI --tag $ANDROID_TAG
   - emulator -avd test -no-window &
