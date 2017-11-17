@@ -5,30 +5,30 @@
     <item
 
         android:id="@+id/action_home"
-        android:icon="@drawable/ic_action_home"
+        android:icon="@drawable/ic_home_white_24dp"
         android:title="@string/home_button"
         />
     <item
 
         android:id="@+id/action_search"
-        android:icon="@drawable/ic_action_search"
+        android:icon="@drawable/ic_search_white_24dp"
         android:title="@string/search_button"
      />
     <item
 
         android:id="@+id/action_addition"
-        android:icon="@drawable/ic_action_add"
+        android:icon="@drawable/ic_control_point_white_24dp"
         android:title="Add Item"/>
 
     <item
         android:id="@+id/action_profile"
-        android:icon="@drawable/ic_action_profile"
+        android:icon="@drawable/ic_account_circle_white_24dp"
         android:title="@string/profile_button"
         />
     <item
 
         android:id="@+id/action_favorite"
-        android:icon="@drawable/ic_action_favorite"
+        android:icon="@drawable/ic_star_white_24dp"
         android:title="@string/favorite_button"
        />
 

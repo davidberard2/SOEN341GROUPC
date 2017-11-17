@@ -6,7 +6,6 @@
     tools:context="Fragments.SearchFragment"
     android:padding="15dp">
 
-
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -80,8 +79,6 @@
         android:background="@color/colorPrimary"
         android:text="@string/action_search"
         android:textColor="@color/white"/>
-
-
 
 </LinearLayout>
 
