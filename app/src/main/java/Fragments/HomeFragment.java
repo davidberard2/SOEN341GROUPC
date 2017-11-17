@@ -20,6 +20,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.projectfirebase.soen341.root.Adapters.ListItemAdapter;
+import com.projectfirebase.soen341.root.FilterObject;
 import com.projectfirebase.soen341.root.Listing;
 import com.projectfirebase.soen341.root.R;
 
@@ -34,7 +35,8 @@ public class HomeFragment extends Fragment {
     private ArrayList<Listing> listingsList = new ArrayList<>();
     private ListItemAdapter mAdapter;
     private boolean isViewFiltered;
-    private String filterString;
+    public static FilterObject itemFilter;
+    public static boolean applyAdvancedFilter;
 
     DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
     DatabaseReference itemsRef = rootRef.child("Items");
@@ -89,19 +91,23 @@ public class HomeFragment extends Fragment {
                     if (itemMap instanceof Map) {
                         Map<String, Object> itemObj = (Map<String, Object>) itemMap;
 
-                        String name = (String) itemObj.get("Name");
-                        Double price = ((Number) itemObj.get("Price")).doubleValue();
-                        String url = (String) itemObj.get("ImageURL");
+						String id = key;
+						String name = (String) itemObj.get("Name");
+						Double price = ((Number)itemObj.get("Price")).doubleValue();
+						String url = (String) itemObj.get("ImageURL");
+                        int category = ((Number)itemObj.get("Category")).intValue();
+                        int subCategory = ((Number)itemObj.get("SubCategory")).intValue();
 
-                        Listing item = new Listing(key, name, price, url);
 
-                        //filter the item out of the display list if necessary
-                        if (!isViewFiltered || isViewFiltered && item.getName().toLowerCase().contains(filterString.toLowerCase())) {
-                            listingsList.add(item);
-                        }
-                        unfilteredList.add(item);
-                    }
-                }
+					    Listing item = new Listing(key, name, price, url, category, subCategory);
+
+						//filter the item out of the display6 list if necessary
+						if(doNotFilterOutItem(item)){
+							listingsList.add(item);
+						}
+						unfilteredList.add(item);
+				    }
+			    }
 
                 //Me all the items are in the listingsList, notify the adapter that the dataset was changed
                 mAdapter.notifyDataSetChanged();
@@ -114,30 +120,43 @@ public class HomeFragment extends Fragment {
         return view;
     }
 
-    @Override
-    public void onPrepareOptionsMenu(Menu menu) {
-        MenuItem mSearchMenuItem = menu.findItem(R.id.action_search_query);
-        SearchView searchView = (SearchView) mSearchMenuItem.getActionView();
+    public boolean doNotFilterOutItem(Listing itemToFilter){
+        if(!isViewFiltered && !HomeFragment.applyAdvancedFilter)
+            return true;
+        else{
+            boolean containsString =  HomeFragment.itemFilter.isContainedIn(itemToFilter.getName());
+            boolean inPriceRange = HomeFragment.itemFilter.isInPriceRange(itemToFilter.getPrice());
+            boolean isRightCategory = HomeFragment.itemFilter.isCategory(itemToFilter.getCategory());
+            boolean isRightSubCategory = HomeFragment.itemFilter.isSubCategory(itemToFilter.getSubCategory());
+
+            return containsString && inPriceRange && isRightCategory && isRightSubCategory;
+        }
+    }
+
+	@Override
+	public void onPrepareOptionsMenu(Menu menu) {
+		MenuItem mSearchMenuItem = menu.findItem(R.id.action_search_query);
+		SearchView searchView = (SearchView) mSearchMenuItem.getActionView();
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
                 //Filters the listingsListdata set
 
-                if (query != null && !query.isEmpty()) {
-                    isViewFiltered = true;
-                    filterString = query.toLowerCase();
-                }
-                listingsList.clear();
-                //To filter, go through the unfiltered list and only add the wanted items to the list to listingslist, which is the displayed list
-                for (Listing item : unfilteredList) {
-                    if (!isViewFiltered || isViewFiltered && item.getName().toLowerCase().contains(filterString)) {
-                        listingsList.add(item);
-                    }
-                }
-                mAdapter.notifyDataSetChanged();
-                return false;
-            }
+					if (query != null && !query.isEmpty()) {
+						isViewFiltered = true;
+						HomeFragment.itemFilter.setStringFilter(query.toLowerCase());
+					}
+					listingsList.clear();
+					//To filter, go through the unfiltered list and only add the wanted items to the list to listingslist, which is the displayed list
+					for (Listing item : unfilteredList) {
+						if (doNotFilterOutItem(item)) {
+							listingsList.add(item);
+						}
+					}
+					mAdapter.notifyDataSetChanged();
+					return false;
+				}
 
             @Override
             // Responsible for displaying all possible string from the list based on each additionnal character input made by user

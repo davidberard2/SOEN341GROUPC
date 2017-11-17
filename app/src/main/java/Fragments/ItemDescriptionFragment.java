@@ -86,9 +86,11 @@ public class ItemDescriptionFragment extends Fragment {
                 String description = (String) itemObj.get("Description");
                 String url = (String) itemObj.get("ImageURL");
                 Double price = ((Number) itemObj.get("Price")).doubleValue();
+                int category = ((Number)itemObj.get("Category")).intValue();
+                int subCategory = ((Number)itemObj.get("SubCategory")).intValue();
 
                 //set it
-                itemToDisplay = new ItemDescription(id, name, price, url, description);
+                itemToDisplay = new ItemDescription(id, name, price, url, description, category, subCategory);
 
                 setDisplayViews();
             }
