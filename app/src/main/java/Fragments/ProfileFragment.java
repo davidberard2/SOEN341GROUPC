@@ -104,8 +104,8 @@ public class ProfileFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_profile, container, false);
@@ -166,28 +166,28 @@ public class ProfileFragment extends Fragment {
     }
 
     private void toggleEditMode(boolean editMode) {
-            firstName_et.setFocusableInTouchMode(editMode);
-            firstName_et.setEnabled(editMode);
-            lastName_et.setFocusableInTouchMode(editMode);
-            lastName_et.setEnabled(editMode);
-            email_et.setFocusableInTouchMode(editMode);
-            email_et.setEnabled(editMode);
-            phoneNumber_et.setFocusableInTouchMode(editMode);
-            phoneNumber_et.setEnabled(editMode);
-            postalCode_et.setFocusableInTouchMode(editMode);
-            postalCode_et.setEnabled(editMode);
-            editMenuItem.setVisible(!editMode);
-            saveMenuItem.setVisible(editMode);
-            cancelMenuItem.setVisible(editMode);
-            settingsMenuItem.setVisible(!editMode);
+        firstName_et.setFocusableInTouchMode(editMode);
+        firstName_et.setEnabled(editMode);
+        lastName_et.setFocusableInTouchMode(editMode);
+        lastName_et.setEnabled(editMode);
+        email_et.setFocusableInTouchMode(editMode);
+        email_et.setEnabled(editMode);
+        phoneNumber_et.setFocusableInTouchMode(editMode);
+        phoneNumber_et.setEnabled(editMode);
+        postalCode_et.setFocusableInTouchMode(editMode);
+        postalCode_et.setEnabled(editMode);
+        editMenuItem.setVisible(!editMode);
+        saveMenuItem.setVisible(editMode);
+        cancelMenuItem.setVisible(editMode);
+        settingsMenuItem.setVisible(!editMode);
 
-            if (!editMode) {
-                firstName_et.clearFocus();
-                lastName_et.clearFocus();
-                email_et.clearFocus();
-                phoneNumber_et.clearFocus();
-                postalCode_et.clearFocus();
-            }
+        if (!editMode) {
+            firstName_et.clearFocus();
+            lastName_et.clearFocus();
+            email_et.clearFocus();
+            phoneNumber_et.clearFocus();
+            postalCode_et.clearFocus();
+        }
     }
 
     private void setProfileFields() {
@@ -218,8 +218,7 @@ public class ProfileFragment extends Fragment {
     private void updateName() {
         if (firstName_et.getText().toString().trim().equals("") || lastName_et.getText().toString().trim().equals("")) {
             Toast.makeText(view.getContext(), "Name field is invalid", Toast.LENGTH_SHORT).show();
-        }
-        else if (!firstName_et.getText().toString().trim().equals(firstName) || !lastName_et.getText().toString().trim().equals(lastName)) {
+        } else if (!firstName_et.getText().toString().trim().equals(firstName) || !lastName_et.getText().toString().trim().equals(lastName)) {
             firstName = firstName_et.getText().toString().trim();
             myUID.child("FirstName").setValue(firstName);
 
@@ -232,8 +231,7 @@ public class ProfileFragment extends Fragment {
     private void updateEmail() {
         if (email_et.getText().toString().trim().equals("")) {
             Toast.makeText(view.getContext(), "Email is invalid", Toast.LENGTH_SHORT).show();
-        }
-        else if (!email_et.getText().toString().trim().equals(email)){
+        } else if (!email_et.getText().toString().trim().equals(email)) {
             email = email_et.getText().toString().trim();
             user.updateEmail(email)
                     .addOnCompleteListener(new OnCompleteListener<Void>() {

@@ -14,6 +14,7 @@
     <string name="error_field_required">This field is required</string>
     <string name="permission_rationale">"Contacts permissions are needed for providing email completion."</string>
     <string name="logged_out">"You are currently not logged in. \n Please log in or sign up for to see this page.</string>
+
     <!-- Strings related to fragment buttons -->
     <string name="home_button">Home</string>
     <string name="profile_button">Profile</string>
@@ -23,6 +24,11 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="action_search">search</string>
+
+    <!-- Listings details -->
+    <string name="item_name">Name</string>
+    <string name="item_price">Price</string>
+    <string name="item_photo">This is the item photo.</string>
 
     <!-- Profile details -->
     <string name="profile_first_name">First Name</string>

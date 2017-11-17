@@ -7,11 +7,18 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
 
-
     </style>
+
+    <!-- Style for modifying the bottom navigation bar-->
     <style name="ActionButtonStyle" parent="Widget.Design.BottomNavigationView">
-        <!-- Style for modifying the bottom navigation bar-->
-        <item name="android:color">#ffffff</item>
+        <item name="colorPrimary">@color/white</item>
+        <item name="colorControlHighlight">@color/colorHighlighted</item>
     </style>
 
+    <!-- Style for divider in the listings -->
+    <style name="ListingDivider">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1dp</item>
+        <item name="android:background">?android:attr/listDivider</item>
+    </style>
 </resources>
