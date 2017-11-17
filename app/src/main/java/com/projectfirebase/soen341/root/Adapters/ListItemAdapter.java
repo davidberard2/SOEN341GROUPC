@@ -23,7 +23,6 @@ import java.text.NumberFormat;
 import java.util.List;
 
 import static com.projectfirebase.soen341.root.Helper.setImage;
-import static com.projectfirebase.soen341.root.R.drawable.ic_star_border;
 
 public class ListItemAdapter extends RecyclerView.Adapter<ListItemAdapter.ViewHolder> {
     private List<Listing> itemList;
@@ -124,10 +123,10 @@ public class ListItemAdapter extends RecyclerView.Adapter<ListItemAdapter.ViewHo
 
             if (isFavorite) {
                 holder.fav.setChecked(true);
-                holder.fav.setBackgroundResource(R.drawable.ic_star_black);
+                holder.fav.setBackgroundResource(R.drawable.ic_star_yellow_24dp);
             } else {
                 holder.fav.setChecked(false);
-                holder.fav.setBackgroundResource(ic_star_border);
+                holder.fav.setBackgroundResource(R.drawable.ic_star_border_yellow_24dp);
             }
 
             if (user != null) {
@@ -137,13 +136,13 @@ public class ListItemAdapter extends RecyclerView.Adapter<ListItemAdapter.ViewHo
                         if (isChecked) {
                             //usersRef.child(user.getUid()).child("Favorites").setValue(favString + ";" + holder.id.toString());
                             currentUserRef.child("Favorites").child(holder.id).setValue(true);
-                            holder.fav.setBackgroundResource(R.drawable.ic_star_black);
+                            holder.fav.setBackgroundResource(R.drawable.ic_star_yellow_24dp);
                         } else {
                         /*newFavList.remove(newFavList.indexOf(holder.id.toString()));
                         usersRef.child(user.getUid()).child("Favorites").setValue(android.text.TextUtils.join(";", newFavList));*/
                             currentUserRef.child("Favorites").child(holder.id).removeValue();
 
-                            holder.fav.setBackgroundResource(ic_star_border);
+                            holder.fav.setBackgroundResource(R.drawable.ic_star_border_yellow_24dp);
                         }
                     }
                 });
