@@ -25,16 +25,22 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="action_search">search</string>
 
-    <!-- Listings details -->
+    <!-- Item details -->
     <string name="item_name">Name</string>
     <string name="item_price">Price</string>
-    <string name="item_photo">This is the item photo.</string>
+    <string name="item_photo">Item photo</string>
+    <string name="item_desc">Item description</string>
 
     <!-- Profile details -->
     <string name="profile_first_name">First Name</string>
     <string name="profile_last_name">Last Name</string>
     <string name="profile_email">Email</string>
     <string name="profile_phone_number">Phone Number</string>
+    <string name="profile_postal_code">Postal Code</string>
+    <string name="profile_photo">Profile photo</string>
+    <string name="profile_update_photo">Update profile photo</string>
+
+    <!-- Add item details -->
     <string name="what_would_you_like_to_sell">What would you like to sell?</string>
     <string name="name_of_item">Name of item</string>
     <string name="price">Price</string>
@@ -42,9 +48,6 @@
     <string name="post_my_item">Post my item</string>
     <string name="choose_from_gallery">Choose From Gallery</string>
     <string name="take_a_photo">Take A photo</string>
-    <string name="profile_postal_code">Postal Code</string>
-    <string name="profile_photo">This is your profile photo.</string>
-    <string name="profile_update_photo">Update your profile photo.</string>
   
     <!-- Favorite details -->
     <string name="no_favorites">You have no favorites!</string>

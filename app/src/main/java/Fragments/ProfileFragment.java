@@ -37,6 +37,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.projectfirebase.soen341.root.Helper;
 import com.projectfirebase.soen341.root.R;
 
 import java.io.File;
@@ -216,7 +217,7 @@ public class ProfileFragment extends Fragment {
     }
 
     private void updateName() {
-        if (firstName_et.getText().toString().trim().equals("") || lastName_et.getText().toString().trim().equals("")) {
+        if (Helper.isNullOrEmpty(firstName_et.getText().toString().trim()) || Helper.isNullOrEmpty(lastName_et.getText().toString().trim())) {
             Toast.makeText(view.getContext(), "Name field is invalid", Toast.LENGTH_SHORT).show();
         } else if (!firstName_et.getText().toString().trim().equals(firstName) || !lastName_et.getText().toString().trim().equals(lastName)) {
             firstName = firstName_et.getText().toString().trim();
@@ -229,7 +230,7 @@ public class ProfileFragment extends Fragment {
 
     // TODO: Only Gmail updates go through, possibly fix?
     private void updateEmail() {
-        if (email_et.getText().toString().trim().equals("")) {
+        if (Helper.isNullOrEmpty(email_et.getText().toString().trim())) {
             Toast.makeText(view.getContext(), "Email is invalid", Toast.LENGTH_SHORT).show();
         } else if (!email_et.getText().toString().trim().equals(email)) {
             email = email_et.getText().toString().trim();

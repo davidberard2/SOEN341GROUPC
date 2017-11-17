@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.projectfirebase.soen341.root.Listing;
 import com.projectfirebase.soen341.root.R;
 
+import java.text.NumberFormat;
 import java.util.List;
 
 import static com.projectfirebase.soen341.root.Helper.setImage;
@@ -51,7 +52,11 @@ public class ListItemAdapter extends RecyclerView.Adapter<ListItemAdapter.ViewHo
 
         holder.id = listItem.getID();
         holder.name_tv.setText(listItem.getName());
-        holder.price_tv.setText(String.valueOf(listItem.getPrice()));
+
+        NumberFormat formatter = NumberFormat.getCurrencyInstance();
+        String price = formatter.format(listItem.getPrice());
+        holder.price_tv.setText(price);
+
         holder.view.setTag(listItem.getID());
 
         String imgUrl = listItem.getImageURL();
