@@ -50,21 +50,20 @@ public class ProfileLoginFragment extends Fragment {
 
     public void setAuthStateListener(View view) {
         loggedOut_tv = (TextView) view.findViewById(R.id.logged_out);
-        login_b = (Button)view.findViewById(logInB);
-        signup_b = (Button)view.findViewById(signUpB);
+        login_b = (Button) view.findViewById(logInB);
+        signup_b = (Button) view.findViewById(signUpB);
 
         authListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                if(authRef.getCurrentUser() != null) {
+                if (authRef.getCurrentUser() != null) {
                     // TODO: Show menu with settings
                     // setHasOptionsMenu(true);
 
                     loggedOut_tv.setVisibility(View.GONE);
                     login_b.setVisibility(View.GONE);
                     signup_b.setVisibility(View.GONE);
-                }
-                else {
+                } else {
                     loggedOut_tv.setVisibility(View.VISIBLE);
                     signup_b.setVisibility(View.VISIBLE);
                     login_b.setVisibility(View.VISIBLE);

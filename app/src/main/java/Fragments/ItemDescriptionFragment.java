@@ -106,7 +106,7 @@ public class ItemDescriptionFragment extends Fragment {
         String price = formatter.format(this.itemToDisplay.getPrice());
         price_tv.setText(price);
 
-        if (Helper.isNullOrEmpty(this.itemToDisplay.getDescription())) {
+        if (Helper.isNullOrEmpty(this.itemToDisplay.getDescription().trim())) {
             description_tv.setText(NO_DESC);
         } else {
             description_tv.setText(this.itemToDisplay.getDescription());

@@ -1,6 +1,5 @@
 package Fragments;
 
-
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -13,8 +12,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.projectfirebase.soen341.root.R;
 
 public class SettingsFragment extends Fragment {
-
-
     Button logInB;
     Button logOutB;
     Button signUpB;
@@ -28,15 +25,12 @@ public class SettingsFragment extends Fragment {
         // Required empty public constructor
     }
 
-
     public static SettingsFragment newInstance() {
-        SettingsFragment fragment = new SettingsFragment();
-        return fragment;
+        return new SettingsFragment();
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState)
-    {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
 
@@ -50,39 +44,26 @@ public class SettingsFragment extends Fragment {
     }
 
     public void setAuthStateListener(View view) {
-        logInB = (Button)view.findViewById(R.id.logInB);
-        logOutB = (Button)view.findViewById(R.id.logOutB);
-        signUpB = (Button)view.findViewById(R.id.signUpB);
-        aboutB = (Button)view.findViewById(R.id.aboutB);
-        notificationsB = (Button)view.findViewById(R.id.notificationsB);
-        
+        logInB = (Button) view.findViewById(R.id.logInB);
+        logOutB = (Button) view.findViewById(R.id.logOutB);
+        signUpB = (Button) view.findViewById(R.id.signUpB);
+        aboutB = (Button) view.findViewById(R.id.aboutB);
+        notificationsB = (Button) view.findViewById(R.id.notificationsB);
+
         // SET Auth State Listener
         authListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                if(authRef.getCurrentUser() != null) {
-                    signUpB.setVisibility(View.GONE);
-                    logInB.setVisibility(View.GONE);
-                    logOutB.setVisibility(View.VISIBLE);
+                signUpB.setVisibility(View.GONE);
+                logInB.setVisibility(View.GONE);
+                logOutB.setVisibility(View.VISIBLE);
 
-                    aboutB.setVisibility(View.VISIBLE);
-                    notificationsB.setVisibility(View.VISIBLE);
+                aboutB.setVisibility(View.VISIBLE);
+                notificationsB.setVisibility(View.VISIBLE);
 
 
-                    signUpB.setVisibility(View.GONE);
+                signUpB.setVisibility(View.GONE);
 
-                }
-                else {
-                    signUpB.setVisibility(View.VISIBLE);
-                    logInB.setVisibility(View.VISIBLE);
-                    logOutB.setVisibility(View.GONE);
-
-                    aboutB.setVisibility(View.GONE);
-                    notificationsB.setVisibility(View.GONE);
-
-                    signUpB.setVisibility(View.VISIBLE);
-
-                }
             }
         };
 

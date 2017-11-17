@@ -3,7 +3,6 @@ package Fragments;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -159,16 +158,6 @@ public class HomeFragment extends Fragment {
         });
 
         super.onPrepareOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        Fragment newFragment = new SettingsFragment();
-        FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        transaction.replace(R.id.frame_layout, newFragment);
-        transaction.commit();
-
-        return true;
     }
 
     @Override

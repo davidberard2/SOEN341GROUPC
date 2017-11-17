@@ -2,28 +2,26 @@
 <menu xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
-
     <item
         android:id="@+id/profile_edit_button"
         android:icon="@drawable/ic_edit_white_24dp"
-        android:title="Item"
+        android:title="@string/profile_edit"
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/profile_save_button"
         android:icon="@drawable/ic_check_white_24dp"
-        android:title="Item"
+        android:title="@string/profile_save"
         android:visible="false"
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/profile_cancel_button"
         android:icon="@drawable/ic_clear_white_24dp"
-        android:title="Item"
+        android:title="@string/profile_edit_cancel"
         android:visible="false"
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/profile_settings_button"
-        android:title="Settings"
+        android:title="@string/profile_settings"
         android:icon="@drawable/ic_settings_white_24dp"
-        app:showAsAction="always"/>
-
+        app:showAsAction="ifRoom"/>
 </menu>

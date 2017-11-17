@@ -40,6 +40,12 @@
     <string name="profile_photo">Profile photo</string>
     <string name="profile_update_photo">Update profile photo</string>
 
+    <!-- Profile menu options -->
+    <string name="profile_edit">Profile Edit</string>
+    <string name="profile_save">Profile Save</string>
+    <string name="profile_edit_cancel">Profile Edit Cancel</string>
+    <string name="profile_settings">Profile Settings</string>
+
     <!-- Add item details -->
     <string name="what_would_you_like_to_sell">What would you like to sell?</string>
     <string name="name_of_item">Name of item</string>
@@ -51,5 +57,4 @@
   
     <!-- Favorite details -->
     <string name="no_favorites">You have no favorites!</string>
-
 </resources>

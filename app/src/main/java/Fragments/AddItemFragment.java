@@ -5,15 +5,9 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
-import android.provider.MediaStore;
-import android.provider.SyncStateContract;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.FileProvider;
-import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,24 +17,14 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.projectfirebase.soen341.root.ItemDescription;
-import com.projectfirebase.soen341.root.Listing;
 import com.projectfirebase.soen341.root.R;
 
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import java.util.UUID;
 
 import static android.app.Activity.RESULT_OK;
@@ -71,19 +55,16 @@ public class AddItemFragment extends Fragment {
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState)
-    {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
 
     public static AddItemFragment newInstance() {
-        AddItemFragment fragment = new AddItemFragment();
-        return fragment;
+        return new AddItemFragment();
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_add_listing_item, container, false);
 
@@ -107,7 +88,7 @@ public class AddItemFragment extends Fragment {
         selectImageCameraLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               //Set camera click listener
+                //Set camera click listener
             }
         });
 
