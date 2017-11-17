@@ -6,4 +6,9 @@
     tools:context="Fragments.SearchFragment"
     android:padding="15dp">
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="This will be the search fragment."/>
+
 </LinearLayout>
