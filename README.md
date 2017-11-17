@@ -11,6 +11,8 @@
 ## INTRODUCTION
 This is the repository for GROUP C students from Concordia University's Fall 2017 SOEN 341 course. The project contained is a classified site software to be used by the public to buy, as well as to sell, goods and services. All discussion and documentation concerning the project can be found in this GitHub repository. The software process used to develop the product is the agile methodology.
 
+## Architectural Diagram
+![f mvp](https://user-images.githubusercontent.com/22185426/32926070-25463916-cb13-11e7-9306-4c6a4ec48cf7.png)
 
 ## Members 
 
