@@ -49,7 +49,6 @@ android:
     
 script:
   - travis_wait 20 ./gradlew build --info
-  - ./gradlew cC
   - ./gradlew connectedAndroidTest --info
 licenses:
   - 'android-sdk-preview-license-.+'
