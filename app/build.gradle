@@ -54,7 +54,7 @@ dependencies {
 
 tasks.withType(Test) {
     testLogging {
-        events "PASSED", "STARTED", "FAILED", "SKIPPED", "SUCCESS"
+        events "PASSED", "STARTED", "FAILED", "SKIPPED"
     }
 }
 
