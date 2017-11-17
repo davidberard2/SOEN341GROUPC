@@ -1,27 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="10dp"
-    android:onClick="showItemDescription"
-    android:orientation="horizontal">
+    android:onClick="showItemDescription">
 
     <ImageView
         android:id="@+id/list_item_photo"
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:contentDescription="@string/item_photo"
+        app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@drawable/default_photo" />
 
     <RelativeLayout
         android:id="@+id/item_list_info"
-        android:layout_width="200dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
+        android:layout_marginStart="10dp"
         android:layout_toEndOf="@id/list_item_photo"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        app:layout_constraintStart_toEndOf="@id/list_item_photo">
 
         <TextView
             android:id="@+id/list_item_name"
@@ -45,8 +46,12 @@
         style="?android:attr/borderlessButtonStyle"
         android:layout_width="30dp"
         android:layout_height="30dp"
-        android:layout_centerVertical="true"
-        android:layout_toEndOf="@id/item_list_info"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
         android:textOff=""
-        android:textOn="" />
-</RelativeLayout>
+        android:textOn=""
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+</android.support.constraint.ConstraintLayout>
