@@ -100,7 +100,6 @@ public class FavoriteFragment extends Fragment {
                     if (itemMap instanceof Map) {
                         Map<String, Object> itemObj = (Map<String, Object>) itemMap;
 
-                        String id = key;
                         String name = (String) itemObj.get("Name");
                         Double price = ((Number) itemObj.get("Price")).doubleValue();
                         String url = (String) itemObj.get("ImageURL");

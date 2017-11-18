@@ -91,7 +91,7 @@ public class signUpActivity extends AppCompatActivity {
                         Toast.makeText(signUpActivity.this, "Sign up successful!", Toast.LENGTH_LONG).show();
                         FirebaseUser user = task.getResult().getUser();
                         String UID = user.getUid();
-                        User newUser = new User(firstName, lastName, phoneNumber, ZIPCode);
+                        User newUser = new User(firstName, lastName, email, phoneNumber, ZIPCode);
                         usersRef.child(UID).setValue(newUser);
                         finish();
                     } else {

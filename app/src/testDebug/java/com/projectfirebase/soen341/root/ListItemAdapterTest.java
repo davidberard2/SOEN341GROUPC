@@ -15,7 +15,7 @@ import static org.junit.Assert.assertEquals;
 public class ListItemAdapterTest extends AppCompatActivity{
 
     Listing L1 = new Listing("1", "test1",1, "testURL1");
-    Listing L2 = new Listing("2", "test2",2, "testURL2");
+    Listing L2 = new Listing("2", "test2", 2, "testURL2");
     List<Listing> LL = new ArrayList<>();
 
     @Test

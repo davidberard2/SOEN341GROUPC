@@ -240,6 +240,7 @@ public class ProfileFragment extends Fragment {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             if (task.isSuccessful()) {
+                                myUID.child("Email").setValue(email);
                                 Log.d("USER_EMAIL_UPDATE", "User email updated.");
                             } else {
                                 Toast.makeText(view.getContext(), "Email update error.", Toast.LENGTH_SHORT).show();
@@ -342,7 +343,6 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 if (authRef.getCurrentUser() != null) {
-                    // Display menu save option
                     setHasOptionsMenu(true);
 
                     email = authRef.getCurrentUser().getEmail();

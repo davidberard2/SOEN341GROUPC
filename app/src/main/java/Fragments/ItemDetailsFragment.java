@@ -29,6 +29,7 @@ import static com.projectfirebase.soen341.root.Helper.setImage;
 
 public class ItemInfoFragment extends Fragment {
     public static String itemIDToDisplay;
+    private String sellerId;
     public ItemDescription itemToDisplay;
     private final String NO_DESC = "No additional information available";
 
@@ -41,6 +42,8 @@ public class ItemInfoFragment extends Fragment {
     private TextView name_tv, price_tv, description_tv, seller_name_tv, seller_email_tv;
     private ImageView item_iv, seller_iv;
     private ToggleButton favorite_tb;
+
+    String sellerName, sellerEmail, sellerPhotoURL;
 
     public ItemInfoFragment() {
         // Required empty public constructor
@@ -73,22 +76,8 @@ public class ItemInfoFragment extends Fragment {
         seller_iv = (ImageView) view.findViewById(R.id.seller_photo);
 
         if (user != null) {
-            currentUserRef = rootRef.child("Users").child(user.getUid());
-            favRef = currentUserRef.child("Favorites");
+            setFavoriteButtonListener();
 
-            favRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    if (dataSnapshot.hasChild(itemIDToDisplay))
-                        setFavToggle(true);
-                    else
-                        setFavToggle(false);
-                }
-
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-                }
-            });
         } else {
             favorite_tb.setVisibility(View.GONE);
         }
@@ -114,6 +103,7 @@ public class ItemInfoFragment extends Fragment {
                 Map<String, Object> itemObj = (Map<String, Object>) itemsInDB;
 
                 //get the data for the item to display
+                sellerId = (String) itemObj.get("OwnerID");
                 String name = (String) itemObj.get("Name");
                 String description = (String) itemObj.get("Description");
                 String url = (String) itemObj.get("ImageURL");
@@ -122,9 +112,10 @@ public class ItemInfoFragment extends Fragment {
                 int subCategory = ((Number) itemObj.get("SubCategory")).intValue();
 
                 //set it
-                itemToDisplay = new ItemDescription(itemIDToDisplay, name, price, url, description, category, subCategory);
+                itemToDisplay = new ItemDescription(itemIDToDisplay, sellerId, name, price, url, description, category, subCategory);
 
                 setDisplayViews();
+                setSellerDetails();
             }
 
             @Override
@@ -146,12 +137,50 @@ public class ItemInfoFragment extends Fragment {
             description_tv.setText(this.itemToDisplay.getDescription());
         }
 
-        String imgUrl = itemToDisplay.getImageURL();
-        setImage(getActivity(), imgUrl, item_iv);
+        setImage(getActivity(), itemToDisplay.getImageURL(), item_iv);
     }
 
     public static void setItemIDToDisplay(String id) {
         ItemInfoFragment.itemIDToDisplay = id;
+    }
+
+    private void setSellerDetails() {
+        DatabaseReference sellerRef = rootRef.child("Users").child(sellerId);
+
+        sellerRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                setImage(getActivity(), dataSnapshot.child("ImageURL").getValue(String.class), seller_iv);
+                sellerName = dataSnapshot.child("FirstName").getValue(String.class) + " " + dataSnapshot.child("LastName").getValue(String.class);
+                sellerEmail = dataSnapshot.child("Email").getValue(String.class);
+                seller_name_tv.setText(sellerName);
+                seller_email_tv.setText(sellerEmail);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
+    }
+
+
+    private void setFavoriteButtonListener() {
+        currentUserRef = rootRef.child("Users").child(user.getUid());
+        favRef = currentUserRef.child("Favorites");
+
+        favRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.hasChild(itemIDToDisplay))
+                    setFavToggle(true);
+                else
+                    setFavToggle(false);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
     }
 
     public void setFavToggle(final boolean isFavorite) {

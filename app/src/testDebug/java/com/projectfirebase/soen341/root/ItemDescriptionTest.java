@@ -8,11 +8,12 @@ import static org.junit.Assert.assertEquals;
 public class ItemDescriptionTest {
 
     String id = "id1";
+    String sellerId = "sellerId";
     String name = "name";
     double price = 123.456;
     String description = "test";
     String url = "wabadabadingdong";
-    ItemDescription itemTest = new ItemDescription(id, name, price, url, description);
+    ItemDescription itemTest = new ItemDescription(id, sellerId, name, price, url, description);
     Listing listTest = new Listing(id, name, price, url);
     ItemDescription itemTest2 = new ItemDescription(listTest, description);
 
@@ -34,7 +35,7 @@ public class ItemDescriptionTest {
         double price = 123.456;
         String description = "test";
         String url = "wabadabadingdong";
-        ItemDescription item = new ItemDescription(id, name, price, url, description);
+        ItemDescription item = new ItemDescription(id, sellerId, name, price, url, description);
 
         assertEquals(item.getID(), id);
         assertEquals(item.getName(), name);

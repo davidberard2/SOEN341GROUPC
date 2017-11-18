@@ -22,10 +22,6 @@ public class ListingTest {
 
     @Test
     public void ListingConstructorTest() {
-        String id = "id1";
-        String name = "name";
-        double price = 123.456;
-        String imageURL = "testURL";
         Listing listing = new Listing(id, name, price, imageURL);
 
         assertEquals(listing.getID(), id);

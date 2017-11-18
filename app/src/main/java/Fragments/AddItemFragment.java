@@ -147,7 +147,7 @@ public class AddItemFragment extends Fragment {
                     String itemDescription = itemDescriptionET.getText().toString();
 
                     String id = UUID.randomUUID().toString();
-                    ItemDescription listingItem = new ItemDescription(id, itemName, itemPrice, "", itemDescription);
+                    ItemDescription listingItem = new ItemDescription(id, user.getUid(), itemName, itemPrice, "", itemDescription);
 
                     databaseItems.child(id).child("Price").setValue(itemPrice);
                     databaseItems.child(id).child("Description").setValue(itemDescription);
@@ -156,7 +156,6 @@ public class AddItemFragment extends Fragment {
                     databaseItems.child(id).child("OwnerID").setValue(user.getUid());
 
                     Toast.makeText(getContext(), "Item Posted", Toast.LENGTH_LONG).show();
-
                 }
 
             }
