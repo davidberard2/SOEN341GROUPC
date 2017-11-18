@@ -27,7 +27,7 @@ import java.util.Map;
 
 import static com.projectfirebase.soen341.root.Helper.setImage;
 
-public class ItemInfoFragment extends Fragment {
+public class ItemDetailsFragment extends Fragment {
     public static String itemIDToDisplay;
     private String sellerId;
     public ItemDescription itemToDisplay;
@@ -45,12 +45,12 @@ public class ItemInfoFragment extends Fragment {
 
     String sellerName, sellerEmail, sellerPhotoURL;
 
-    public ItemInfoFragment() {
+    public ItemDetailsFragment() {
         // Required empty public constructor
     }
 
-    public static ItemInfoFragment newInstance() {
-        return new ItemInfoFragment();
+    public static ItemDetailsFragment newInstance() {
+        return new ItemDetailsFragment();
     }
 
     @Override
@@ -141,7 +141,7 @@ public class ItemInfoFragment extends Fragment {
     }
 
     public static void setItemIDToDisplay(String id) {
-        ItemInfoFragment.itemIDToDisplay = id;
+        ItemDetailsFragment.itemIDToDisplay = id;
     }
 
     private void setSellerDetails() {
