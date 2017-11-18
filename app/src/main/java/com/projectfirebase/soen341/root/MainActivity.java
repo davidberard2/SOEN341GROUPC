@@ -18,7 +18,7 @@ import com.google.firebase.auth.FirebaseAuth;
 
 import Fragments.FavoriteFragment;
 import Fragments.HomeFragment;
-import Fragments.ItemDescriptionFragment;
+import Fragments.ItemInfoFragment;
 import Fragments.ProfileFragment;
 import Fragments.ProfileLoginFragment;
 import Fragments.SearchFragment;
@@ -117,8 +117,8 @@ public class MainActivity extends AppCompatActivity {
 
     public void showItemDescription(View view){
         String id = (String) view.getTag();
-        ItemDescriptionFragment.setItemIDToDisplay(id);
-        Fragment selectedFragment = ItemDescriptionFragment.newInstance();
+        ItemInfoFragment.setItemIDToDisplay(id);
+        Fragment selectedFragment = ItemInfoFragment.newInstance();
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.frame_layout, selectedFragment);
         transaction.commit();

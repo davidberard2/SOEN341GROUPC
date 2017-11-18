@@ -5,7 +5,9 @@
     <color name="colorAccent">#FF6E40</color>
     <color name="colorMuted">#558B2F</color>
     <color name="colorHighlighted">#C5E1A5</color>
+    <color name="colorHighlightedLight">#7FC5E1A5</color>
     <color name="white">#FFFFFF</color>
     <color name="black">#000000</color>
     <color name="dirtyWhite">#F2F2F2</color>
+    <color name="favorite">#FCAF17</color>
 </resources>

@@ -21,6 +21,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.projectfirebase.soen341.root.Adapters.ListItemAdapter;
 import com.projectfirebase.soen341.root.FilterObject;
+import com.projectfirebase.soen341.root.Helper;
 import com.projectfirebase.soen341.root.Listing;
 import com.projectfirebase.soen341.root.R;
 
@@ -85,28 +86,28 @@ public class HomeFragment extends Fragment {
                 Map<String, Object> itemsMap = (HashMap<String, Object>) dataSnapshot.getValue();
 
                 for (String key : itemsMap.keySet()) {
-                    Object itemMap = itemsMap.get(key);
-                    //itemMap is a single item, but still in json format.
-                    //From this object, extract wanted data to item, and add it to our list of items.
-                    if (itemMap instanceof Map) {
-                        Map<String, Object> itemObj = (Map<String, Object>) itemMap;
+                    if (!Helper.isNullOrEmpty(key)) {
+                        Object itemMap = itemsMap.get(key);
+                        //itemMap is a single item, but still in json format.
+                        //From this object, extract wanted data to item, and add it to our list of items.
+                        if (itemMap instanceof Map) {
+                            Map<String, Object> itemObj = (Map<String, Object>) itemMap;
 
-						String id = key;
-						String name = (String) itemObj.get("Name");
-						Double price = ((Number)itemObj.get("Price")).doubleValue();
-						String url = (String) itemObj.get("ImageURL");
-                        int category = ((Number)itemObj.get("Category")).intValue();
-                        int subCategory = ((Number)itemObj.get("SubCategory")).intValue();
+                            String name = (String) itemObj.get("Name");
+                            Double price = ((Number) itemObj.get("Price")).doubleValue();
+                            String url = (String) itemObj.get("ImageURL");
+                            int category = ((Number) itemObj.get("Category")).intValue();
+                            int subCategory = ((Number) itemObj.get("SubCategory")).intValue();
 
+                            Listing item = new Listing(key, name, price, url, category, subCategory);
 
-					    Listing item = new Listing(key, name, price, url, category, subCategory);
-
-						//filter the item out of the display6 list if necessary
-						if(doNotFilterOutItem(item)){
-							listingsList.add(item);
-						}
-						unfilteredList.add(item);
-				    }
+                            //filter the item out of the display6 list if necessary
+                            if (doNotFilterOutItem(item)) {
+                                listingsList.add(item);
+                            }
+                            unfilteredList.add(item);
+                        }
+                    }
 			    }
 
                 //Me all the items are in the listingsList, notify the adapter that the dataset was changed

@@ -36,8 +36,6 @@ public class FavoriteFragment extends Fragment {
     private DatabaseReference currentUserRef;
     private DatabaseReference favRef;
 
-
-
     private ArrayList<Listing> listingsList = new ArrayList<>();
     private RecyclerView recyclerView;
     private ListItemAdapter mAdapter;
@@ -48,27 +46,20 @@ public class FavoriteFragment extends Fragment {
 
     private TextView fav_message_tv;
 
-
-
-
-
     public FavoriteFragment() {
         // Required empty public constructor
     }
-
 
     public static FavoriteFragment newInstance() {
         FavoriteFragment fragment = new FavoriteFragment();
         return fragment;
     }
 
-
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -102,10 +93,7 @@ public class FavoriteFragment extends Fragment {
 
     }
 
-
-
     public void populateFavoritesList(View view, final DataSnapshot favRef) {
-
         recyclerView = (RecyclerView) view.findViewById(R.id.fav_recycler_view);
         mAdapter = new ListItemAdapter(listingsList);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
@@ -143,7 +131,6 @@ public class FavoriteFragment extends Fragment {
         });
 
     }
-
 
     public void setMessage(View view, int messageID) {
         fav_message_tv = (TextView) view.findViewById(R.id.fav_message);

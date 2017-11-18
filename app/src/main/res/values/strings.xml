@@ -42,6 +42,8 @@
     <string name="item_price">Price</string>
     <string name="item_photo">Item photo</string>
     <string name="item_desc">Item description</string>
+    <string name="seller_name">Seller name</string>
+    <string name="seller_email">Seller email</string>
 
     <!-- Profile details -->
     <string name="profile_first_name">First Name</string>
