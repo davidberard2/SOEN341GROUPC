@@ -56,9 +56,6 @@ tasks.withType(Test) {
     testLogging {
         events "PASSED", "STARTED", "FAILED", "SKIPPED"
     }
-    afterTest { desc, result -> 
-        logger.quiet "Executing test ${desc.name} [${desc.className}] with result: ${result.resultType}"
-    }
 }
 
 sourceSets {
