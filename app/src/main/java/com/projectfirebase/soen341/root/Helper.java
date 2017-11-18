@@ -11,7 +11,7 @@ import Tasks.DownloadImageTask;
 
 import static android.R.attr.fragment;
 
-public class Helper{
+public class Helper {
     public static boolean isNullOrEmpty(String s){ return s == null || s.trim() == ""; }
     public static boolean isNullOrEmpty(Object[] o) { return o == null || o.length < 1; }
 

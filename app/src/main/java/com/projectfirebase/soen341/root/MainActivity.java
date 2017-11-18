@@ -19,8 +19,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import Fragments.FavoriteFragment;
 import Fragments.HomeFragment;
 import Fragments.ItemInfoFragment;
+import Fragments.LoggedOutFragment;
 import Fragments.ProfileFragment;
-import Fragments.ProfileLoginFragment;
 import Fragments.SearchFragment;
 import Fragments.AddItemFragment;
 
@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
     FirebaseAuth authRef = FirebaseAuth.getInstance();
 
     @RequiresApi(api = Build.VERSION_CODES.GINGERBREAD)
-	@Override
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         logInB = (Button) findViewById(R.id.logInB);
         logOutB = (Button) findViewById(R.id.logOutB);
@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
                         Fragment selectedFragment = null;
                         switch (item.getItemId()) {
                             case R.id.action_home:
-                                if(HomeFragment.itemFilter == null){
+                                if (HomeFragment.itemFilter == null) {
                                     HomeFragment.itemFilter = new FilterObject();
                                 }
                                 HomeFragment.applyAdvancedFilter = false;
@@ -60,22 +60,28 @@ public class MainActivity extends AppCompatActivity {
                                 selectedFragment = HomeFragment.newInstance();
                                 break;
                             case R.id.action_search:
-                                if(HomeFragment.itemFilter == null){
+                                if (HomeFragment.itemFilter == null) {
                                     HomeFragment.itemFilter = new FilterObject();
                                 }
                                 selectedFragment = SearchFragment.newInstance();
                                 break;
                             case R.id.action_addition:
-                                selectedFragment = AddItemFragment.newInstance();
+                                if (authRef.getCurrentUser() != null)
+                                    selectedFragment = AddItemFragment.newInstance();
+                                else
+                                    selectedFragment = LoggedOutFragment.newInstance();
                                 break;
                             case R.id.action_profile:
                                 if (authRef.getCurrentUser() != null)
                                     selectedFragment = ProfileFragment.newInstance();
                                 else
-                                    selectedFragment = ProfileLoginFragment.newInstance();
+                                    selectedFragment = LoggedOutFragment.newInstance();
                                 break;
                             case R.id.action_favorite:
-                                selectedFragment = FavoriteFragment.newInstance();
+                                if (authRef.getCurrentUser() != null)
+                                    selectedFragment = FavoriteFragment.newInstance();
+                                else
+                                    selectedFragment = LoggedOutFragment.newInstance();
                                 break;
 
                         }
@@ -104,18 +110,17 @@ public class MainActivity extends AppCompatActivity {
         FirebaseAuth.getInstance().signOut();
         Toast.makeText(MainActivity.this, "Logged out!", Toast.LENGTH_SHORT).show();
     }
+
     //Placeholder methods for settings menu
-    public void notificationsMethod(View view)
-    {
+    public void notificationsMethod(View view) {
         Toast.makeText(MainActivity.this, "Notifications settings here", Toast.LENGTH_SHORT).show();
     }
 
-    public void aboutMethod(View view)
-    {
+    public void aboutMethod(View view) {
         Toast.makeText(MainActivity.this, "About app here!", Toast.LENGTH_SHORT).show();
     }
 
-    public void showItemDescription(View view){
+    public void showItemDescription(View view) {
         String id = (String) view.getTag();
         ItemInfoFragment.setItemIDToDisplay(id);
         Fragment selectedFragment = ItemInfoFragment.newInstance();
@@ -124,10 +129,10 @@ public class MainActivity extends AppCompatActivity {
         transaction.commit();
     }
 
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		return false;
-	}
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        return false;
+    }
 
     @Override
     protected void onStart() {

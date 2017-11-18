@@ -38,8 +38,8 @@ public class ItemInfoFragment extends Fragment {
     private DatabaseReference favRef;
     private FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
-    private TextView name_tv, price_tv, description_tv;
-    private ImageView photo_iv;
+    private TextView name_tv, price_tv, description_tv, seller_name_tv, seller_email_tv;
+    private ImageView item_iv, seller_iv;
     private ToggleButton favorite_tb;
 
     public ItemInfoFragment() {
@@ -66,8 +66,11 @@ public class ItemInfoFragment extends Fragment {
         name_tv = (TextView) view.findViewById(R.id.item_name);
         price_tv = (TextView) view.findViewById(R.id.item_price);
         description_tv = (TextView) view.findViewById(R.id.item_description);
-        photo_iv = (ImageView) view.findViewById(R.id.item_photo);
+        item_iv = (ImageView) view.findViewById(R.id.item_photo);
         favorite_tb = (ToggleButton) view.findViewById(R.id.favorite);
+        seller_name_tv = (TextView) view.findViewById(R.id.seller_name);
+        seller_email_tv = (TextView) view.findViewById(R.id.seller_email);
+        seller_iv = (ImageView) view.findViewById(R.id.seller_photo);
 
         if (user != null) {
             currentUserRef = rootRef.child("Users").child(user.getUid());
@@ -144,7 +147,7 @@ public class ItemInfoFragment extends Fragment {
         }
 
         String imgUrl = itemToDisplay.getImageURL();
-        setImage(getActivity(), imgUrl, photo_iv);
+        setImage(getActivity(), imgUrl, item_iv);
     }
 
     public static void setItemIDToDisplay(String id) {

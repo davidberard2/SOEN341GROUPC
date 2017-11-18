@@ -17,6 +17,8 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
@@ -31,10 +33,12 @@ import java.util.UUID;
 import static android.app.Activity.RESULT_OK;
 
 public class AddItemFragment extends Fragment {
+    View view;
 
     private DatabaseReference rootRef;
     private DatabaseReference databaseItems;
     private StorageReference mStorage;
+    private FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
     private EditText itemNameET;
     private EditText itemPriceET;
@@ -67,7 +71,7 @@ public class AddItemFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_add_listing_item, container, false);
+        view = inflater.inflate(R.layout.fragment_add_listing_item, container, false);
 
         rootRef = FirebaseDatabase.getInstance().getReference();
         databaseItems = rootRef.child("Items");
@@ -149,7 +153,7 @@ public class AddItemFragment extends Fragment {
                     databaseItems.child(id).child("Description").setValue(itemDescription);
                     databaseItems.child(id).child("Name").setValue(itemName);
                     databaseItems.child(id).child("ImageURL").setValue("");
-                    databaseItems.child(id).child("OwnerID").setValue("userUID");
+                    databaseItems.child(id).child("OwnerID").setValue(user.getUid());
 
                     Toast.makeText(getContext(), "Item Posted", Toast.LENGTH_LONG).show();
 

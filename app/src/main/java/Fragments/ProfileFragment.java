@@ -108,6 +108,7 @@ public class ProfileFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
+
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_profile, container, false);
         setAuthStateListener(view);
@@ -296,10 +297,8 @@ public class ProfileFragment extends Fragment {
 
                                 if (user != null) {
                                     myUID = myUser.child(user.getUid());
-                                    // Toast.makeText(getActivity(), "CHECK 3", Toast.LENGTH_LONG).show();
 
                                     myUID.child("ImageURL").setValue(downloadUrl.toString());
-                                    // Toast.makeText(getActivity(), "CHECK 4", Toast.LENGTH_LONG).show();
                                 }
 
                                 Toast.makeText(getActivity(), "Successfully uploaded!", Toast.LENGTH_LONG).show();
