@@ -12,16 +12,16 @@ public class ItemDescription extends Listing {
         this.Description = d;
     }
 
-    public ItemDescription(String id, String name, double price, String url, String desc){
-        super(id);
+    public ItemDescription(String id, String sellerId, String name, double price, String url, String desc){
+        super(id, sellerId);
         this.setName(name);
         this.setPrice(price);
         this.setImageURL(url);
         this.setDescription(desc);
     }
 
-    public ItemDescription(String id, String name, double price, String url, String desc, int category, int subCategory){
-        super(id);
+    public ItemDescription(String id, String sellerId, String name, double price, String url, String desc, int category, int subCategory){
+        super(id, sellerId);
         this.setName(name);
         this.setPrice(price);
         this.setImageURL(url);

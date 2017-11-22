@@ -36,76 +36,52 @@ public class FavoriteFragment extends Fragment {
     private DatabaseReference currentUserRef;
     private DatabaseReference favRef;
 
-
-
     private ArrayList<Listing> listingsList = new ArrayList<>();
     private RecyclerView recyclerView;
     private ListItemAdapter mAdapter;
 
-    private boolean isViewFiltered;
-    private String filterString;
-    private String favString;
-
     private TextView fav_message_tv;
-
-
-
-
 
     public FavoriteFragment() {
         // Required empty public constructor
     }
 
-
     public static FavoriteFragment newInstance() {
-        FavoriteFragment fragment = new FavoriteFragment();
-        return fragment;
+        return new FavoriteFragment();
     }
 
-
     @Override
-    public void onCreate(Bundle savedInstanceState)
-    {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
 
-
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_favorite, container, false);
 
-        if(user != null) {
-            currentUserRef = rootRef.child("Users").child(user.getUid());
-            favRef = currentUserRef.child("Favorites");
+        currentUserRef = rootRef.child("Users").child(user.getUid());
+        favRef = currentUserRef.child("Favorites");
 
-            final View currentView = view;
-            favRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    if(dataSnapshot.hasChildren())
-                        populateFavoritesList(currentView, dataSnapshot);
-                    else
-                        setMessage(currentView, R.string.no_favorites);
-                }
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-                }
-            });
-        }
-        else {
-            setMessage(view, R.string.logged_out);
-        }
+        final View currentView = view;
+        favRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.hasChildren())
+                    populateFavoritesList(currentView, dataSnapshot);
+                else
+                    setMessage(currentView, R.string.no_favorites);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
 
         return view;
-
     }
 
-
-
     public void populateFavoritesList(View view, final DataSnapshot favRef) {
-
         recyclerView = (RecyclerView) view.findViewById(R.id.fav_recycler_view);
         mAdapter = new ListItemAdapter(listingsList);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
@@ -120,19 +96,18 @@ public class FavoriteFragment extends Fragment {
                 Map<String, Object> itemsMap = (HashMap<String, Object>) dataSnapshot.getValue();
 
                 for (String key : favMap.keySet()) {
-                        Object itemMap = itemsMap.get(key);
-                        if (itemMap instanceof Map) {
-                            Map<String, Object> itemObj = (Map<String, Object>) itemMap;
+                    Object itemMap = itemsMap.get(key);
+                    if (itemMap instanceof Map) {
+                        Map<String, Object> itemObj = (Map<String, Object>) itemMap;
 
-                            String id = key;
-                            String name = (String) itemObj.get("Name");
-                            Double price = ((Number) itemObj.get("Price")).doubleValue();
-                            String url = (String) itemObj.get("ImageURL");
+                        String name = (String) itemObj.get("Name");
+                        Double price = ((Number) itemObj.get("Price")).doubleValue();
+                        String url = (String) itemObj.get("ImageURL");
 
-                            Listing item = new Listing(key, name, price, url);
+                        Listing item = new Listing(key, name, price, url);
 
-                            listingsList.add(item);
-                        }
+                        listingsList.add(item);
+                    }
                 }
                 mAdapter.notifyDataSetChanged();
             }
@@ -141,9 +116,7 @@ public class FavoriteFragment extends Fragment {
             public void onCancelled(DatabaseError databaseError) {
             }
         });
-
     }
-
 
     public void setMessage(View view, int messageID) {
         fav_message_tv = (TextView) view.findViewById(R.id.fav_message);

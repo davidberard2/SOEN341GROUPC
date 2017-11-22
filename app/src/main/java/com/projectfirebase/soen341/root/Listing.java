@@ -2,6 +2,7 @@ package com.projectfirebase.soen341.root;
 
 public class Listing {
 	private String ID;
+	private String sellerId;
 	private String Name;
 	private double Price;
 	private String ImageURL;
@@ -10,6 +11,7 @@ public class Listing {
 
 	public Listing(){
 		this.ID = "";
+		this.sellerId = "";
 		this.Name = "";
 		this.Price = 0;
 		this.ImageURL = "";
@@ -17,8 +19,9 @@ public class Listing {
 		this.SubCategory = 0;
 	}
 
-	public Listing(String id){
+	public Listing(String id, String sellerId){
 		this.ID = id;
+		this.sellerId = sellerId;
 	}
 
 	public Listing(String id, String name, double price, String imageURL) {
@@ -39,6 +42,10 @@ public class Listing {
 
 	public String getID() {
 		return ID;
+	}
+
+	public String getsellerId() {
+		return sellerId;
 	}
 
 	public String getName() {

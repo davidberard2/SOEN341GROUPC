@@ -1,10 +1,9 @@
 package Fragments;
 
 import android.app.Activity;
-import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
@@ -22,6 +21,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.projectfirebase.soen341.root.Adapters.ListItemAdapter;
 import com.projectfirebase.soen341.root.FilterObject;
+import com.projectfirebase.soen341.root.Helper;
 import com.projectfirebase.soen341.root.Listing;
 import com.projectfirebase.soen341.root.R;
 
@@ -30,101 +30,95 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class HomeFragment extends Fragment {
-	//Listing RecyclerView instances
-	//private View view;
-	//I chose to use an unfilteredlist to base filters off of. This way, the database is only called when something is changed in the database.
-	//Otherwise, every time the filter is changed, we would have to get the items from the database again.
-	private ArrayList<Listing> unfilteredList = new ArrayList<>();
-	private ArrayList<Listing> listingsList = new ArrayList<>();
-	private RecyclerView recyclerView;
-	private ListItemAdapter mAdapter;
-	private boolean isViewFiltered;
-	public static FilterObject itemFilter;
-	public static boolean applyAdvancedFilter;
-	MenuItem loginLogout;
-	// Fragment View
-	private Context context;
+    //I chose to use an unfilteredlist to base filters off of. This way, the database is only called when something is changed in the database.
+    //Otherwise, every time the filter is changed, we would have to get the items from the database again.
+    private ArrayList<Listing> unfilteredList = new ArrayList<>();
+    private ArrayList<Listing> listingsList = new ArrayList<>();
+    private ListItemAdapter mAdapter;
+    private boolean isViewFiltered;
+    public static FilterObject itemFilter;
+    public static boolean applyAdvancedFilter;
 
-	MenuItem login_logout;  //Commented out until we use it.
-
-	DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
-	DatabaseReference itemsRef = rootRef.child("Items");
+    DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
+    DatabaseReference itemsRef = rootRef.child("Items");
 
     public HomeFragment() {
         // Required empty public constructor
     }
 
     public static HomeFragment newInstance() {
-        HomeFragment fragment = new HomeFragment();
-        return fragment;
+        return new HomeFragment();
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState)
-    {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-	    setHasOptionsMenu(true);
+        setHasOptionsMenu(true);
     }
 
     @Override
-	public void onCreateOptionsMenu(Menu menu, MenuInflater menuInflater) {
-		menuInflater.inflate(R.menu.search_menu, menu);
-		super.onCreateOptionsMenu(menu, menuInflater);
-	}
+    public void onCreateOptionsMenu(Menu menu, MenuInflater menuInflater) {
+        menuInflater.inflate(R.menu.search_menu, menu);
+        super.onCreateOptionsMenu(menu, menuInflater);
+    }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
-	    recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
-	    mAdapter = new ListItemAdapter(listingsList);
-	    RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
-	    recyclerView.setLayoutManager(mLayoutManager);
-	    recyclerView.setAdapter(mAdapter);
-	    itemsRef.addValueEventListener(new ValueEventListener() {
-		    @Override	//OnDataChange gets the full database every time something is changed inside of it.
-		    public void onDataChange(DataSnapshot dataSnapshot) {
-			    //clear the listingslist so we can add the items again (with changes)
-				unfilteredList.clear();
-			    listingsList.clear();
-				//itemsMap is a map of every item in the 'Items' database
-			    Map<String, Object> itemsMap = (HashMap<String, Object>) dataSnapshot.getValue();
+        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
+        mAdapter = new ListItemAdapter(listingsList);
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
+        recyclerView.setLayoutManager(mLayoutManager);
+        recyclerView.setAdapter(mAdapter);
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(), LinearLayoutManager.VERTICAL);
+        recyclerView.addItemDecoration(dividerItemDecoration);
+        itemsRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            //OnDataChange gets the full database every time something is changed inside of it.
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                //clear the listingslist so we can add the items again (with changes)
+                unfilteredList.clear();
+                listingsList.clear();
+                //itemsMap is a map of every item in the 'Items' database
+                Map<String, Object> itemsMap = (HashMap<String, Object>) dataSnapshot.getValue();
 
-			    for ( String key : itemsMap.keySet() ) {
-					Object itemMap = itemsMap.get(key);
-					//itemMap is a single item, but still in json format.
-					//From this object, extract wanted data to item, and add it to our list of items.
-				    if(itemMap instanceof Map){
-					    Map<String, Object> itemObj = (Map<String, Object>) itemMap;
+                for (String key : itemsMap.keySet()) {
+                    if (!Helper.isNullOrEmpty(key)) {
+                        Object itemMap = itemsMap.get(key);
+                        //itemMap is a single item, but still in json format.
+                        //From this object, extract wanted data to item, and add it to our list of items.
+                        if (itemMap instanceof Map) {
+                            Map<String, Object> itemObj = (Map<String, Object>) itemMap;
 
-						String id = key;
-						String name = (String) itemObj.get("Name");
-						Double price = ((Number)itemObj.get("Price")).doubleValue();
-						String url = (String) itemObj.get("ImageURL");
-                        int category = ((Number)itemObj.get("Category")).intValue();
-                        int subCategory = ((Number)itemObj.get("SubCategory")).intValue();
+                            String name = (String) itemObj.get("Name");
+                            Double price = ((Number) itemObj.get("Price")).doubleValue();
+                            String url = (String) itemObj.get("ImageURL");
+                            int category = ((Number) itemObj.get("Category")).intValue();
+                            int subCategory = ((Number) itemObj.get("SubCategory")).intValue();
 
+                            Listing item = new Listing(key, name, price, url, category, subCategory);
 
-					    Listing item = new Listing(key, name, price, url, category, subCategory);
-
-						//filter the item out of the display6 list if necessary
-						if(doNotFilterOutItem(item)){
-							listingsList.add(item);
-						}
-						unfilteredList.add(item);
-				    }
+                            //filter the item out of the display6 list if necessary
+                            if (doNotFilterOutItem(item)) {
+                                listingsList.add(item);
+                            }
+                            unfilteredList.add(item);
+                        }
+                    }
 			    }
 
-			    //Me all the items are in the listingsList, notify the adapter that the dataset was changed
-			    mAdapter.notifyDataSetChanged();
-		    }
-		    @Override
-		    public void onCancelled(DatabaseError databaseError) {
-		    }
-	    });
-	    return view;
+                //Me all the items are in the listingsList, notify the adapter that the dataset was changed
+                mAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
+        return view;
     }
 
     public boolean doNotFilterOutItem(Listing itemToFilter){
@@ -145,10 +139,10 @@ public class HomeFragment extends Fragment {
 		MenuItem mSearchMenuItem = menu.findItem(R.id.action_search_query);
 		SearchView searchView = (SearchView) mSearchMenuItem.getActionView();
 
-		searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-			    @Override
-			    public boolean onQueryTextSubmit(String query) {
-					//Filters the listingsListdata set
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                //Filters the listingsListdata set
 
 					if (query != null && !query.isEmpty()) {
 						isViewFiltered = true;
@@ -165,45 +159,30 @@ public class HomeFragment extends Fragment {
 					return false;
 				}
 
-			    @Override
-				// Responsible for displaying all possible string from the list based on each additionnal character input made by user
-			    public boolean onQueryTextChange(String newText) {
+            @Override
+            // Responsible for displaying all possible string from the list based on each additionnal character input made by user
+            public boolean onQueryTextChange(String newText) {
+                newText = newText.toLowerCase(); //eliminate possibility of uppercases
 
-				    newText = newText.toLowerCase(); //eliminate possibility of uppercases
+                listingsList.clear();
+                for (Listing list : unfilteredList) {
+                    final String text = list.getName().toLowerCase();
+                    if (text.contains(newText)) { //adding all items that match the query string to the filtered arraylist
+                        listingsList.add(list);
+                    }
+                }
 
-				    listingsList.clear();
-				    for (Listing list : unfilteredList) {
-					    final String text = list.getName().toLowerCase();
-					    if (text.contains(newText)) { //adding all items that match the query string to the filtered arraylist
-						    listingsList.add(list);
-					    }
-				    }
+                mAdapter.notifyDataSetChanged(); //notify the adapter that the dataset was changed
+                return true;
+            }
+        });
 
-				    mAdapter.notifyDataSetChanged(); //notify the adapter that the dataset was changed
-				    return true;
-				}
+        super.onPrepareOptionsMenu(menu);
+    }
 
-			});
-
-		super.onPrepareOptionsMenu(menu);
-	}
-
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-
-		Fragment newFragment = new SettingsFragment();
-		FragmentTransaction transaction = getFragmentManager().beginTransaction();
-		transaction.replace(R.id.frame_layout, newFragment);
-		transaction.addToBackStack(null);
-		transaction.commit();
-
-		return true;
-	}
-
-	@Override
-	public void onAttach(Activity activity) {
-		// TODO Auto-generated method stub
-		super.onAttach(activity);
-		context=activity;
-	}
+    @Override
+    public void onAttach(Activity activity) {
+        // TODO Auto-generated method stub
+        super.onAttach(activity);
+    }
 }

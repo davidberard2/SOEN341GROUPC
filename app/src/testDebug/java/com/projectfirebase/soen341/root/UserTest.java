@@ -11,6 +11,7 @@ public class UserTest {
 
         assertEquals(user.FirstName, "");
         assertEquals(user.LastName, "");
+        assertEquals(user.email, "");
         assertEquals(user.PhoneNumber, "");
         assertEquals(user.ZIPCode, "");
     }
@@ -19,12 +20,14 @@ public class UserTest {
     public void UserConstructorTest() {
         String FirstName = "FirstName";
         String LastName = "LastName";
+        String email = "Email";
         String PhoneNumber = "PhoneNumber";
         String ZIPCode = "ZIPCode";
-        User userTest = new User(FirstName, LastName, PhoneNumber, ZIPCode);
+        User userTest = new User(FirstName, LastName, email,PhoneNumber, ZIPCode);
 
         assertEquals(FirstName, userTest.FirstName);
         assertEquals(LastName, userTest.LastName);
+        assertEquals(email, userTest.email);
         assertEquals(PhoneNumber, userTest.PhoneNumber);
         assertEquals(ZIPCode, userTest.ZIPCode);
     }

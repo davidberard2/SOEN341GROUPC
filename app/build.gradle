@@ -50,7 +50,6 @@ dependencies {
     testCompile 'junit:junit:4.12'
 }
 
-
 tasks.withType(Test) {
     testLogging {
         events "PASSED", "STARTED", "FAILED", "SKIPPED"

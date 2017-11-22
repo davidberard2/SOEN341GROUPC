@@ -15,7 +15,7 @@ import com.projectfirebase.soen341.root.R;
 import static com.projectfirebase.soen341.root.R.id.logInB;
 import static com.projectfirebase.soen341.root.R.id.signUpB;
 
-public class ProfileLoginFragment extends Fragment {
+public class LoggedOutFragment extends Fragment {
     private TextView loggedOut_tv;
     private Button login_b;
     private Button signup_b;
@@ -23,12 +23,12 @@ public class ProfileLoginFragment extends Fragment {
     FirebaseAuth authRef = FirebaseAuth.getInstance();
     FirebaseAuth.AuthStateListener authListener;
 
-    public ProfileLoginFragment() {
+    public LoggedOutFragment() {
         // Required empty default constructor
     }
 
-    public static ProfileLoginFragment newInstance() {
-        return new ProfileLoginFragment();
+    public static LoggedOutFragment newInstance() {
+        return new LoggedOutFragment();
     }
 
     @Override
@@ -38,7 +38,7 @@ public class ProfileLoginFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_profile_login, container, false);
+        View view = inflater.inflate(R.layout.fragment_logged_out, container, false);
         setAuthStateListener(view);
         return view;
     }
@@ -57,9 +57,6 @@ public class ProfileLoginFragment extends Fragment {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 if(authRef.getCurrentUser() != null) {
-                    // TODO: Show menu with settings
-                    // setHasOptionsMenu(true);
-
                     loggedOut_tv.setVisibility(View.GONE);
                     login_b.setVisibility(View.GONE);
                     signup_b.setVisibility(View.GONE);

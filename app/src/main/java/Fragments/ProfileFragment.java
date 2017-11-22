@@ -37,6 +37,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.projectfirebase.soen341.root.Helper;
 import com.projectfirebase.soen341.root.R;
 
 import java.io.File;
@@ -104,9 +105,10 @@ public class ProfileFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
+
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_profile, container, false);
         setAuthStateListener(view);
@@ -166,28 +168,28 @@ public class ProfileFragment extends Fragment {
     }
 
     private void toggleEditMode(boolean editMode) {
-            firstName_et.setFocusableInTouchMode(editMode);
-            firstName_et.setEnabled(editMode);
-            lastName_et.setFocusableInTouchMode(editMode);
-            lastName_et.setEnabled(editMode);
-            email_et.setFocusableInTouchMode(editMode);
-            email_et.setEnabled(editMode);
-            phoneNumber_et.setFocusableInTouchMode(editMode);
-            phoneNumber_et.setEnabled(editMode);
-            postalCode_et.setFocusableInTouchMode(editMode);
-            postalCode_et.setEnabled(editMode);
-            editMenuItem.setVisible(!editMode);
-            saveMenuItem.setVisible(editMode);
-            cancelMenuItem.setVisible(editMode);
-            settingsMenuItem.setVisible(!editMode);
+        firstName_et.setFocusableInTouchMode(editMode);
+        firstName_et.setEnabled(editMode);
+        lastName_et.setFocusableInTouchMode(editMode);
+        lastName_et.setEnabled(editMode);
+        email_et.setFocusableInTouchMode(editMode);
+        email_et.setEnabled(editMode);
+        phoneNumber_et.setFocusableInTouchMode(editMode);
+        phoneNumber_et.setEnabled(editMode);
+        postalCode_et.setFocusableInTouchMode(editMode);
+        postalCode_et.setEnabled(editMode);
+        editMenuItem.setVisible(!editMode);
+        saveMenuItem.setVisible(editMode);
+        cancelMenuItem.setVisible(editMode);
+        settingsMenuItem.setVisible(!editMode);
 
-            if (!editMode) {
-                firstName_et.clearFocus();
-                lastName_et.clearFocus();
-                email_et.clearFocus();
-                phoneNumber_et.clearFocus();
-                postalCode_et.clearFocus();
-            }
+        if (!editMode) {
+            firstName_et.clearFocus();
+            lastName_et.clearFocus();
+            email_et.clearFocus();
+            phoneNumber_et.clearFocus();
+            postalCode_et.clearFocus();
+        }
     }
 
     private void setProfileFields() {
@@ -216,10 +218,9 @@ public class ProfileFragment extends Fragment {
     }
 
     private void updateName() {
-        if (firstName_et.getText().toString().trim().equals("") || lastName_et.getText().toString().trim().equals("")) {
+        if (Helper.isNullOrEmpty(firstName_et.getText().toString().trim()) || Helper.isNullOrEmpty(lastName_et.getText().toString().trim())) {
             Toast.makeText(view.getContext(), "Name field is invalid", Toast.LENGTH_SHORT).show();
-        }
-        else if (!firstName_et.getText().toString().trim().equals(firstName) || !lastName_et.getText().toString().trim().equals(lastName)) {
+        } else if (!firstName_et.getText().toString().trim().equals(firstName) || !lastName_et.getText().toString().trim().equals(lastName)) {
             firstName = firstName_et.getText().toString().trim();
             myUID.child("FirstName").setValue(firstName);
 
@@ -230,16 +231,16 @@ public class ProfileFragment extends Fragment {
 
     // TODO: Only Gmail updates go through, possibly fix?
     private void updateEmail() {
-        if (email_et.getText().toString().trim().equals("")) {
+        if (Helper.isNullOrEmpty(email_et.getText().toString().trim())) {
             Toast.makeText(view.getContext(), "Email is invalid", Toast.LENGTH_SHORT).show();
-        }
-        else if (!email_et.getText().toString().trim().equals(email)){
+        } else if (!email_et.getText().toString().trim().equals(email)) {
             email = email_et.getText().toString().trim();
             user.updateEmail(email)
                     .addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             if (task.isSuccessful()) {
+                                myUID.child("Email").setValue(email);
                                 Log.d("USER_EMAIL_UPDATE", "User email updated.");
                             } else {
                                 Toast.makeText(view.getContext(), "Email update error.", Toast.LENGTH_SHORT).show();
@@ -297,10 +298,8 @@ public class ProfileFragment extends Fragment {
 
                                 if (user != null) {
                                     myUID = myUser.child(user.getUid());
-                                    // Toast.makeText(getActivity(), "CHECK 3", Toast.LENGTH_LONG).show();
 
                                     myUID.child("ImageURL").setValue(downloadUrl.toString());
-                                    // Toast.makeText(getActivity(), "CHECK 4", Toast.LENGTH_LONG).show();
                                 }
 
                                 Toast.makeText(getActivity(), "Successfully uploaded!", Toast.LENGTH_LONG).show();
@@ -344,7 +343,6 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 if (authRef.getCurrentUser() != null) {
-                    // Display menu save option
                     setHasOptionsMenu(true);
 
                     email = authRef.getCurrentUser().getEmail();
