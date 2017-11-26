@@ -3,6 +3,7 @@ package Fragments;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,17 +38,26 @@ public class SettingsFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_settings, container, false);
+
+        logOutB = (Button) view.findViewById(R.id.logOutB);
+        aboutB = (Button) view.findViewById(R.id.aboutB);
+        notificationsB = (Button) view.findViewById(R.id.notificationsB);
+
+        aboutB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Fragment aboutFragment = new AboutFragment();
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                transaction.replace(R.id.frame_layout, aboutFragment);
+                transaction.commit();
+            }
+        });
+
         setAuthStateListener(view);
         return view;
     }
 
     public void setAuthStateListener(View view) {
-        logOutB = (Button) view.findViewById(R.id.logOutB);
-        aboutB = (Button) view.findViewById(R.id.aboutB);
-        notificationsB = (Button) view.findViewById(R.id.notificationsB);
-
-//        postItemButton.setOnClickListener(new View.OnClickListener() {}
-
 
         // SET Auth State Listener
         authListener = new FirebaseAuth.AuthStateListener() {

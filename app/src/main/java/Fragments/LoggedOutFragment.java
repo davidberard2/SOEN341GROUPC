@@ -39,6 +39,11 @@ public class LoggedOutFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_logged_out, container, false);
+
+        loggedOut_tv = (TextView) view.findViewById(R.id.logged_out);
+        login_b = (Button)view.findViewById(logInB);
+        signup_b = (Button)view.findViewById(signUpB);
+
         setAuthStateListener(view);
         return view;
     }
@@ -49,10 +54,6 @@ public class LoggedOutFragment extends Fragment {
     }
 
     public void setAuthStateListener(View view) {
-        loggedOut_tv = (TextView) view.findViewById(R.id.logged_out);
-        login_b = (Button)view.findViewById(logInB);
-        signup_b = (Button)view.findViewById(signUpB);
-
         authListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
