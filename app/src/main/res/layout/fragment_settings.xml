@@ -8,28 +8,6 @@
     <!-- TODO: Update blank fragment layout -->
 
     <Button
-        android:id="@+id/signUpB"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="signUpMethod"
-        android:text="Sign Up"
-        android:layout_marginRight="16dp"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="46dp" />
-
-    <Button
-        android:id="@+id/logInB"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="logInMethod"
-        android:text="Log in"
-        android:layout_marginLeft="27dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="46dp" />
-
-    <Button
         android:id="@+id/logOutB"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

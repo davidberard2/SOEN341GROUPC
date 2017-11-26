@@ -12,9 +12,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.projectfirebase.soen341.root.R;
 
 public class SettingsFragment extends Fragment {
-    Button logInB;
     Button logOutB;
-    Button signUpB;
     Button aboutB;
     Button notificationsB;
 
@@ -44,26 +42,20 @@ public class SettingsFragment extends Fragment {
     }
 
     public void setAuthStateListener(View view) {
-        logInB = (Button) view.findViewById(R.id.logInB);
         logOutB = (Button) view.findViewById(R.id.logOutB);
-        signUpB = (Button) view.findViewById(R.id.signUpB);
         aboutB = (Button) view.findViewById(R.id.aboutB);
         notificationsB = (Button) view.findViewById(R.id.notificationsB);
+
+//        postItemButton.setOnClickListener(new View.OnClickListener() {}
+
 
         // SET Auth State Listener
         authListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                signUpB.setVisibility(View.GONE);
-                logInB.setVisibility(View.GONE);
                 logOutB.setVisibility(View.VISIBLE);
-
-                aboutB.setVisibility(View.VISIBLE);
                 notificationsB.setVisibility(View.VISIBLE);
-
-
-                signUpB.setVisibility(View.GONE);
-
+                aboutB.setVisibility(View.VISIBLE);
             }
         };
 
