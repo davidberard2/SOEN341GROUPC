@@ -119,6 +119,9 @@ public class SearchFragment extends Fragment {
                                         ArrayAdapter adapter = new ArrayAdapter(getContext(), android.R.layout.simple_spinner_item, subCategoryOptions); //this, android.R.layout.simple_spinner_item, categoryOptions);
 
                                         subCategorySpinner.setAdapter(adapter);
+                                    } else {
+                                        ArrayAdapter adapter = ArrayAdapter.createFromResource(getContext(), R.array.search_chooseParent, android.R.layout.simple_spinner_item);
+                                        subCategorySpinner.setAdapter(adapter);
                                     }
                                 }
 
@@ -162,7 +165,6 @@ public class SearchFragment extends Fragment {
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 String stringFilter = "";
                 if(!Helper.isEmpty(searchNameET) ) {
                     stringFilter = searchNameET.getText().toString();
