@@ -78,7 +78,7 @@
                 android:id="@+id/search_subCategory"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:entries="@array/search_chooseParent" />
+                android:entries="@array/search_chooseCategory" />
 
         </LinearLayout>
 

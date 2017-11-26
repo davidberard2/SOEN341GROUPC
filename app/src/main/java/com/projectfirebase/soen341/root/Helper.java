@@ -6,6 +6,12 @@ import android.widget.EditText;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.google.firebase.database.DataSnapshot;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import Tasks.DownloadImageTask;
 
@@ -43,6 +49,35 @@ public class Helper {
             return false;
 
         return true;
+    }
+
+    public static String[] getCategoryArrayFromSnapshot(DataSnapshot dataSnapshot, String firstOption){
+        List<Object> subCategoriesList = (ArrayList<Object>) dataSnapshot.getValue();
+
+        Map<Integer, String> categories = new HashMap<>();
+        for ( Object category : subCategoriesList ) {
+            int index = subCategoriesList.indexOf(category);
+            //itemMap is a single item, but still in json format.
+            //From this object, extract wanted data to item, and add it to our list of items.
+            if(category instanceof Map){
+                Map<String, Object> categoryObj = (Map<String, Object>) category;
+
+                String name = (String) categoryObj.get("Name");
+                categories.put( index, name);
+            }
+        }
+
+        String[] options;
+        options = new String[categories.size() + 1];
+        options[0] = firstOption;
+
+        for(Integer key : categories.keySet()){
+            String name = categories.get(key);
+
+            options[key+1] = name;
+        }
+
+        return options;
     }
 }
 

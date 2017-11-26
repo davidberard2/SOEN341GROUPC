@@ -41,15 +41,15 @@ public class SearchFragment extends Fragment {
     private Spinner categorySpinner;
     private String[] categoryOptions;
     private int selectedCategory;
+    private boolean justCreatedFlagC;
 
     private Spinner subCategorySpinner;
     private String[] subCategoryOptions;
     private int selectedSubCategory;
+    private boolean justCreatedFlagSC;
 
     private Button searchButton;
 
-    private boolean justCreatedFlagC;
-    private boolean justCreatedFlagSC;
 
     public SearchFragment() {
         // Required empty public constructor
@@ -85,7 +85,7 @@ public class SearchFragment extends Fragment {
         categoriesRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                categoryOptions = getArrayFromSnapshot(dataSnapshot);
+                categoryOptions = Helper.getCategoryArrayFromSnapshot(dataSnapshot, "Any...");
 
                 ArrayAdapter adapter = new ArrayAdapter(getContext(), android.R.layout.simple_spinner_item, categoryOptions); //this, android.R.layout.simple_spinner_item, categoryOptions);
 
@@ -114,13 +114,13 @@ public class SearchFragment extends Fragment {
                                 @Override
                                 public void onDataChange(DataSnapshot dataSnapshot) {
                                     if(selectedCategory >= 0) {
-                                        subCategoryOptions = getArrayFromSnapshot(dataSnapshot);
+                                        subCategoryOptions = Helper.getCategoryArrayFromSnapshot(dataSnapshot, "Any...");
 
                                         ArrayAdapter adapter = new ArrayAdapter(getContext(), android.R.layout.simple_spinner_item, subCategoryOptions); //this, android.R.layout.simple_spinner_item, categoryOptions);
 
                                         subCategorySpinner.setAdapter(adapter);
                                     } else {
-                                        ArrayAdapter adapter = ArrayAdapter.createFromResource(getContext(), R.array.search_chooseParent, android.R.layout.simple_spinner_item);
+                                        ArrayAdapter adapter = ArrayAdapter.createFromResource(getContext(), R.array.search_chooseCategory, android.R.layout.simple_spinner_item);
                                         subCategorySpinner.setAdapter(adapter);
                                     }
                                 }
@@ -199,31 +199,7 @@ public class SearchFragment extends Fragment {
     }
 
 
-    private String[] getArrayFromSnapshot(DataSnapshot dataSnapshot){
-        List<Object> subCategoriesList = (ArrayList<Object>) dataSnapshot.getValue();
 
-        Map<Integer, String> categories = new HashMap<>();
-        for ( Object category : subCategoriesList ) {
-            int index = subCategoriesList.indexOf(category);
-            //itemMap is a single item, but still in json format.
-            //From this object, extract wanted data to item, and add it to our list of items.
-            if(category instanceof Map){
-                Map<String, Object> categoryObj = (Map<String, Object>) category;
-
-                String name = (String) categoryObj.get("Name");
-                categories.put( index, name);
-            }
-        }
-
-        String[] options = new String[categories.size()+1];
-        options[0] = "Any...";
-        for(Integer key : categories.keySet()){
-            String name = categories.get(key);
-            options[key+1] = name;
-        }
-
-        return options;
-    }
 
     public void submitSearchMethod(){
         HomeFragment.applyAdvancedFilter = true;

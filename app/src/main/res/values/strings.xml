@@ -34,7 +34,7 @@
     <string-array name="search_loading">
         <item>Loading...</item>
     </string-array>
-    <string-array name="search_chooseParent">
+    <string-array name="search_chooseCategory">
         <item>Please choose a category first.</item>
     </string-array>
 
@@ -71,6 +71,8 @@
     <string name="post_my_item">Post my item</string>
     <string name="choose_from_gallery">Choose From Gallery</string>
     <string name="take_a_photo">Take A photo</string>
+    <string name="add_choose_categories">Choose a category</string>
+    <string name="add_choose_subCategories">Choose a sub-category</string>
   
     <!-- Favorite details -->
     <string name="no_favorites">You have no favorites!</string>

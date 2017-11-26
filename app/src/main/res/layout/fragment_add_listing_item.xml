@@ -37,7 +37,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:textSize="20sp"
-                android:inputType="number"
+                android:inputType="numberDecimal|numberSigned"
                 android:hint="@string/price"/>
 
             <EditText
@@ -46,6 +46,33 @@
                 android:layout_height="50dp"
                 android:textSize="20sp"
                 android:hint="@string/description_of_the_object"/>
+
+            <TextView
+                android:paddingTop="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:textSize="20sp"
+                android:text="@string/add_choose_categories" />
+
+            <Spinner
+                android:id="@+id/add_category"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:entries="@array/search_loading" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:textSize="20sp"
+                android:text="@string/add_choose_subCategories" />
+
+            <Spinner
+                android:id="@+id/add_subCategory"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:entries="@array/search_chooseCategory" />
 
         </LinearLayout>
 
