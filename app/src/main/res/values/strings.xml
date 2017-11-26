@@ -5,7 +5,6 @@
     <string name="about_project">An Android Application Project by Group C.</string>
     <string name="about_school">SOEN 341, Concordia University</string>
     <string name="repo_link">Project Repository: <a href="https://github.com/davidberard2/SOEN341GROUPC">GitHub</a></string>
-    <string name="team_logo">Team Logo</string>
 
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
@@ -27,8 +26,6 @@
     <string name="settings_button">Settings</string>
     <string name="search_button">Search</string>
     <string name="favorite_button">Favorites</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <!-- Search Options -->
     <string name="action_search">search</string>
