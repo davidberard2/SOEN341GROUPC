@@ -1,5 +1,6 @@
 package com.projectfirebase.soen341.root;
 
+import android.content.Intent;
 import android.support.v4.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -14,8 +15,6 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidUserException;
-
-import Fragments.LoggedOutFragment;
 
 public class LoginActivity extends AppCompatActivity {
     TextView email_et;
@@ -80,6 +79,7 @@ public class LoginActivity extends AppCompatActivity {
                     } else {
                         Toast.makeText(LoginActivity.this, "Logged in!", Toast.LENGTH_SHORT).show();
                         finish();
+                        startActivity(new Intent(LoginActivity.this, MainActivity.class));
                     }
                 }
             });
