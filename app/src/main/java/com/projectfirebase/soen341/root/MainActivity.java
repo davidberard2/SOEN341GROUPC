@@ -25,19 +25,11 @@ import Fragments.SearchFragment;
 import Fragments.AddItemFragment;
 
 public class MainActivity extends AppCompatActivity {
-    Button logInB;
-    Button logOutB;
-    Button signUpB;
-
     FirebaseAuth authRef = FirebaseAuth.getInstance();
 
     @RequiresApi(api = Build.VERSION_CODES.GINGERBREAD)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        logInB = (Button) findViewById(R.id.logInB);
-        logOutB = (Button) findViewById(R.id.logOutB);
-        signUpB = (Button) findViewById(R.id.signUpB);
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -106,18 +98,9 @@ public class MainActivity extends AppCompatActivity {
         startActivity(new Intent(MainActivity.this, signUpActivity.class));
     }
 
-    public void logOutMethod(View view) {
-        FirebaseAuth.getInstance().signOut();
-        Toast.makeText(MainActivity.this, "Logged out!", Toast.LENGTH_SHORT).show();
-    }
-
     //Placeholder methods for settings menu
     public void notificationsMethod(View view) {
         Toast.makeText(MainActivity.this, "Notifications settings here", Toast.LENGTH_SHORT).show();
-    }
-
-    public void aboutMethod(View view) {
-        Toast.makeText(MainActivity.this, "About app here!", Toast.LENGTH_SHORT).show();
     }
 
     public void showItemDescription(View view) {
@@ -136,7 +119,6 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onStart() {
-
         super.onStart();
     }
 }

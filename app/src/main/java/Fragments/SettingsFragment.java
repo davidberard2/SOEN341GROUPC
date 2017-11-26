@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.projectfirebase.soen341.root.R;
@@ -43,12 +44,23 @@ public class SettingsFragment extends Fragment {
         aboutB = (Button) view.findViewById(R.id.aboutB);
         notificationsB = (Button) view.findViewById(R.id.notificationsB);
 
+        logOutB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FirebaseAuth.getInstance().signOut();
+                Toast.makeText(getActivity(), "Logged out!", Toast.LENGTH_SHORT).show();
+
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                transaction.replace(R.id.frame_layout, new LoggedOutFragment());
+                transaction.commit();
+            }
+        });
+
         aboutB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Fragment aboutFragment = new AboutFragment();
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                transaction.replace(R.id.frame_layout, aboutFragment);
+                transaction.replace(R.id.frame_layout, new AboutFragment());
                 transaction.commit();
             }
         });
