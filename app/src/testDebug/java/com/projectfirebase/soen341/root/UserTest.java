@@ -4,31 +4,32 @@ import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 
 public class UserTest {
+    final private String EMPTY_FIELD = "";
 
     @Test
     public void UserDefaultConstructorTest() {
         User user = new User();
 
-        assertEquals(user.FirstName, "");
-        assertEquals(user.LastName, "");
-        assertEquals(user.email, "");
-        assertEquals(user.PhoneNumber, "");
-        assertEquals(user.ZIPCode, "");
+        assertEquals(EMPTY_FIELD, user.getFirstName());
+        assertEquals(EMPTY_FIELD, user.getLastName());
+        assertEquals(EMPTY_FIELD, user.getEmail());
+        assertEquals(EMPTY_FIELD, user.getPhoneNumber());
+        assertEquals(EMPTY_FIELD, user.getZipCode());
     }
 
     @Test
     public void UserConstructorTest() {
-        String FirstName = "FirstName";
-        String LastName = "LastName";
+        String firstName = "FirstName";
+        String lastName = "LastName";
         String email = "Email";
-        String PhoneNumber = "PhoneNumber";
-        String ZIPCode = "ZIPCode";
-        User userTest = new User(FirstName, LastName, email,PhoneNumber, ZIPCode);
+        String phoneNumber = "PhoneNumber";
+        String zipCode = "ZIPCode";
+        User userTest = new User(firstName, lastName, email, phoneNumber, zipCode);
 
-        assertEquals(FirstName, userTest.FirstName);
-        assertEquals(LastName, userTest.LastName);
-        assertEquals(email, userTest.email);
-        assertEquals(PhoneNumber, userTest.PhoneNumber);
-        assertEquals(ZIPCode, userTest.ZIPCode);
+        assertEquals(firstName, userTest.getFirstName());
+        assertEquals(lastName, userTest.getLastName());
+        assertEquals(email, userTest.getEmail());
+        assertEquals(phoneNumber, userTest.getPhoneNumber());
+        assertEquals(zipCode, userTest.getZipCode());
     }
 }
