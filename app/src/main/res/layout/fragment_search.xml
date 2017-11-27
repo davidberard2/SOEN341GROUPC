@@ -61,18 +61,24 @@
                 android:textSize="20sp"
                 android:text="@string/search_choose_categories" />
 
-
             <Spinner
                 android:id="@+id/search_category"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:entries="@array/search_loading" />
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:textSize="20sp"
+                android:text="@string/search_choose_subCategories" />
+
             <Spinner
                 android:id="@+id/search_subCategory"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:entries="@array/search_chooseParent" />
+                android:entries="@array/search_chooseCategory" />
 
         </LinearLayout>
 

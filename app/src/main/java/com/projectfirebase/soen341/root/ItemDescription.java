@@ -1,5 +1,8 @@
 package com.projectfirebase.soen341.root;
 
+import com.google.firebase.database.Exclude;
+import com.google.firebase.database.PropertyName;
+
 public class ItemDescription extends Listing {
     private String Description;
     public ItemDescription(){
@@ -30,12 +33,13 @@ public class ItemDescription extends Listing {
         this.setSubCategory(subCategory);
     }
 
+    @PropertyName("Description")
     public String getDescription(){
         return this.Description;
     }
 
+    @Exclude
     public void setDescription(String description){
         this.Description = description;
     }
-
 }

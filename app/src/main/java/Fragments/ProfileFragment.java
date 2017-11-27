@@ -84,6 +84,7 @@ public class ProfileFragment extends Fragment {
     private static final int IMG_RESULT = 1;
     private Intent intent;
     private StorageReference storageRef = FirebaseStorage.getInstance("gs://projectfirebase-9323d.appspot.com").getReference();
+    private StorageReference profilePictureRef = storageRef.child("ProfilePictures");
 
     public ProfileFragment() {
         // Required empty default constructor
@@ -286,7 +287,7 @@ public class ProfileFragment extends Fragment {
                 // Toast.makeText(getActivity(), ImageDecode, Toast.LENGTH_LONG).show();
 
                 Uri file = Uri.fromFile(new File(imageDecode));
-                StorageReference riversRef = storageRef.child(user.getUid());
+                StorageReference riversRef = profilePictureRef.child(user.getUid());
                 riversRef.putFile(file)
                         .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                             @Override
