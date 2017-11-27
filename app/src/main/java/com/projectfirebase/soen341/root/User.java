@@ -1,26 +1,26 @@
 package com.projectfirebase.soen341.root;
 
 public class User {
-    public String FirstName;
-    public String LastName;
+    public String firstName;
+    public String lastName;
     public String email;
-    public String PhoneNumber;
-    public String ZIPCode;
+    public String phoneNumber;
+    public String zipCode;
 
     public User() {
         // Default constructor required for calls to DataSnapshot.getValue(User.class)
-        FirstName = "";
-        LastName = "";
+        firstName = "";
+        lastName = "";
         email = "";
-        PhoneNumber = "";
-        ZIPCode = "";
+        phoneNumber = "";
+        zipCode = "";
     }
 
     public User(String firstName, String lastName, String email, String phoneNumber, String ZIPCode) {
-        this.FirstName = firstName;
-        this.LastName = lastName;
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.email = email;
-        this.PhoneNumber = phoneNumber;
-        this.ZIPCode = ZIPCode;
+        this.phoneNumber = phoneNumber;
+        this.zipCode = zipCode;
     }
 }

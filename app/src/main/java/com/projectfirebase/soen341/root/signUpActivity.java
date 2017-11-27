@@ -1,5 +1,6 @@
 package com.projectfirebase.soen341.root;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -40,15 +41,15 @@ public class signUpActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
 
-        editTextSUFirstName = (TextView)findViewById(R.id.editTextSUFirstName);
-        editTextSULastName = (TextView)findViewById(R.id.editTextSULastName);
-        editTextSUEmail = (TextView)findViewById(R.id.editTextSUEmail);
-        editTextSUPhone = (TextView)findViewById(R.id.editTextSUPhone);
-        editTextSUZIP = (TextView)findViewById(R.id.editTextSUZIP);
-        editTextSUPassword = (TextView)findViewById(R.id.editTextSUPassword);
-        editTextSUConfPassword = (TextView)findViewById(R.id.editTextSUConfPassword);
+        editTextSUFirstName = (TextView) findViewById(R.id.editTextSUFirstName);
+        editTextSULastName = (TextView) findViewById(R.id.editTextSULastName);
+        editTextSUEmail = (TextView) findViewById(R.id.editTextSUEmail);
+        editTextSUPhone = (TextView) findViewById(R.id.editTextSUPhone);
+        editTextSUZIP = (TextView) findViewById(R.id.editTextSUZIP);
+        editTextSUPassword = (TextView) findViewById(R.id.editTextSUPassword);
+        editTextSUConfPassword = (TextView) findViewById(R.id.editTextSUConfPassword);
 
-        buttonSUSignUp = (Button)findViewById(R.id.buttonSUSignUp);
+        buttonSUSignUp = (Button) findViewById(R.id.buttonSUSignUp);
     }
 
     @Override
@@ -76,14 +77,14 @@ public class signUpActivity extends AppCompatActivity {
         final String password = editTextSUPassword.getText().toString().trim();
         final String confPassword = editTextSUConfPassword.getText().toString().trim();
 
-    // Validate all fields
+        // Validate all fields
         if (firstName.isEmpty() || lastName.isEmpty() || phoneNumber.isEmpty() || ZIPCode.isEmpty()) {
             Toast.makeText(signUpActivity.this, "Please fill all fields.", Toast.LENGTH_SHORT).show();
         } else if (!password.equals(confPassword)) {
             Toast.makeText(signUpActivity.this, "Passwords do not match.", Toast.LENGTH_SHORT).show();
         } else {
 
-        // Create user
+            // Create user
             authRef.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
@@ -94,6 +95,7 @@ public class signUpActivity extends AppCompatActivity {
                         User newUser = new User(firstName, lastName, email, phoneNumber, ZIPCode);
                         usersRef.child(UID).setValue(newUser);
                         finish();
+                        startActivity(new Intent(signUpActivity.this, MainActivity.class));
                     } else {
                         try {
                             throw task.getException();
@@ -101,7 +103,6 @@ public class signUpActivity extends AppCompatActivity {
                             Toast.makeText(signUpActivity.this, task.getException().getMessage(), Toast.LENGTH_LONG).show();
                         }
                     }
-
                 }
             });
         }
