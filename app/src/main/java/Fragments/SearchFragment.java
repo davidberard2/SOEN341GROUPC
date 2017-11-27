@@ -18,7 +18,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.projectfirebase.soen341.root.FilterObject;
 import com.projectfirebase.soen341.root.Helper;
 import com.projectfirebase.soen341.root.R;
 
@@ -54,15 +53,14 @@ public class SearchFragment extends Fragment {
     public SearchFragment() {
         // Required empty public constructor
     }
+
     @Override
-    public void onCreate(Bundle savedInstanceState)
-    {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
 
     public static SearchFragment newInstance() {
-        SearchFragment fragment = new SearchFragment();
-        return fragment;
+        return new SearchFragment();
     }
 
     //Still need to comment code! Someone remind me if I forget when I submit a pull request!
@@ -103,7 +101,7 @@ public class SearchFragment extends Fragment {
                 new AdapterView.OnItemSelectedListener() {
                     @Override
                     public void onItemSelected(AdapterView<?> adapterView, View view, int category, long id) {
-                        if(justCreatedFlagC){
+                        if (justCreatedFlagC) {
                             justCreatedFlagC = false;
                             return;
                         } else {
@@ -146,7 +144,7 @@ public class SearchFragment extends Fragment {
                 new AdapterView.OnItemSelectedListener() {
                     @Override
                     public void onItemSelected(AdapterView<?> adapterView, View view, int subCategory, long l) {
-                        if(justCreatedFlagSC){
+                        if (justCreatedFlagSC) {
                             justCreatedFlagSC = false;
                             return;
                         } else {
@@ -166,18 +164,18 @@ public class SearchFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 String stringFilter = "";
-                if(!Helper.isEmpty(searchNameET) ) {
+                if (!Helper.isEmpty(searchNameET)) {
                     stringFilter = searchNameET.getText().toString();
                 }
 
                 double minPrice = 0;
-                if(!Helper.isEmpty(minPriceET)) {
+                if (!Helper.isEmpty(minPriceET)) {
                     minPrice = Double.parseDouble(minPriceET.getText().toString());
                     minPrice = minPrice > 0 ? minPrice : 0;
                 }
 
                 double maxPrice = Double.MAX_VALUE;
-                if(!Helper.isEmpty(maxPriceET)) {
+                if (!Helper.isEmpty(maxPriceET)) {
                     maxPrice = Double.parseDouble(maxPriceET.getText().toString());
                     maxPrice = maxPrice > minPrice ? maxPrice : maxPrice;
                 }
@@ -198,10 +196,7 @@ public class SearchFragment extends Fragment {
         return view;
     }
 
-
-
-
-    public void submitSearchMethod(){
+    public void submitSearchMethod() {
         HomeFragment.applyAdvancedFilter = true;
         Fragment selectedFragment = HomeFragment.newInstance();
         FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
