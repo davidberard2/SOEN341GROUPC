@@ -18,7 +18,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.projectfirebase.soen341.root.FilterObject;
 import com.projectfirebase.soen341.root.Helper;
 import com.projectfirebase.soen341.root.R;
 
@@ -54,15 +53,14 @@ public class SearchFragment extends Fragment {
     public SearchFragment() {
         // Required empty public constructor
     }
+
     @Override
-    public void onCreate(Bundle savedInstanceState)
-    {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
 
     public static SearchFragment newInstance() {
-        SearchFragment fragment = new SearchFragment();
-        return fragment;
+        return new SearchFragment();
     }
 
     //Still need to comment code! Someone remind me if I forget when I submit a pull request!
@@ -103,7 +101,7 @@ public class SearchFragment extends Fragment {
                 new AdapterView.OnItemSelectedListener() {
                     @Override
                     public void onItemSelected(AdapterView<?> adapterView, View view, int category, long id) {
-                        if(justCreatedFlagC){
+                        if (justCreatedFlagC) {
                             justCreatedFlagC = false;
                             return;
                         } else {
@@ -113,7 +111,7 @@ public class SearchFragment extends Fragment {
                             subCategoryRef.addValueEventListener(new ValueEventListener() {
                                 @Override
                                 public void onDataChange(DataSnapshot dataSnapshot) {
-                                    if(selectedCategory >= 0) {
+                                    if (selectedCategory >= 0) {
                                         subCategoryOptions = getArrayFromSnapshot(dataSnapshot);
 
                                         ArrayAdapter adapter = new ArrayAdapter(getContext(), android.R.layout.simple_spinner_item, subCategoryOptions); //this, android.R.layout.simple_spinner_item, categoryOptions);
@@ -143,7 +141,7 @@ public class SearchFragment extends Fragment {
                 new AdapterView.OnItemSelectedListener() {
                     @Override
                     public void onItemSelected(AdapterView<?> adapterView, View view, int subCategory, long l) {
-                        if(justCreatedFlagSC){
+                        if (justCreatedFlagSC) {
                             justCreatedFlagSC = false;
                             return;
                         } else {
@@ -164,18 +162,18 @@ public class SearchFragment extends Fragment {
             public void onClick(View view) {
 
                 String stringFilter = "";
-                if(!Helper.isEmpty(searchNameET) ) {
+                if (!Helper.isEmpty(searchNameET)) {
                     stringFilter = searchNameET.getText().toString();
                 }
 
                 double minPrice = 0;
-                if(!Helper.isEmpty(minPriceET)) {
+                if (!Helper.isEmpty(minPriceET)) {
                     minPrice = Double.parseDouble(minPriceET.getText().toString());
                     minPrice = minPrice > 0 ? minPrice : 0;
                 }
 
                 double maxPrice = Double.MAX_VALUE;
-                if(!Helper.isEmpty(maxPriceET)) {
+                if (!Helper.isEmpty(maxPriceET)) {
                     maxPrice = Double.parseDouble(maxPriceET.getText().toString());
                     maxPrice = maxPrice > minPrice ? maxPrice : maxPrice;
                 }
@@ -197,33 +195,33 @@ public class SearchFragment extends Fragment {
     }
 
 
-    private String[] getArrayFromSnapshot(DataSnapshot dataSnapshot){
+    private String[] getArrayFromSnapshot(DataSnapshot dataSnapshot) {
         List<Object> subCategoriesList = (ArrayList<Object>) dataSnapshot.getValue();
 
         Map<Integer, String> categories = new HashMap<>();
-        for ( Object category : subCategoriesList ) {
+        for (Object category : subCategoriesList) {
             int index = subCategoriesList.indexOf(category);
             //itemMap is a single item, but still in json format.
             //From this object, extract wanted data to item, and add it to our list of items.
-            if(category instanceof Map){
+            if (category instanceof Map) {
                 Map<String, Object> categoryObj = (Map<String, Object>) category;
 
                 String name = (String) categoryObj.get("Name");
-                categories.put( index, name);
+                categories.put(index, name);
             }
         }
 
-        String[] options = new String[categories.size()+1];
+        String[] options = new String[categories.size() + 1];
         options[0] = "Any...";
-        for(Integer key : categories.keySet()){
+        for (Integer key : categories.keySet()) {
             String name = categories.get(key);
-            options[key+1] = name;
+            options[key + 1] = name;
         }
 
         return options;
     }
 
-    public void submitSearchMethod(){
+    public void submitSearchMethod() {
         HomeFragment.applyAdvancedFilter = true;
         Fragment selectedFragment = HomeFragment.newInstance();
         FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();

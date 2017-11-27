@@ -1,10 +1,15 @@
 <resources>
-    <string name="app_name">SOEN341</string>
-    <string name="title_activity_login">Sign in</string>
+    <!-- About -->
+    <string name="app_name">Lemon-Aide</string>
+    <string name="slogan">Selling made lemon squeezy.</string>
+    <string name="about_project">An Android Application Project by Group C.</string>
+    <string name="about_school">SOEN 341, Concordia University</string>
+    <string name="repo_link">Project Repository: <a href="https://github.com/davidberard2/SOEN341GROUPC">GitHub</a></string>
 
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password (optional)</string>
+    <string name="title_activity_login">Sign in</string>
     <string name="action_sign_in">Sign in or register</string>
     <string name="action_sign_up">Sign up</string>
     <string name="action_sign_in_short">Log in</string>
@@ -21,8 +26,6 @@
     <string name="settings_button">Settings</string>
     <string name="search_button">Search</string>
     <string name="favorite_button">Favorites</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <!-- Search Options -->
     <string name="action_search">search</string>

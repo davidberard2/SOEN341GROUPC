@@ -157,10 +157,8 @@ public class ProfileFragment extends Fragment {
         settingsMenuItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem menuItem) {
-                Fragment newFragment = new SettingsFragment();
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                transaction.replace(R.id.frame_layout, newFragment);
-                transaction.addToBackStack(null);
+                transaction.replace(R.id.frame_layout, new SettingsFragment());
                 transaction.commit();
                 return true;
             }
