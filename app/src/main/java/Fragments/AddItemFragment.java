@@ -267,7 +267,6 @@ public class AddItemFragment extends Fragment {
 
                     Toast.makeText(getContext(), "Item Posted", Toast.LENGTH_LONG).show();
                 }
-
             }
         });
 

@@ -3,18 +3,18 @@ package Fragments;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.projectfirebase.soen341.root.R;
 
 public class SettingsFragment extends Fragment {
-    Button logInB;
     Button logOutB;
-    Button signUpB;
     Button aboutB;
     Button notificationsB;
 
@@ -39,31 +39,45 @@ public class SettingsFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_settings, container, false);
+
+        logOutB = (Button) view.findViewById(R.id.logOutB);
+        aboutB = (Button) view.findViewById(R.id.aboutB);
+        notificationsB = (Button) view.findViewById(R.id.notificationsB);
+
+        logOutB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FirebaseAuth.getInstance().signOut();
+                Toast.makeText(getActivity(), "Logged out!", Toast.LENGTH_SHORT).show();
+
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                transaction.replace(R.id.frame_layout, new LoggedOutFragment());
+                transaction.commit();
+            }
+        });
+
+        aboutB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                transaction.replace(R.id.frame_layout, new AboutFragment());
+                transaction.commit();
+            }
+        });
+
         setAuthStateListener(view);
         return view;
     }
 
     public void setAuthStateListener(View view) {
-        logInB = (Button) view.findViewById(R.id.logInB);
-        logOutB = (Button) view.findViewById(R.id.logOutB);
-        signUpB = (Button) view.findViewById(R.id.signUpB);
-        aboutB = (Button) view.findViewById(R.id.aboutB);
-        notificationsB = (Button) view.findViewById(R.id.notificationsB);
 
         // SET Auth State Listener
         authListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                signUpB.setVisibility(View.GONE);
-                logInB.setVisibility(View.GONE);
                 logOutB.setVisibility(View.VISIBLE);
-
-                aboutB.setVisibility(View.VISIBLE);
                 notificationsB.setVisibility(View.VISIBLE);
-
-
-                signUpB.setVisibility(View.GONE);
-
+                aboutB.setVisibility(View.VISIBLE);
             }
         };
 
