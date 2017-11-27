@@ -258,19 +258,12 @@ public class AddItemFragment extends Fragment {
                 if (isItemPostable) {
                     String itemName = itemNameET.getText().toString();
                     double itemPrice = Double.parseDouble(itemPriceET.getText().toString());
+                    itemPrice = Math.round(itemPrice * 100)/100.0;
                     String itemDescription = itemDescriptionET.getText().toString();
 
                     ItemDescription listingItem = new ItemDescription(uniqueItemID, user.getUid(), itemName, itemPrice, uploadURL, itemDescription, selectedCategory, selectedSubCategory);
 
                     databaseItems.child(uniqueItemID).setValue(listingItem);
-
-//                    databaseItems.child(uniqueItemID).child("Price").setValue(itemPrice);
-//                    databaseItems.child(uniqueItemID).child("Description").setValue(itemDescription);
-//                    databaseItems.child(uniqueItemID).child("Name").setValue(itemName);
-//                    databaseItems.child(uniqueItemID).child("ImageURL").setValue(uploadURL);
-//                    databaseItems.child(uniqueItemID).child("OwnerID").setValue(user.getUid());
-//                    databaseItems.child(uniqueItemID).child("Category").setValue(selectedCategory);
-//                    databaseItems.child(uniqueItemID).child("SubCategory").setValue(selectedSubCategory);
 
                     Toast.makeText(getContext(), "Item Posted", Toast.LENGTH_LONG).show();
                 }
