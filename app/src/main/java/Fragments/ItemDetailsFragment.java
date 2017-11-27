@@ -63,7 +63,7 @@ public class ItemDetailsFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_item_info, container, false);
+        View view = inflater.inflate(R.layout.fragment_item_details, container, false);
 
         //Get the views in case we ever want to do anything with them
         name_tv = (TextView) view.findViewById(R.id.item_name);
@@ -150,7 +150,10 @@ public class ItemDetailsFragment extends Fragment {
         sellerRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                setImage(getActivity(), dataSnapshot.child("ImageURL").getValue(String.class), seller_iv);
+                sellerPhotoURL = dataSnapshot.child("ImageURL").getValue(String.class);
+                if (!Helper.isNullOrEmpty(sellerPhotoURL)) {
+                    setImage(getActivity(), dataSnapshot.child("ImageURL").getValue(String.class), seller_iv);
+                }
                 sellerName = dataSnapshot.child("FirstName").getValue(String.class) + " " + dataSnapshot.child("LastName").getValue(String.class);
                 sellerEmail = dataSnapshot.child("Email").getValue(String.class);
                 seller_name_tv.setText(sellerName);
