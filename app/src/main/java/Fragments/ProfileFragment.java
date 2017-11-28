@@ -370,7 +370,9 @@ public class ProfileFragment extends Fragment {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             String imgUrl = dataSnapshot.child("ImageURL").getValue(String.class);
-                            setImage(getActivity(), imgUrl, photo_iv);
+                            if (!Helper.isNullOrEmpty(imgUrl)) {
+                                setImage(getActivity(), imgUrl, photo_iv);
+                            }
 
                             firstName = dataSnapshot.child("FirstName").getValue(String.class);
                             lastName = dataSnapshot.child("LastName").getValue(String.class);
